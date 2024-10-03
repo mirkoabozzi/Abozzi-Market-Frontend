@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../redux/actions";
 
 interface LoginProps {
   show: boolean;
@@ -9,6 +11,7 @@ interface LoginProps {
 const Login = ({ show, handleClose }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const login = async () => {
     try {
@@ -19,7 +22,8 @@ const Login = ({ show, handleClose }: LoginProps) => {
       });
       if (resp.ok) {
         const result = await resp.json();
-        localStorage.setItem("token", result.accessToken);
+        localStorage.setItem("accessToken", result.accessToken);
+        dispatch(getUser());
         handleClose();
       } else {
         throw new Error("Login error");
