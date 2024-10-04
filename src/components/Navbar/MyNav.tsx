@@ -1,13 +1,18 @@
 import { Button, Container, Image, Navbar, Form, Nav, Badge } from "react-bootstrap";
 import logo from "/src/assets/img/logo4.svg";
+import logoRounded from "/src/assets/img/logo-rounded.svg";
 import { Cart4, Search } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const MyNav = () => {
   const navigate = useNavigate();
+  const isLogged = useSelector((state: RootState) => state.userReducer.isLogged);
+  const user = useSelector((state: RootState) => state.userReducer.user);
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
@@ -23,7 +28,8 @@ const MyNav = () => {
       <Navbar expand="sm" className="pb-0">
         <Container fluid className="justify-content-lg-between">
           <div className="me-2 mb-2 mouseHover" title="Home" onClick={() => navigate("/")}>
-            <Image src={logo} width="150" className="d-inline-block align-top" alt="Abozzi Market logo" />
+            <Image src={logo} width="150" className="d-none d-sm-inline-block align-top" alt="Abozzi Market logo" />
+            <Image src={logoRounded} width="65" className="d-inline-block d-sm-none align-top" alt="Abozzi Market logo" />
           </div>
           <Form className="d-flex w-100 position-relative order-5 order-sm-0">
             <Form.Control type="search" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" />
@@ -31,13 +37,24 @@ const MyNav = () => {
               <Search width={20} height={20} />
             </Button>
           </Form>
-          <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowLogin}>
-            Accedi
-          </Button>
-          <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowRegistration}>
-            Registrati
-          </Button>
-          <div className="position-relative mt-2">
+          {!isLogged ? (
+            <>
+              <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowLogin}>
+                Accedi
+              </Button>
+              <Button variant="transparent" className="ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowRegistration}>
+                Registrati
+              </Button>
+            </>
+          ) : (
+            <>
+              <div className="ms-auto ms-sm-2 mouseHover" onClick={() => navigate("/profile")}>
+                <Image src={user?.avatar} alt="frutta" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
+                <p className="m-0 text-center">{user?.name}</p>
+              </div>
+            </>
+          )}
+          <div className="position-relative ms-auto ms-sm-0">
             <Cart4 width={40} height={40} className="m-2 mouseHover" onClick={() => navigate("/cart")} />
             <Badge bg="primary" pill={true} className="position-absolute top-0 end-0">
               0
