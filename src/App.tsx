@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNav from "./components/Navbar/MyNav";
 import TopBar from "./components/TopBar/TopBar";
 import Category from "./components/Category/Category";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <TopBar />
       <MyNav />
       <Category />
-      <Routes></Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
   );
 }
