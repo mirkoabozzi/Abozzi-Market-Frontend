@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/actions";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
 interface LoginProps {
   show: boolean;
@@ -12,6 +13,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const login = async () => {
     try {
@@ -38,6 +40,10 @@ const Login = ({ show, handleClose }: LoginProps) => {
     login();
   };
 
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -51,7 +57,12 @@ const Login = ({ show, handleClose }: LoginProps) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="****" required autoFocus value={password} onChange={(e) => setPassword(e.target.value)} />
+            <div className="position-relative">
+              <Form.Control type={showPassword ? "text" : "password"} placeholder="****" required value={password} onChange={(e) => setPassword(e.target.value)} />
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
+                {showPassword ? <EyeSlashFill /> : <EyeFill />}{" "}
+              </span>
+            </div>
           </Form.Group>
           <div className="text-center">
             <Button className="m-2" variant="secondary" onClick={handleClose}>

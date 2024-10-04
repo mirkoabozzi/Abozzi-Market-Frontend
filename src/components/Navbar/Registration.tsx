@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
 interface RegistrationProps {
   show: boolean;
@@ -13,6 +14,8 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const register = async () => {
     try {
@@ -42,6 +45,10 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -55,19 +62,24 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Cognome</Form.Label>
-            <Form.Control type="text" placeholder="Cognome" name="surname" required autoFocus value={userData.surname} onChange={handleChange} />
+            <Form.Control type="text" placeholder="Cognome" name="surname" required value={userData.surname} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Numero di telefono</Form.Label>
-            <Form.Control type="text" placeholder="Numero" name="phoneNumber" required autoFocus value={userData.phoneNumber} onChange={handleChange} />
+            <Form.Control type="text" placeholder="Numero" name="phoneNumber" required value={userData.phoneNumber} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="name@example.com" name="email" required autoFocus value={userData.email} onChange={handleChange} />
+            <Form.Control type="email" placeholder="name@example.com" name="email" required value={userData.email} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="****" name="password" required autoFocus value={userData.password} onChange={handleChange} />
+            <div className="position-relative">
+              <Form.Control type={showPassword ? "text" : "password"} placeholder="****" name="password" required value={userData.password} onChange={handleChange} />
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
+                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+              </span>
+            </div>
           </Form.Group>
           <div className="text-center">
             <Button className="m-2" variant="secondary" onClick={handleClose}>
