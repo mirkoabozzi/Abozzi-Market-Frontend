@@ -23,7 +23,7 @@ const Category = () => {
   return (
     <Container className="mb-4">
       <Row className="justify-content-between flex-nowrap overflow-x-auto">
-        {categories.map((category) => {
+        {categories.map((category: ICategory) => {
           return (
             <Col key={category.id} className="text-center">
               <div>

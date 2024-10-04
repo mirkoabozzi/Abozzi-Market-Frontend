@@ -5,6 +5,7 @@ import MyNav from "./components/Navbar/MyNav";
 import TopBar from "./components/TopBar/TopBar";
 import Category from "./components/Category/Category";
 import Home from "./components/Home/Home";
+import Shop from "./components/Shop/Shop";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Category />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
     </BrowserRouter>
   );
