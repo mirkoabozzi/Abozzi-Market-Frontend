@@ -1,4 +1,4 @@
-import { UserAction } from "../action-types/intex";
+import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
 const intialState = {

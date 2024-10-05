@@ -1,9 +1,11 @@
+import { ActionType } from "../enums/ActionType";
+
 export type UserAction = {
-  type: string;
+  type: ActionType;
   payload?: IUser;
 };
 
 export type ProductsAction = {
-  type: string;
+  type: ActionType;
   payload?: IProduct;
 };
