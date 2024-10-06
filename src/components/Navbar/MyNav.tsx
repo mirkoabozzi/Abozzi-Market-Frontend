@@ -49,7 +49,7 @@ const MyNav = () => {
           ) : (
             <>
               <div title="Account" className="ms-auto ms-sm-2 mouseHover" onClick={() => navigate("/profile")}>
-                <Image src={user?.avatar} alt="frutta" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
+                <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
             </>

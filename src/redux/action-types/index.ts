@@ -9,3 +9,8 @@ export type ProductsAction = {
   type: ActionType;
   payload?: IProduct;
 };
+
+export type OrderAction = {
+  type: ActionType;
+  payload?: IOrder;
+};

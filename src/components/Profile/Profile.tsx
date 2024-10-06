@@ -4,10 +4,11 @@ import UpdateProfile from "./UpdateProfile";
 import MyOrder from "./MyOrder";
 import MyAddress from "./MyAddress";
 import WishList from "./WishList";
+import { Box, ListStars, People, PersonCircle, Signpost2 } from "react-bootstrap-icons";
 
 const Profile = () => {
-  const [showUpdateProfile, setShowUpdateProfile] = useState(true);
-  const [showOrder, setShowOrder] = useState(false);
+  const [showOrder, setShowOrder] = useState(true);
+  const [showUpdateProfile, setShowUpdateProfile] = useState(false);
   const [showMyAddress, setShowMyAddress] = useState(false);
   const [showMyWishlist, setShowMyWishlist] = useState(false);
 
@@ -15,19 +16,8 @@ const Profile = () => {
     <Container>
       <Row>
         <Col xs={2}>
-          <p
-            className=""
-            onClick={() => {
-              setShowUpdateProfile(true);
-              setShowOrder(false);
-              setShowMyAddress(false);
-              setShowMyWishlist(false);
-            }}
-          >
-            Aggiorna profilo
-          </p>
-          <p
-            className=""
+          <div
+            className="d-flex align-items-center mb-5 mouseHover"
             onClick={() => {
               setShowUpdateProfile(false);
               setShowOrder(true);
@@ -35,10 +25,25 @@ const Profile = () => {
               setShowMyWishlist(false);
             }}
           >
-            I miei ordini
-          </p>
-          <p
-            className=""
+            <Box size={25} />
+            <h5 className="mb-0 ms-2 d-none d-lg-block">I miei ordini</h5>
+          </div>
+
+          <div
+            className="d-flex align-items-center mb-5 mouseHover"
+            onClick={() => {
+              setShowUpdateProfile(true);
+              setShowOrder(false);
+              setShowMyAddress(false);
+              setShowMyWishlist(false);
+            }}
+          >
+            <PersonCircle size={25} />
+            <h5 className="mb-0 ms-2 d-none d-lg-block">Aggiorna profilo</h5>
+          </div>
+
+          <div
+            className="d-flex align-items-center mb-5 mouseHover"
             onClick={() => {
               setShowUpdateProfile(false);
               setShowOrder(false);
@@ -46,10 +51,12 @@ const Profile = () => {
               setShowMyAddress(true);
             }}
           >
-            I miei indirizzi
-          </p>
-          <p
-            className=""
+            <Signpost2 size={25} />
+            <h5 className="mb-0 ms-2 d-none d-lg-block">I miei indirizzi</h5>
+          </div>
+
+          <div
+            className="d-flex align-items-center mb-5 mouseHover"
             onClick={() => {
               setShowUpdateProfile(false);
               setShowOrder(false);
@@ -57,12 +64,13 @@ const Profile = () => {
               setShowMyWishlist(true);
             }}
           >
-            La mia lista dei desideri
-          </p>
+            <ListStars size={25} />
+            <h5 className="mb-0 ms-2 d-none d-lg-block">Lista dei desideri</h5>
+          </div>
         </Col>
         <Col>
-          {showUpdateProfile && <UpdateProfile />}
           {showOrder && <MyOrder />}
+          {showUpdateProfile && <UpdateProfile />}
           {showMyAddress && <MyAddress />}
           {showMyWishlist && <WishList />}
         </Col>
