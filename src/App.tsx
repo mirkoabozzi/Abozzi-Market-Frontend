@@ -7,6 +7,7 @@ import Category from "./components/Category/Category";
 import Home from "./components/Home/Home";
 import Shop from "./components/Shop/Shop";
 import Profile from "./components/Profile/Profile";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

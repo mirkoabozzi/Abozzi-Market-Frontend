@@ -1,3 +1,4 @@
+import "./Shop.css";
 import { useEffect } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,11 +26,11 @@ const Shop = () => {
             products.map((product: IProduct) => {
               return (
                 <Col xs="12" sm={6} md={4} lg={3} className="my-3" key={product.id}>
-                  <Card className=" rounded-3">
+                  <Card className=" rounded-3 h-100">
                     <Card.Img variant="top" src={product.imgUrl} className=" rounded-3" />
-                    <Card.Body>
+                    <Card.Body className="d-flex flex-column justify-content-end">
                       <Card.Title>{product.name}</Card.Title>
-                      <Card.Text>{product.description}</Card.Text>
+                      <Card.Text className="line-truncate">{product.description}</Card.Text>
                       <span className="fs-5">{product.price}</span>
                       <div className="d-flex justify-content-end">
                         <Button variant="primary">Scopri di più</Button>
