@@ -8,6 +8,7 @@ import Home from "./components/Home/Home";
 import Shop from "./components/Shop/Shop";
 import Profile from "./components/Profile/Profile";
 import Footer from "./components/Footer/Footer";
+import NotFound from "./components/Not Found/NotFound";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
