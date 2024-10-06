@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getUser } from "../../redux/actions";
+import { getUser } from "../../redux/actions/user";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
 
@@ -27,7 +27,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
         const result = await resp.json();
         localStorage.setItem("accessToken", result.accessToken);
         dispatch(getUser());
-        dispatch({ type: ActionType.SET_IS_LOGGED_TRUE, payload: true });
+        dispatch({ type: ActionType.SET_IS_LOGGED_TRUE });
         handleClose();
       } else {
         throw new Error("Login error");
@@ -39,6 +39,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    localStorage.removeItem("accessToken");
     login();
   };
 

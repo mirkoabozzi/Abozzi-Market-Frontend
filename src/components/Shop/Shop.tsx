@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { getProducts } from "../../redux/actions";
+import { getProducts } from "../../redux/actions/products";
 
 const Shop = () => {
   const dispatch = useDispatch<AppDispatch>();

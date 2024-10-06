@@ -1,12 +1,12 @@
 import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
-const intialState = {
+const initialState = {
   user: null,
   isLogged: false,
 };
 
-const userReducer = (state = intialState, action: UserAction) => {
+const userReducer = (state = initialState, action: UserAction) => {
   switch (action.type) {
     case ActionType.SET_USER:
       return {
@@ -16,13 +16,14 @@ const userReducer = (state = intialState, action: UserAction) => {
     case ActionType.SET_IS_LOGGED_TRUE:
       return {
         ...state,
-        isLogged: action.payload,
+        isLogged: true,
       };
     case ActionType.SET_IS_LOGGED_FALSE:
       return {
         ...state,
-        isLogged: action.payload,
+        isLogged: false,
       };
+
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { getUser, updateUser, updateUserAvatar } from "../../redux/actions";
+import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 
 const UpdateProfile = () => {
