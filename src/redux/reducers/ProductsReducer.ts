@@ -4,6 +4,7 @@ import { ActionType } from "../enums/ActionType";
 const initialState = {
   products: [],
   isLoading: false,
+  product: null,
 };
 
 const productReducer = (state = initialState, action: ProductsAction) => {
@@ -22,6 +23,11 @@ const productReducer = (state = initialState, action: ProductsAction) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case ActionType.SET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
       };
     default:
       return state;

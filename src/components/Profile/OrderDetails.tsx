@@ -13,7 +13,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     dispatch(getOrder(params.id));
-  }, [params, dispatch]);
+  }, [params.id, dispatch]);
 
   return (
     <Container>
@@ -43,7 +43,7 @@ const OrderDetails = () => {
       <hr />
       {order?.orderDetailList.map((item: OrderDetailListItem) => {
         return (
-          <>
+          <div key={order.id}>
             <Row>
               <Col>
                 <Image height={100} src={item.product.imgUrl} alt="product image" />
@@ -60,7 +60,7 @@ const OrderDetails = () => {
               </Col>
             </Row>
             <hr />
-          </>
+          </div>
         );
       })}
       <Row className="mt-5">

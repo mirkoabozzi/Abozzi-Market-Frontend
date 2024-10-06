@@ -24,3 +24,23 @@ export const getProducts = () => {
     }
   };
 };
+
+export const getProduct = (id: string) => {
+  return async (dispatch: Dispatch<ProductsAction>) => {
+    try {
+      const resp = await fetch(`${url}/products/${id}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const product = await resp.json();
+        dispatch({ type: ActionType.SET_PRODUCT, payload: product });
+      } else {
+        throw new Error("Get product error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
