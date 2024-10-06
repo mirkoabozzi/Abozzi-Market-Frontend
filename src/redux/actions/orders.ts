@@ -22,3 +22,23 @@ export const getMyOrders = () => {
     }
   };
 };
+
+export const getOrder = (id: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const resp = await fetch(`${url}/orders/${id}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const order = await resp.json();
+        dispatch({ type: ActionType.SET_ORDER, payload: order });
+      } else {
+        throw new Error("Get order error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

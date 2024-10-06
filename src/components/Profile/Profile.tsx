@@ -4,7 +4,7 @@ import UpdateProfile from "./UpdateProfile";
 import MyOrder from "./MyOrder";
 import MyAddress from "./MyAddress";
 import WishList from "./WishList";
-import { Box, ListStars, People, PersonCircle, Signpost2 } from "react-bootstrap-icons";
+import { Box, ListStars, PersonCircle, Signpost2 } from "react-bootstrap-icons";
 
 const Profile = () => {
   const [showOrder, setShowOrder] = useState(true);

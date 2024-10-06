@@ -30,7 +30,7 @@ const Shop = () => {
                     <Card.Img variant="top" src={product.imgUrl} className=" rounded-3" />
                     <Card.Body className="d-flex flex-column justify-content-end">
                       <Card.Title>{product.name}</Card.Title>
-                      <Card.Text className="line-truncate">{product.description}</Card.Text>
+                      <Card.Text className="line-truncate-2">{product.description}</Card.Text>
                       <span className="fs-5">{product.price}</span>
                       <div className="d-flex justify-content-end">
                         <Button variant="primary">Scopri di più</Button>

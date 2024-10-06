@@ -1,3 +1,4 @@
+import "./Profile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect } from "react";
@@ -18,14 +19,13 @@ const MyOrder = () => {
   return (
     <>
       <h2 className="mb-5">I miei ordini</h2>
-
       {orders.length > 0 ? (
         orders.map((order: IOrder) => {
           return (
             <div key={order.id}>
               <Row>
                 <Col>
-                  <p>Order: {order.id}</p>
+                  <p className="line-truncate-2">Order: {order.id}</p>
                   <p>Stato: {order.ordersState}</p>
                 </Col>
                 <Col className="text-center">
@@ -33,7 +33,7 @@ const MyOrder = () => {
                   <p>{order.payment.total} €</p>
                 </Col>
                 <Col className="text-end">
-                  <ArrowRight onClick={() => navigate("/order/details")} />
+                  <ArrowRight title="Dettagli ordine" className="mouseHover" size={25} onClick={() => navigate(`/order/details/${order.id}`)} />
                 </Col>
               </Row>
               <hr />

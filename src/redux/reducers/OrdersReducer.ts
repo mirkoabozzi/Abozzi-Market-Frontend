@@ -3,6 +3,7 @@ import { ActionType } from "../enums/ActionType";
 
 const initialState = {
   orders: [],
+  order: null,
 };
 
 const ordersReducer = (state = initialState, action: OrderAction) => {
@@ -12,8 +13,14 @@ const ordersReducer = (state = initialState, action: OrderAction) => {
         ...state,
         orders: action.payload,
       };
+    case ActionType.SET_ORDER:
+      return {
+        ...state,
+        order: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default ordersReducer;
