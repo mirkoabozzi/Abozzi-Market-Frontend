@@ -2,17 +2,18 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const UpdateProfile = () => {
   const user: IUser = useAppSelector((state: RootState) => state.userReducer.user);
-  const [userData, setUserData] = useState<IUserUpdate>();
+
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [avatar, setNewAvatar] = useState<File | null>(null);
 
   const dispatch = useAppDispatch();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -20,25 +21,39 @@ const UpdateProfile = () => {
     }
   };
 
+  const infoToast = () => {
+    toast.info("Dati aggiornati con successo!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userData) {
-      await dispatch(updateUser(userData));
-    }
+    const userData: IUserUpdate = { name, surname, email, phoneNumber };
+
+    await dispatch(updateUser(userData));
+
     if (avatar) {
       await dispatch(updateUserAvatar(avatar));
     }
     dispatch(getUser());
+    infoToast();
   };
 
   useEffect(() => {
     if (user) {
-      setUserData({
-        name: user.name,
-        surname: user.surname,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-      });
+      setName(user.name);
+      setSurname(user.surname);
+      setEmail(user.email);
+      setPhoneNumber(user.phoneNumber);
     }
   }, [user]);
 
@@ -53,22 +68,22 @@ const UpdateProfile = () => {
 
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" name="name" value={userData?.name} onChange={handleInputChange} />
+            <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formSurname">
             <Form.Label>Cognome</Form.Label>
-            <Form.Control type="text" name="surname" value={userData?.surname} onChange={handleInputChange} />
+            <Form.Control type="text" value={surname} onChange={(e) => setSurname(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="email" value={userData?.email} onChange={handleInputChange} />
+            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formNumero">
             <Form.Label>Numero</Form.Label>
-            <Form.Control type="text" name="phoneNumber" value={userData?.phoneNumber} onChange={handleInputChange} />
+            <Form.Control type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formAvatar">
@@ -82,6 +97,7 @@ const UpdateProfile = () => {
           </div>
         </Form>
       </Col>
+      <ToastContainer />
     </Row>
   );
 };

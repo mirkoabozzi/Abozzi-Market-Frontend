@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const Suggested = () => {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state: RootState) => state.productReducer.products);
-  const isLoading = useAppSelector((state: RootState) => state.productReducer.isLoading);
+  const products: IProduct = useAppSelector((state: RootState) => state.productReducer.products);
+  const isLoading: boolean = useAppSelector((state: RootState) => state.productReducer.isLoading);
   const [randomProducts, setRandomProducts] = useState<IProduct[]>([]);
   const navigate = useNavigate();
 

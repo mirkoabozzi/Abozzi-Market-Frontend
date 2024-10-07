@@ -25,6 +25,7 @@ const MyNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    navigate("/");
     window.location.reload();
   };
 
