@@ -4,11 +4,11 @@ import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 
 export const url = import.meta.env.VITE_URL;
-export const accessToken = localStorage.getItem("accessToken");
 
 export const getUser = () => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/users/me`, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -29,6 +29,7 @@ export const getUser = () => {
 export const updateUser = (body: IUserUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/users/me`, {
         method: "PUT",
         headers: {
@@ -54,6 +55,7 @@ export const updateUserAvatar = (file: File) => {
     const formData = new FormData();
     formData.append("avatar", file);
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/users/me/avatar`, {
         method: "POST",
         headers: { Authorization: "Bearer " + accessToken },

@@ -12,8 +12,6 @@ const WishList = () => {
     dispatch(getMyWishlists());
   }, [dispatch]);
 
-  console.log(wishlist);
-
   return (
     <div>
       <h3>Lista dei desideti</h3>

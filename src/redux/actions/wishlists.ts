@@ -1,12 +1,13 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { WishlistAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
-import { accessToken, url } from "./user";
+import { url } from "./user";
 import { AppDispatch } from "../store";
 
 export const getMyWishlists = () => {
   return async (dispatch: Dispatch<WishlistAction>) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/wishlists/me`, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -27,6 +28,7 @@ export const getMyWishlists = () => {
 export const addToWishlist = (product: IWishlistAdd) => {
   return async (dispatch: AppDispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/wishlists`, {
         method: "POST",
         headers: {
@@ -47,6 +49,7 @@ export const addToWishlist = (product: IWishlistAdd) => {
 export const removeFromWishlist = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/wishlists/me/${id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + accessToken },

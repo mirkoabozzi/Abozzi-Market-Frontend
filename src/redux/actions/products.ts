@@ -1,12 +1,13 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
-import { accessToken, url } from "./user";
+import { url } from "./user";
 
 export const getProducts = () => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/products`, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -28,6 +29,7 @@ export const getProducts = () => {
 export const getProduct = (id: string) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/products/${id}`, {
         headers: {
           Authorization: "Bearer " + accessToken,

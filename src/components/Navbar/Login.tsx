@@ -16,7 +16,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  const login = async () => {
+  const loginFetch = async () => {
     try {
       const resp = await fetch("http://localhost:3001/authentication/login", {
         method: "POST",
@@ -40,7 +40,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.removeItem("accessToken");
-    login();
+    loginFetch();
   };
 
   const togglePassword = () => {

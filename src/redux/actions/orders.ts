@@ -1,11 +1,12 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { OrderAction } from "../action-types";
-import { accessToken, url } from "./user";
+import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
 
 export const getMyOrders = () => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/me`, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -26,6 +27,7 @@ export const getMyOrders = () => {
 export const getOrder = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/${id}`, {
         headers: {
           Authorization: "Bearer " + accessToken,

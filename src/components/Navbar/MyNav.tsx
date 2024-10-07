@@ -23,6 +23,11 @@ const MyNav = () => {
   const handleShowRegistration = () => setShowRegistration(true);
   const handleCloseRegistration = () => setShowRegistration(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload();
+  };
+
   return (
     <div className="sticky-top z-3" style={{ backgroundColor: "#eef5fb" }}>
       <Navbar expand="sm" className="pb-0">
@@ -52,6 +57,9 @@ const MyNav = () => {
                 <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
+              <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleLogout}>
+                Logout
+              </Button>
             </>
           )}
           <div className="position-relative ms-auto ms-sm-0">

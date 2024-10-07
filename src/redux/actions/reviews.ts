@@ -1,10 +1,11 @@
-import { accessToken, url } from "./user";
+import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 
 export const getReview = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/reviews/product/${id}`, {
         headers: {
           Authorization: "bearer " + accessToken,
@@ -25,6 +26,7 @@ export const getReview = (id: string) => {
 export const addReview = (review: IReviewAdd) => {
   return async (dispatch: AppDispatch) => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/reviews`, {
         method: "POST",
         headers: { Authorization: "Bearer " + accessToken, "Content-Type": "application/json" },
