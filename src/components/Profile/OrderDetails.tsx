@@ -9,7 +9,7 @@ const OrderDetails = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const order = useAppSelector((state: RootState) => state.ordersReducer.order);
+  const order: IOrder = useAppSelector((state: RootState) => state.ordersReducer.order);
 
   useEffect(() => {
     if (params.id) {
@@ -26,6 +26,9 @@ const OrderDetails = () => {
         </Col>
         <Col>
           <p>Stato ordine: {order?.ordersState}</p>
+        </Col>
+        <Col>
+          <p>Pagamento: {order?.payment.status}</p>
         </Col>
       </Row>
       <Row>

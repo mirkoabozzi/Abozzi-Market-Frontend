@@ -5,7 +5,7 @@ import consegna from "../../assets/img/domicilio.png";
 const MyCarousel = () => {
   return (
     <Row className="justify-content-center">
-      <Col xs="12" lg="10">
+      <Col xs="12" md="6">
         <Carousel data-bs-theme="dark" className="shadow-lg rounded-4">
           <Carousel.Item>
             <Image src={spesa} className="img-fluid border rounded-4" />

@@ -7,7 +7,7 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 const MyOrder = () => {
-  const orders = useAppSelector((state: RootState) => state.ordersReducer.orders);
+  const orders: IOrder[] = useAppSelector((state: RootState) => state.ordersReducer.orders);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

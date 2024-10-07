@@ -5,7 +5,7 @@ import { Col, Image, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const WishList = () => {
-  const wishlist = useAppSelector((state) => state.wishlistsReducer.wishlist);
+  const wishlist: IWishlist[] = useAppSelector((state) => state.wishlistsReducer.wishlist);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -15,7 +15,7 @@ const WishList = () => {
   return (
     <div>
       <h3>Lista dei desideti</h3>
-      <Row>
+      <Row className="text-center">
         {wishlist.length > 0 ? (
           wishlist.map((item: IWishlist) => {
             return (

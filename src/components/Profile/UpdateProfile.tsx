@@ -4,7 +4,7 @@ import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user"
 import { useEffect, useState } from "react";
 
 const UpdateProfile = () => {
-  const user = useAppSelector((state: RootState) => state.userReducer.user);
+  const user: IUser = useAppSelector((state: RootState) => state.userReducer.user);
   const [userData, setUserData] = useState<IUserUpdate>();
   const [avatar, setNewAvatar] = useState<File | null>(null);
 

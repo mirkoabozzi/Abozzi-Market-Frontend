@@ -4,3 +4,9 @@
   overflow: hidden;
   -webkit-line-clamp: 2;
 }
+
+.heartPosition {
+  position: absolute;
+  bottom: 20%;
+  left: 80%;
+}
