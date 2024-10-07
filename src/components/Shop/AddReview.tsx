@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { addReview } from "../../redux/actions/reviews";
 import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../../redux/store";
 
 interface AddReviewProps {
   show: boolean;
@@ -10,7 +10,7 @@ interface AddReviewProps {
 }
 
 const AddReview = ({ show, handleClose }: AddReviewProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const params = useParams();
   const product = params.id;
   const [rating, setRating] = useState(5);

@@ -1,6 +1,11 @@
 import { ReviewAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
-const initialState = {
+
+interface InitialState {
+  reviews: IReview[];
+}
+
+const initialState: InitialState = {
   reviews: [],
 };
 

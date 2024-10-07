@@ -1,7 +1,11 @@
 import { OrderAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
-const initialState = {
+interface InitialState {
+  orders: IOrder[];
+  order: IOrder | null;
+}
+const initialState: InitialState = {
   orders: [],
   order: null,
 };

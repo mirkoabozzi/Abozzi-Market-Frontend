@@ -1,7 +1,12 @@
 import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
-const initialState = {
+interface InitialState {
+  user: IUser | null;
+  isLogged: boolean;
+}
+
+const initialState: InitialState = {
   user: null,
   isLogged: false,
 };

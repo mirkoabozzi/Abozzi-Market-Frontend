@@ -1,7 +1,13 @@
 import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
-const initialState = {
+interface InitialState {
+  products: IProduct[];
+  isLoading: boolean;
+  product: IProduct | null;
+}
+
+const initialState: InitialState = {
   products: [],
   isLoading: false,
   product: null,

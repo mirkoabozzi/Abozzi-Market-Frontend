@@ -9,4 +9,5 @@ export enum ActionType {
   SET_ORDERS = "SET_ORDERS",
   SET_ORDER = "SET_ORDER",
   SET_REVIEWS = "SET_REVIEWS",
+  SET_WISHLISTS = "SET_WISHLISTS",
 }

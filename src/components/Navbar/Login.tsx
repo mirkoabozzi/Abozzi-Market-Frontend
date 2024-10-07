@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { getUser } from "../../redux/actions/user";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
+import { useAppDispatch } from "../../redux/store";
 
 interface LoginProps {
   show: boolean;
@@ -13,7 +13,7 @@ interface LoginProps {
 const Login = ({ show, handleClose }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const login = async () => {

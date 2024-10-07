@@ -1,10 +1,9 @@
-import { Dispatch } from "@reduxjs/toolkit";
-import { ReviewAction } from "../action-types";
 import { accessToken, url } from "./user";
 import { ActionType } from "../enums/ActionType";
+import { AppDispatch } from "../store";
 
 export const getReview = (id: string) => {
-  return async (dispatch: Dispatch<ReviewAction>) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const resp = await fetch(`${url}/reviews/product/${id}`, {
         headers: {
@@ -24,7 +23,7 @@ export const getReview = (id: string) => {
 };
 
 export const addReview = (review: IReviewAdd) => {
-  return async (dispatch: Dispatch<ReviewAction>) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const resp = await fetch(`${url}/reviews`, {
         method: "POST",

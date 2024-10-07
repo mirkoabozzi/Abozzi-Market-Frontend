@@ -1,15 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 
 const UpdateProfile = () => {
-  const user = useSelector((state: RootState) => state.userReducer.user);
+  const user = useAppSelector((state: RootState) => state.userReducer.user);
   const [userData, setUserData] = useState<IUserUpdate>();
   const [avatar, setNewAvatar] = useState<File | null>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -21,13 +20,13 @@ const UpdateProfile = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userData) {
-      dispatch(updateUser(userData));
+      await dispatch(updateUser(userData));
     }
     if (avatar) {
-      dispatch(updateUserAvatar(avatar));
+      await dispatch(updateUserAvatar(avatar));
     }
     dispatch(getUser());
   };

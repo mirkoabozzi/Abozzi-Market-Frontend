@@ -1,6 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
@@ -11,11 +10,11 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const Product = () => {
   const params = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const product = useSelector((state: RootState) => state.productReducer.product);
-  const reviews = useSelector((state: RootState) => state.reviewsReducer.reviews);
-  const isLogged = useSelector((state: RootState) => state.userReducer.isLogged);
+  const product = useAppSelector((state: RootState) => state.productReducer.product);
+  const reviews = useAppSelector((state: RootState) => state.reviewsReducer.reviews);
+  const isLogged = useAppSelector((state: RootState) => state.userReducer.isLogged);
 
   const [show, setShow] = useState(false);
 
@@ -44,8 +43,10 @@ const Product = () => {
   const handleClose = () => setShow(false);
 
   useEffect(() => {
-    dispatch(getProduct(params.id));
-    dispatch(getReview(params.id));
+    if (params.id) {
+      dispatch(getProduct(params.id));
+      dispatch(getReview(params.id));
+    }
   }, [dispatch, params.id]);
 
   return (

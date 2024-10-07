@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getOrder } from "../../redux/actions/orders";
-import { RootState } from "../../redux/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 
 const OrderDetails = () => {
   const params = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const order = useSelector((state: RootState) => state.ordersReducer.order);
+  const order = useAppSelector((state: RootState) => state.ordersReducer.order);
 
   useEffect(() => {
-    dispatch(getOrder(params.id));
+    if (params.id) {
+      dispatch(getOrder(params.id));
+    }
   }, [params.id, dispatch]);
 
   return (

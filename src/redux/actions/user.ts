@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
+import { AppDispatch } from "../store";
 
 export const url = import.meta.env.VITE_URL;
 export const accessToken = localStorage.getItem("accessToken");
@@ -26,7 +27,7 @@ export const getUser = () => {
 };
 
 export const updateUser = (body: IUserUpdate) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const resp = await fetch(`${url}/users/me`, {
         method: "PUT",
@@ -49,7 +50,7 @@ export const updateUser = (body: IUserUpdate) => {
 };
 
 export const updateUserAvatar = (file: File) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  return async (dispatch: AppDispatch) => {
     const formData = new FormData();
     formData.append("avatar", file);
     try {
@@ -59,7 +60,6 @@ export const updateUserAvatar = (file: File) => {
         body: formData,
       });
       if (resp.ok) {
-        console.log(resp.status);
         dispatch(getUser());
       } else {
         throw new Error("Update user avatar error");
