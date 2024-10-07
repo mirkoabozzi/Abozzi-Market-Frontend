@@ -14,3 +14,8 @@ export type OrderAction = {
   type: ActionType;
   payload?: IOrder;
 };
+
+export type ReviewAction = {
+  type: ActionType;
+  payload?: IReview;
+};
