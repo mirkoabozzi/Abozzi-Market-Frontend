@@ -48,7 +48,7 @@ const OrderDetails = () => {
       <hr />
       {order?.orderDetailList.map((item: OrderDetailListItem) => {
         return (
-          <div key={order.id}>
+          <div key={item.id}>
             <Row>
               <Col>
                 <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />

@@ -32,7 +32,7 @@ const MyOrder = () => {
                   <p>{order.payment.total} €</p>
                 </Col>
                 <Col className="text-end">
-                  <ArrowRight title="Dettagli ordine" className="mouseHover" size={25} onClick={() => navigate(`/order/details/${order.id}`)} />
+                  <ArrowRight title="Dettagli ordine" className="mouseHover" size={25} onClick={() => navigate(`/profile/orders/details/${order.id}`)} />
                 </Col>
               </Row>
               <hr />
