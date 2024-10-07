@@ -20,7 +20,7 @@ const Shop = () => {
     <Row>
       <Col xs={2}>{/* <Sidebar /> */}</Col>
       <Col xs={8}>
-        <h2>Main</h2>
+        <h2>Shop</h2>
         <Row>
           {isLoading ? (
             <Spinner animation="grow" />

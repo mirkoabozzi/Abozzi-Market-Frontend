@@ -18,7 +18,7 @@ const MyOrder = () => {
 
   return (
     <>
-      <h2 className="mb-5">I miei ordini</h2>
+      <h3 className="mb-5">I miei ordini</h3>
       {orders.length > 0 ? (
         orders.map((order: IOrder) => {
           return (

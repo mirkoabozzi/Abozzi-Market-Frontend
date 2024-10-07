@@ -13,15 +13,16 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
   const dispatch = useDispatch();
   const params = useParams();
   const product = params.id;
-
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const reviewData = { rating, comment, product };
-    dispatch(addReview(reviewData));
-    handleClose();
+    if (product) {
+      const reviewData = { rating, comment, product };
+      dispatch(addReview(reviewData));
+      handleClose();
+    }
   };
 
   return (
@@ -33,7 +34,7 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Valutazione</Form.Label>
-            <Form.Control type="number" min={1} max={5} placeholder="Inserisci un voto da 1 a 5" required autoFocus value={rating} onChange={(e) => setRating(e.target.value)} />
+            <Form.Control type="number" min={1} max={5} placeholder="Inserisci un voto da 1 a 5" required autoFocus value={rating} onChange={(e) => setRating(Number(e.target.value))} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Commento</Form.Label>
