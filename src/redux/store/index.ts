@@ -4,12 +4,14 @@ import productReducer from "../reducers/ProductsReducer";
 import ordersReducer from "../reducers/OrdersReducer";
 import reviewsReducer from "../reducers/ReviewsReducer";
 import { useDispatch, useSelector, useStore } from "react-redux";
+import wishlistsReducer from "../reducers/WishlistsReducer";
 
 const rootReducer = combineReducers({
   userReducer: userReducer as Reducer,
   productReducer: productReducer as Reducer,
   ordersReducer: ordersReducer as Reducer,
   reviewsReducer: reviewsReducer as Reducer,
+  wishlistsReducer: wishlistsReducer as Reducer,
 });
 const store = configureStore({ reducer: rootReducer });
 export default store;

@@ -7,6 +7,8 @@ import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Heart, HeartFill } from "react-bootstrap-icons";
+import { addToWishlist, removeFromWishlist } from "../../redux/actions/wishlists";
 
 const Product = () => {
   const params = useParams();
@@ -15,6 +17,7 @@ const Product = () => {
   const product = useAppSelector((state: RootState) => state.productReducer.product);
   const reviews = useAppSelector((state: RootState) => state.reviewsReducer.reviews);
   const isLogged = useAppSelector((state: RootState) => state.userReducer.isLogged);
+  const wishlist = useAppSelector((state: RootState) => state.wishlistsReducer.wishlist);
 
   const [show, setShow] = useState(false);
 
@@ -42,6 +45,18 @@ const Product = () => {
   };
   const handleClose = () => setShow(false);
 
+  const handleAddToWishlist = () => {
+    if (params.id) {
+      dispatch(addToWishlist({ product: params.id }));
+    }
+  };
+
+  const handleRemoveFromWishlist = () => {
+    if (params.id) {
+      dispatch(removeFromWishlist(params.id));
+    }
+  };
+
   useEffect(() => {
     if (params.id) {
       dispatch(getProduct(params.id));
@@ -53,7 +68,12 @@ const Product = () => {
     <Container>
       <Row>
         <Col sm={4}>
-          <Image src={product?.imgUrl} className="w-100" />
+          <Image src={product?.imgUrl} className="w-100 position-relative" />
+          {wishlist.some((item: IWishlist) => item.product.id === product.id) ? (
+            <HeartFill className="position-absolute" onClick={handleRemoveFromWishlist} />
+          ) : (
+            <Heart className="position-absolute" onClick={handleAddToWishlist} />
+          )}
         </Col>
         <Col>
           <h2>{product?.name}</h2>

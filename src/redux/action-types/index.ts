@@ -19,3 +19,8 @@ export type ReviewAction = {
   type: ActionType;
   payload?: IReview;
 };
+
+export type WishlistAction = {
+  type: ActionType;
+  payload?: IReview;
+};

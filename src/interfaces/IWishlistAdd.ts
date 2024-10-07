@@ -1,0 +1,3 @@
+interface IWishlistAdd {
+  product: string;
+}

@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getOrder } from "../../redux/actions/orders";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 
 const OrderDetails = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const order = useAppSelector((state: RootState) => state.ordersReducer.order);
 
@@ -47,7 +48,7 @@ const OrderDetails = () => {
           <div key={order.id}>
             <Row>
               <Col>
-                <Image height={100} src={item.product.imgUrl} alt="product image" />
+                <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 <p>{item.product.name}</p>
               </Col>
               <Col>
