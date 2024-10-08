@@ -31,7 +31,7 @@ export const getProduct = (id: string) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/${id}`, {
+      const resp = await fetch(`${url}/products/product/${id}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -62,6 +62,74 @@ export const addProduct = (product: IProductAdd) => {
       });
       if (resp.ok) {
         dispatch(getProducts());
+      } else {
+        throw new Error("Add product error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateProduct = (product: IProductUpdate, productId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/${productId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+      if (resp.ok) {
+        dispatch(getProducts());
+        dispatch(getProduct(productId));
+      } else {
+        throw new Error("Update product error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateProductImage = (file: File, productId: string) => {
+  return async (dispatch: AppDispatch) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/image/${productId}`, {
+        method: "POST",
+        headers: { Authorization: "Bearer " + accessToken },
+        body: formData,
+      });
+      if (resp.ok) {
+        dispatch(getProducts());
+        dispatch(getProduct(productId));
+      } else {
+        throw new Error("Update product image error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteProduct = (productId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/${productId}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      if (resp.ok) {
+        dispatch(getProducts());
+      } else {
+        throw new Error("Delete product error");
       }
     } catch (error) {
       console.log(error);

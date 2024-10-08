@@ -39,6 +39,8 @@ export const addToWishlist = (product: IWishlistAdd) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
+      } else {
+        throw new Error("Add to wishlist error");
       }
     } catch (error) {
       console.log(error);
@@ -56,6 +58,8 @@ export const removeFromWishlist = (id: string) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
+      } else {
+        throw new Error("Romove from wishlist error");
       }
     } catch (error) {
       console.log(error);

@@ -9,6 +9,7 @@ import AddReview from "./AddReview";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
+import ProductUpdate from "./ProductUpdate";
 
 const Product = () => {
   const params = useParams();
@@ -18,11 +19,16 @@ const Product = () => {
   const reviews: IReview[] = useAppSelector((state: RootState) => state.reviewsReducer.reviews);
   const isLogged: boolean = useAppSelector((state: RootState) => state.userReducer.isLogged);
   const wishlist: IWishlist[] = useAppSelector((state: RootState) => state.wishlistsReducer.wishlist);
+  const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const [show, setShow] = useState(false);
 
-  const notifyError = () => {
-    toast.error("Devi fare il login per lasciare una recensione!", {
+  const [showProductUpdate, setShowProductUpdate] = useState(false);
+  const handleShowProductUpdate = () => setShowProductUpdate(true);
+  const handleCloseProductUpdate = () => setShowProductUpdate(false);
+
+  const notifyError = (text: string) => {
+    toast.error(text, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -40,7 +46,7 @@ const Product = () => {
       setShow(true);
     } else {
       setShow(false);
-      notifyError();
+      notifyError("Devi fare il login per lasciare una recensione!");
     }
   };
   const handleClose = () => setShow(false);
@@ -86,6 +92,13 @@ const Product = () => {
             <Button className="m-1" onClick={handleShow}>
               Recensisci prodotto
             </Button>
+            {user?.role === "ADMIN" ? (
+              <Button onClick={handleShowProductUpdate} className="m-1">
+                Modifica Prodotto
+              </Button>
+            ) : (
+              ""
+            )}
           </div>
           <p>Disponibili: Pz. {product?.quantityAvailable}</p>
           <p>{product?.lastUpdate}</p>
@@ -117,6 +130,7 @@ const Product = () => {
 
       {/* modal */}
       <AddReview show={show} handleClose={handleClose} />
+      <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />
       <ToastContainer />
     </Container>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dropdown, DropdownButton, Form, FormGroup } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addProduct } from "../../redux/actions/products";
 import { Bounce, toast, ToastContainer } from "react-toastify";
@@ -72,7 +72,7 @@ const AddProduct = () => {
           <Form.Label>Quantità dispnibile</Form.Label>
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setquantityAvailable(Number(e.target.value))} />
         </Form.Group>
-        <FormGroup>
+        <Form.Group>
           <DropdownButton id="dropdown-basic-button" title={category ? category.name : "Seleziona una categoria"}>
             {categories?.map((category: ICategory) => {
               return (
@@ -82,7 +82,7 @@ const AddProduct = () => {
               );
             })}
           </DropdownButton>
-        </FormGroup>
+        </Form.Group>
         <div className="text-center mt-5">
           <Button type="submit" variant="primary">
             Aggiungi prodotto
