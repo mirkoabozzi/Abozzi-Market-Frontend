@@ -1,11 +1,11 @@
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const UpdateProfile = () => {
-  const user: IUser = useAppSelector((state: RootState) => state.userReducer.user);
+  const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");

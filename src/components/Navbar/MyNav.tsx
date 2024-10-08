@@ -6,13 +6,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 const MyNav = () => {
   const navigate = useNavigate();
-  const isLogged = useSelector((state: RootState) => state.userReducer.isLogged);
-  const user = useSelector((state: RootState) => state.userReducer.user);
+  const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
+  const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);

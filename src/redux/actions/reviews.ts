@@ -1,9 +1,11 @@
 import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
+import { Dispatch } from "@reduxjs/toolkit";
+import { ReviewAction } from "../action-types";
 
 export const getReview = (id: string) => {
-  return async (dispatch: AppDispatch) => {
+  return async (dispatch: Dispatch<ReviewAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/reviews/product/${id}`, {

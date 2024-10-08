@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder } from "../../redux/actions/orders";
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
 const OrderDetails = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const order: IOrder = useAppSelector((state: RootState) => state.ordersReducer.order);
+  const order: IOrder = useAppSelector((state) => state.ordersReducer.order);
 
   useEffect(() => {
     if (params.id) {

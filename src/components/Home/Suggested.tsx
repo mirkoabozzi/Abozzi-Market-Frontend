@@ -1,13 +1,13 @@
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 
 const Suggested = () => {
   const dispatch = useAppDispatch();
-  const products: IProduct = useAppSelector((state: RootState) => state.productReducer.products);
-  const isLoading: boolean = useAppSelector((state: RootState) => state.productReducer.isLoading);
+  const products: IProduct = useAppSelector((state) => state.productReducer.products);
+  const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
   const [randomProducts, setRandomProducts] = useState<IProduct[]>([]);
   const navigate = useNavigate();
 

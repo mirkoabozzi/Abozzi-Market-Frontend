@@ -24,3 +24,8 @@ export type WishlistAction = {
   type: ActionType;
   payload?: IReview;
 };
+
+export type CategoryAction = {
+  type: ActionType;
+  payload?: ICategory[];
+};

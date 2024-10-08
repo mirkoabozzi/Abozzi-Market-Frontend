@@ -3,3 +3,8 @@ interface ICategory {
   name: string;
   image: string;
 }
+
+interface IAddCategory {
+  name: string;
+  image?: string;
+}

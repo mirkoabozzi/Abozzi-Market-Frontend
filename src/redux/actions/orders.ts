@@ -25,7 +25,7 @@ export const getMyOrders = () => {
 };
 
 export const getOrder = (id: string) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch<OrderAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/${id}`, {

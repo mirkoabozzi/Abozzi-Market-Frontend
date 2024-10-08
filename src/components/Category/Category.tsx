@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { getCategories } from "../../redux/actions/categories";
 
 const Category = () => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-
-  const getCategory = async () => {
-    try {
-      const resp = await fetch("http://localhost:3001/categories");
-      if (resp.ok) {
-        const result = await resp.json();
-        setCategories(result.content);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const categories = useAppSelector((state) => state.categoriesReducer.categories);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getCategory();
-  }, []);
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <Container className="mb-4">
       <Row className="justify-content-between flex-nowrap overflow-x-auto">
-        {categories.map((category: ICategory) => {
+        {categories?.map((category: ICategory) => {
           return (
             <Col key={category.id} className="text-center">
               <div>

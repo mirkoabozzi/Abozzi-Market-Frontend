@@ -1,5 +1,5 @@
 import "./Profile.css";
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect } from "react";
 import { getMyOrders } from "../../redux/actions/orders";
 import { Button, Col, Row } from "react-bootstrap";
@@ -7,7 +7,7 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 const MyOrder = () => {
-  const orders: IOrder[] = useAppSelector((state: RootState) => state.ordersReducer.orders);
+  const orders: IOrder[] = useAppSelector((state) => state.ordersReducer.orders);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
