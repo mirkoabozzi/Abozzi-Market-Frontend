@@ -2,13 +2,14 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { url } from "./user";
+import { AppDispatch } from "../store";
 
 export const getProducts = () => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products`, {
+      const resp = await fetch(`${url}/products/all`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -40,6 +41,27 @@ export const getProduct = (id: string) => {
         dispatch({ type: ActionType.SET_PRODUCT, payload: product });
       } else {
         throw new Error("Get product error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const addProduct = (product: IProductAdd) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products`, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+      if (resp.ok) {
+        dispatch(getProducts());
       }
     } catch (error) {
       console.log(error);

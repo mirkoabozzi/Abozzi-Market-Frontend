@@ -16,6 +16,7 @@ import UpdateProfile from "./components/Profile/UpdateProfile";
 import MyAddress from "./components/Profile/MyAddress";
 import WishList from "./components/Profile/WishList";
 import CategoryManagement from "./components/Profile/CategoryManagement";
+import AddProduct from "./components/Profile/AddProduct";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="address" element={<MyAddress />} />
           <Route path="wishlist" element={<WishList />} />
           <Route path="category" element={<CategoryManagement />} />
+          <Route path="addProduct" element={<AddProduct />} />
         </Route>
         <Route path="/product/details/:id" element={<ProductDetails />} />
         <Route path="/*" element={<NotFound />} />

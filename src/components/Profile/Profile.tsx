@@ -30,7 +30,7 @@ const Profile = () => {
           {/* ADMIN SECTION */}
           {user?.role === "ADMIN" ? (
             <>
-              <div onClick={() => navigate("/profile/product")} className="d-flex align-items-center mb-5 mouseHover">
+              <div onClick={() => navigate("/profile/addProduct")} className="d-flex align-items-center mb-5 mouseHover">
                 <ListStars size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Prodotti</h5>
               </div>
