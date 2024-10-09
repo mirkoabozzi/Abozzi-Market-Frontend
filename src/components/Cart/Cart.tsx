@@ -9,6 +9,11 @@ const Cart = () => {
 
   const total = cart.reduce((acc: number, item: IItem) => acc + item.product.price * item.quantity, 0);
 
+  const handleCartAndPayment = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch(pay(Number(total.toFixed(2))));
+  };
+
   return (
     <Container>
       <h3>Carrello</h3>
@@ -18,7 +23,7 @@ const Cart = () => {
           return (
             <>
               <Row>
-                <Col xs={4}>
+                <Col sm={4}>
                   <Image src={item.product.imgUrl} className="w-100" />
                 </Col>
                 <Col>
@@ -39,10 +44,10 @@ const Cart = () => {
           );
         })
       ) : (
-        <p>Il carrello è vuolto!</p>
+        <h3>Il carrello è vuolto!</h3>
       )}
-      <p>Totale: {total}</p>
-      <Button onClick={() => dispatch(pay(total))}>Acquista</Button>
+      <p>Totale: {total.toFixed(2)} €</p>
+      <Button onClick={handleCartAndPayment}>Acquista</Button>
     </Container>
   );
 };
