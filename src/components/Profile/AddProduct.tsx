@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addProduct } from "../../redux/actions/products";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { errorToast, successToast } from "../../redux/actions/toaster";
 
 const AddProduct = () => {
   const categories = useAppSelector((state) => state.categoriesReducer.categories);
@@ -18,24 +19,10 @@ const AddProduct = () => {
     setCategory(selectedCategory);
   };
 
-  const tostError = (text: string) => {
-    toast.error(text, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!category) {
-      tostError("Categoria obbligatoria!");
+      errorToast("Categoria obbligatoria!");
     } else {
       const newProduct: IProductAdd = {
         name: name,
@@ -50,6 +37,7 @@ const AddProduct = () => {
       setPrice(1);
       setquantityAvailable(1);
       setCategory(null);
+      successToast(`Prodotto aggiunto!`);
     }
   };
 
@@ -69,7 +57,7 @@ const AddProduct = () => {
           <Form.Control type="number" placeholder="Prezzo" required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Quantità dispnibile</Form.Label>
+          <Form.Label>Quantità disponibile</Form.Label>
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setquantityAvailable(Number(e.target.value))} />
         </Form.Group>
         <Form.Group>

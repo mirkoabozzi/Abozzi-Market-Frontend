@@ -82,7 +82,7 @@ const Product = () => {
           <h2>{product?.name}</h2>
           <p>{product?.description}</p>
           <p>{product?.category.name}</p>
-          <p className="fs-2">{product?.price} €</p>
+          <p className="fs-2">{product?.price.toFixed(2)} €</p>
           <Form.Group style={{ width: "70px" }} controlId="formQuantity">
             <Form.Label>Quantità</Form.Label>
             <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />

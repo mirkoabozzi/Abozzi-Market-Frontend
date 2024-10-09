@@ -44,7 +44,7 @@ const Cart = () => {
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
-                  <p className="fs-2">{item.product.price} €</p>
+                  <p className="fs-2">{item.product.price.toFixed(2)} €</p>
                   <div className="d-flex align-items-center gap-3">
                     <Button onClick={() => handleDecreseQuantity(item)}>-</Button>
                     <p className="mb-0">{item.quantity}</p>

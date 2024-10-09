@@ -58,7 +58,7 @@ const OrderDetails = () => {
                 <p>{item.quantity}</p>
               </Col>
               <Col>
-                <p>{item.product.price} €</p>
+                <p>{item.product.price.toFixed(2)} €</p>
               </Col>
               <Col>
                 <p>{item.product.price * item.quantity} €</p>

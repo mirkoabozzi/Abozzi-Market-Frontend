@@ -22,7 +22,7 @@ const WishList = () => {
               <Col key={item.id}>
                 <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 <p>{item.product.name}</p>
-                <p>{item.product.price} €</p>
+                <p>{item.product.price.toFixed(2)} €</p>
               </Col>
             );
           })
