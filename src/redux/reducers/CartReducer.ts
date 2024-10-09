@@ -2,7 +2,7 @@ import { CartAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
 interface InitialState {
-  content: IProduct[];
+  content: IItem[];
 }
 
 const initialState: InitialState = {
@@ -18,7 +18,8 @@ const cartReducer = (state = initialState, action: CartAction) => {
       };
     case ActionType.REMOVE_FROM_CART:
       return {
-        content: state.content.filter((produt: IProduct) => produt.id !== action.payload?.id),
+        ...state,
+        content: state.content.filter((item: IItem) => item.product.id !== action.payload.id),
       };
 
     default:
