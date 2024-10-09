@@ -10,7 +10,7 @@ const Succces = () => {
   const [payerId, setPayerId] = useState("");
   const user: IUser = useAppSelector((state) => state.userReducer.user);
 
-  const cart = JSON.parse(localStorage.getItem("cart"));
+  const cart: IItem[] = JSON.parse(localStorage.getItem("cart"));
 
   const handleCreateOrder = async () => {
     const orderDetails = cart.map((item: IItem) => ({

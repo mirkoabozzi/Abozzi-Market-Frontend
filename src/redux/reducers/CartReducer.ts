@@ -1,4 +1,4 @@
-import { CartAction } from "../action-types";
+import { CartAction } from "../action-types/cartAction";
 import { ActionType } from "../enums/ActionType";
 
 interface InitialState {
@@ -19,7 +19,18 @@ const cartReducer = (state = initialState, action: CartAction) => {
     case ActionType.REMOVE_FROM_CART:
       return {
         ...state,
-        content: state.content.filter((item: IItem) => item.product.id !== action.payload.id),
+        content: state.content.filter((item: IItem) => item.product.id !== action.payload?.id),
+      };
+
+    case ActionType.INCREASE_QUANTITY:
+      return {
+        ...state,
+        content: state.content.map((item: IItem) => (item.product.id === action.payload.product.id ? { ...item, quantity: action.payload.quantity } : item)),
+      };
+    case ActionType.DECREASE_QUANTITY:
+      return {
+        ...state,
+        content: state.content.map((item: IItem) => (item.product.id === action.payload.product.id ? { ...item, quantity: action.payload.quantity } : item)),
       };
 
     default:

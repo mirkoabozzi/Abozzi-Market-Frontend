@@ -6,11 +6,12 @@ import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
+import { successToast, warnToast } from "../../redux/actions/toaster";
 
 const Product = () => {
   const params = useParams();
@@ -30,26 +31,12 @@ const Product = () => {
   const handleShowProductUpdate = () => setShowProductUpdate(true);
   const handleCloseProductUpdate = () => setShowProductUpdate(false);
 
-  const notifyError = (text: string) => {
-    toast.error(text, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
-  };
-
   const handleShow = () => {
     if (isLogged) {
       setShow(true);
     } else {
       setShow(false);
-      notifyError("Devi fare il login per lasciare una recensione!");
+      warnToast("Devi fare il login per lasciare una recensione!");
     }
   };
   const handleClose = () => setShow(false);
@@ -77,6 +64,7 @@ const Product = () => {
   const handleAddToCart = () => {
     dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
     setQuantity(1);
+    successToast("Articolo aggiunto");
   };
 
   return (
@@ -95,13 +83,11 @@ const Product = () => {
           <p>{product?.description}</p>
           <p>{product?.category.name}</p>
           <p className="fs-2">{product?.price} €</p>
-
-          <Form.Group controlId="formQuantity">
+          <Form.Group style={{ width: "70px" }} controlId="formQuantity">
             <Form.Label>Quantità</Form.Label>
             <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
           </Form.Group>
-
-          <div className="d-felx gap-1">
+          <div className="d-felx gap-1 mt-3">
             <Button className="m-1" onClick={handleAddToCart}>
               Aggiungi al carrello
             </Button>

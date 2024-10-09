@@ -22,15 +22,10 @@ export type ReviewAction = {
 
 export type WishlistAction = {
   type: ActionType;
-  payload?: IReview;
+  payload?: IWishlist;
 };
 
 export type CategoryAction = {
   type: ActionType;
   payload?: ICategory;
-};
-
-export type CartAction = {
-  type: ActionType;
-  payload?: IProduct;
 };
