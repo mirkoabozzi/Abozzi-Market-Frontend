@@ -4,6 +4,7 @@ import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProducts } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
@@ -12,12 +13,16 @@ const Shop = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProducts());
+    if (products.length < 0) {
+      dispatch(getProducts());
+    }
   }, [dispatch]);
 
   return (
     <Row>
-      <Col xs={2}>{/* <Sidebar /> */}</Col>
+      <Col xs={2}>
+        <Sidebar />
+      </Col>
       <Col xs={8}>
         <h2>Shop</h2>
         <Row>

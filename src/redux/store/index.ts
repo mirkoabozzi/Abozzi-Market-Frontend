@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   reviewsReducer: reviewsReducer as Reducer,
   wishlistsReducer: wishlistsReducer as Reducer,
   categoriesReducer: categoriesReducer as Reducer,
-  cartReducer: cartReducer as Reducer,
+  cartReducer: cartReducer,
 });
 const store = configureStore({ reducer: rootReducer });
 export default store;

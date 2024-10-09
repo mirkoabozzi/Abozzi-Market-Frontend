@@ -6,13 +6,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
-import { useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { getProductByName } from "../../redux/actions/products";
 
 const MyNav = () => {
   const navigate = useNavigate();
   const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
   const user: IUser = useAppSelector((state) => state.userReducer.user);
-  const cart: IProduct[] = useAppSelector((state) => state.cartReducer.content);
+  const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
+  const dispatch = useAppDispatch();
+
+  const [mainSearch, setMainSearch] = useState("");
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
@@ -29,6 +33,13 @@ const MyNav = () => {
     window.location.reload();
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/shop");
+    dispatch(getProductByName(mainSearch));
+    setMainSearch("");
+  };
+
   return (
     <div className="sticky-top z-3" style={{ backgroundColor: "#eef5fb" }}>
       <Navbar expand="sm" className="pb-0">
@@ -37,8 +48,8 @@ const MyNav = () => {
             <Image title="Home" src={logo} width="150" className="d-none d-sm-inline-block align-top" alt="Abozzi Market logo" />
             <Image title="Home" src={logoRounded} width="65" className="d-inline-block d-sm-none align-top" alt="Abozzi Market logo" />
           </div>
-          <Form className="d-flex w-100 position-relative order-5 order-sm-0">
-            <Form.Control type="search" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" />
+          <Form className="d-flex w-100 position-relative order-5 order-sm-0" onSubmit={handleSubmit}>
+            <Form.Control type="search" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" value={mainSearch} onChange={(e) => setMainSearch(e.target.value)} />
             <Button variant="transparent" className="position-absolute end-0">
               <Search width={20} height={20} />
             </Button>

@@ -2,7 +2,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { OrderAction } from "../action-types";
 import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
-import { AppDispatch } from "../store";
 
 export const getMyOrders = (page: number) => {
   return async (dispatch: Dispatch<OrderAction>) => {
@@ -47,7 +46,7 @@ export const getOrder = (id: string) => {
 };
 
 export const addOrder = (order: IOrderAdd) => {
-  return async (dispatch: AppDispatch) => {
+  return async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders`, {
@@ -56,7 +55,7 @@ export const addOrder = (order: IOrderAdd) => {
         body: JSON.stringify(order),
       });
       if (resp.ok) {
-        dispatch(getMyOrders());
+        // dispatch(getMyOrders());
       } else {
         throw new Error("Add order error");
       }
