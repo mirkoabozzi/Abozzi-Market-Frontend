@@ -17,6 +17,7 @@ import MyAddress from "./components/Profile/MyAddress";
 import WishList from "./components/Profile/WishList";
 import CategoryManagement from "./components/Profile/CategoryManagement";
 import AddProduct from "./components/Profile/AddProduct";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="category" element={<CategoryManagement />} />
           <Route path="addProduct" element={<AddProduct />} />
         </Route>
+        <Route path="/cart" element={<Cart />} />
         <Route path="/product/details/:id" element={<ProductDetails />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>

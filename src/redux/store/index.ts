@@ -6,6 +6,7 @@ import reviewsReducer from "../reducers/ReviewsReducer";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import wishlistsReducer from "../reducers/WishlistsReducer";
 import categoriesReducer from "../reducers/CategoriesReducer";
+import cartReducer from "../reducers/CartReducer";
 
 const rootReducer = combineReducers({
   userReducer: userReducer as Reducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   ordersReducer: ordersReducer as Reducer,
   reviewsReducer: reviewsReducer as Reducer,
   wishlistsReducer: wishlistsReducer as Reducer,
-  categoriesReducer: categoriesReducer,
+  categoriesReducer: categoriesReducer as Reducer,
+  cartReducer: cartReducer as Reducer,
 });
 const store = configureStore({ reducer: rootReducer });
 export default store;

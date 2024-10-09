@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getCategories } from "../../redux/actions/categories";
 
 const Category = () => {
-  const categories = useAppSelector((state) => state.categoriesReducer.categories);
+  const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

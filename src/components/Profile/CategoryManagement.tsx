@@ -38,6 +38,7 @@ const CategoryManagement = () => {
     if (avatar) {
       dispatch(addImageCategory(avatar, categoryId));
     }
+    handleCloseModalImage();
   };
 
   const handleDeleteCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,76 +47,78 @@ const CategoryManagement = () => {
   };
 
   return (
-    <div>
+    <>
       <h3>Categrie</h3>
-      <Button onClick={handleShow}>Aggiungi categoria</Button>
-      <Row className="mt-5">
-        {categories?.map((category) => {
-          return (
-            <Col
-              key={category.id}
-              className="text-center"
-              onClick={() => {
-                handleShowModalImage();
-                setCategoryId(category.id);
-              }}
-            >
-              <Image height={100} width={100} src={category.image} alt="category image" className="border rounded-circle object-fit-cover shadow" />
-              <p>{category.name}</p>
-            </Col>
-          );
-        })}
-      </Row>
+      <div className="text-center">
+        <Button onClick={handleShow}>Aggiungi categoria</Button>
+        <Row className="mt-5">
+          {categories?.map((category: ICategory) => {
+            return (
+              <Col
+                key={category.id}
+                className="text-center mouseHover"
+                onClick={() => {
+                  handleShowModalImage();
+                  setCategoryId(category.id);
+                }}
+              >
+                <Image height={100} width={100} src={category.image} alt="category image" className="border rounded-circle object-fit-cover shadow" />
+                <p>{category.name}</p>
+              </Col>
+            );
+          })}
+        </Row>
 
-      {/* modal add category*/}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Aggiungi nuova categoria</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
-            </Form.Group>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Chiudi
-              </Button>
-              <Button type="submit" variant="primary" onClick={handleClose}>
-                Salva
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
+        {/* modal add category*/}
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Aggiungi nuova categoria</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Nome</Form.Label>
+                <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
+              </Form.Group>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Chiudi
+                </Button>
+                <Button type="submit" variant="primary" onClick={handleClose}>
+                  Salva
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
 
-      {/* modal add image*/}
-      <Modal show={showModalImage} onHide={handleCloseModalImage}>
-        <Modal.Header closeButton>
-          <Modal.Title>Aggiungi immagine</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmitImage}>
-            <Form.Group className="mb-3" controlId="formAvatar">
-              <Form.Label>Avatar</Form.Label>
-              <Form.Control type="file" onChange={handleFileChange} />
-            </Form.Group>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModalImage}>
-                Chiudi
-              </Button>
-              <Button type="submit" variant="primary" onClick={handleClose}>
-                Salva
-              </Button>
-              <Button type="button" variant="warning" onClick={handleDeleteCategory}>
-                Elimina
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </div>
+        {/* modal add image*/}
+        <Modal show={showModalImage} onHide={handleCloseModalImage}>
+          <Modal.Header closeButton>
+            <Modal.Title>Aggiungi immagine</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmitImage}>
+              <Form.Group className="mb-3" controlId="formAvatar">
+                <Form.Label>Avatar</Form.Label>
+                <Form.Control type="file" onChange={handleFileChange} />
+              </Form.Group>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModalImage}>
+                  Chiudi
+                </Button>
+                <Button type="submit" variant="primary" onClick={handleClose}>
+                  Salva
+                </Button>
+                <Button type="button" variant="warning" onClick={handleDeleteCategory}>
+                  Elimina
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </div>
+    </>
   );
 };
 

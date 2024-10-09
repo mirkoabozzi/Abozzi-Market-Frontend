@@ -3,13 +3,14 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
+import { ActionType } from "../../redux/enums/ActionType";
 
 const Product = () => {
   const params = useParams();
@@ -20,6 +21,8 @@ const Product = () => {
   const isLogged: boolean = useAppSelector((state: RootState) => state.userReducer.isLogged);
   const wishlist: IWishlist[] = useAppSelector((state: RootState) => state.wishlistsReducer.wishlist);
   const user: IUser = useAppSelector((state) => state.userReducer.user);
+
+  const [quantity, setQuantity] = useState(1);
 
   const [show, setShow] = useState(false);
 
@@ -71,6 +74,11 @@ const Product = () => {
     }
   }, [dispatch, params.id]);
 
+  const handleAddToCart = () => {
+    dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+    setQuantity(1);
+  };
+
   return (
     <Container>
       <Row>
@@ -87,8 +95,16 @@ const Product = () => {
           <p>{product?.description}</p>
           <p>{product?.category.name}</p>
           <p className="fs-2">{product?.price} €</p>
+
+          <Form.Group controlId="formQuantity">
+            <Form.Label>Quantità</Form.Label>
+            <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
+          </Form.Group>
+
           <div className="d-felx gap-1">
-            <Button className="m-1">Aggiungi al carrello</Button>
+            <Button className="m-1" onClick={handleAddToCart}>
+              Aggiungi al carrello
+            </Button>
             <Button className="m-1" onClick={handleShow}>
               Recensisci prodotto
             </Button>

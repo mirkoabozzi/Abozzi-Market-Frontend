@@ -27,5 +27,10 @@ export type WishlistAction = {
 
 export type CategoryAction = {
   type: ActionType;
-  payload?: ICategory[];
+  payload?: ICategory;
+};
+
+export type CartAction = {
+  type: ActionType;
+  payload?: IProduct;
 };
