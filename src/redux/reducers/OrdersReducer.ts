@@ -4,10 +4,12 @@ import { ActionType } from "../enums/ActionType";
 interface InitialState {
   orders: IOrder[];
   order: IOrder | null;
+  clientsOrder: IOrder[];
 }
 const initialState: InitialState = {
   orders: [],
   order: null,
+  clientsOrder: [],
 };
 
 const ordersReducer = (state = initialState, action: OrderAction) => {
@@ -21,6 +23,11 @@ const ordersReducer = (state = initialState, action: OrderAction) => {
       return {
         ...state,
         order: action.payload,
+      };
+    case ActionType.SET_ALL_CLIENTS_ORDERS:
+      return {
+        ...state,
+        clientsOrder: action.payload,
       };
     default:
       return state;

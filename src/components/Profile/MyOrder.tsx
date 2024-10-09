@@ -1,19 +1,20 @@
 import "./Profile.css";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getMyOrders } from "../../redux/actions/orders";
-import { Button, Col, Row } from "react-bootstrap";
-import { ArrowRight } from "react-bootstrap-icons";
+import { Badge, Button, Col, Row } from "react-bootstrap";
+import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 const MyOrder = () => {
   const orders: IOrder[] = useAppSelector((state) => state.ordersReducer.orders);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    dispatch(getMyOrders());
-  }, [dispatch]);
+    dispatch(getMyOrders(page));
+  }, [dispatch, page]);
 
   return (
     <>
@@ -41,10 +42,19 @@ const MyOrder = () => {
         })
       ) : (
         <div className="text-center">
-          <h3>Hey, non hai ancora effettuato ordini, corri allo shop e inizia a fare aquisti!</h3>
+          <h3 className="mb-5">Hey, non hai abbastanza ordini, corri allo shop e inizia a fare aquisti!</h3>
           <Button onClick={() => navigate("/shop")}>Shop</Button>
         </div>
       )}
+      <Row className="text-center mt-5">
+        <Col>{page > 0 ? <ArrowLeftCircle width={30} height={30} onClick={() => setPage(page - 1)} /> : ""}</Col>
+        <Col>
+          <Badge className="fs-6">{page}</Badge>
+        </Col>
+        <Col>
+          <ArrowRightCircle width={30} height={30} onClick={() => setPage(page + 1)} />
+        </Col>
+      </Row>
     </>
   );
 };

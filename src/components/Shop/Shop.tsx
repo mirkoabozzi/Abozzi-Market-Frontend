@@ -27,7 +27,7 @@ const Shop = () => {
             products.map((product: IProduct) => {
               return (
                 <Col xs="12" sm={6} md={4} lg={3} className="my-3" key={product.id}>
-                  <Card className=" rounded-3 h-100">
+                  <Card className=" rounded-3 h-100 cardHover">
                     <Card.Img variant="top" src={product.imgUrl} className=" rounded-3" />
                     <Card.Body className="d-flex flex-column justify-content-end">
                       <Card.Title>{product.name}</Card.Title>

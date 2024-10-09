@@ -21,6 +21,7 @@ import Cart from "./components/Cart/Cart";
 import Succces from "./components/Cart/Succces";
 import Cancel from "./components/Cart/Cancel";
 import Failed from "./components/Cart/Failed";
+import Orders from "./components/Profile/Orders";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="wishlist" element={<WishList />} />
           <Route path="category" element={<CategoryManagement />} />
           <Route path="addProduct" element={<AddProduct />} />
+          <Route path="clientsOrders" element={<Orders />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/success/*" element={<Succces />} />
