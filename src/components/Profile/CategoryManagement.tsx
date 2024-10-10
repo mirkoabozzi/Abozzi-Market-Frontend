@@ -19,7 +19,6 @@ const CategoryManagement = () => {
   const handleShowModalImage = () => setShowModalImage(true);
 
   const [categoryId, setCategoryId] = useState("");
-  console.log(categoryId);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

@@ -44,3 +44,20 @@ export const addAddress = (newAddress: IAddress) => {
     }
   };
 };
+
+export const deleteAddress = (addressId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/shipments/${addressId}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      if (resp.ok) {
+        dispatch(getAllAddress());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

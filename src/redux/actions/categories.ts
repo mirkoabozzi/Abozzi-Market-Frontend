@@ -7,7 +7,7 @@ import { AppDispatch } from "../store";
 export const getCategories = () => {
   return async (dispatch: Dispatch<CategoryAction>) => {
     try {
-      const resp = await fetch(`${url}/categories/all`);
+      const resp = await fetch(`${url}/categories`);
       if (resp.ok) {
         const categories = await resp.json();
         dispatch({ type: ActionType.SET_CATEGORIES, payload: categories.content });

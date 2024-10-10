@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addAddress, getAllAddress } from "../../redux/actions/addressees";
+import { addAddress, deleteAddress, getAllAddress } from "../../redux/actions/addressees";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
 import { successToast } from "../../redux/actions/toaster";
+import { ToastContainer } from "react-toastify";
 
 const Addresses = () => {
   const dispatch = useAppDispatch();
   const addressees = useAppSelector((state) => state.addresses.content);
 
   const [address, setAddress] = useState("");
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
 
@@ -31,7 +32,18 @@ const Addresses = () => {
       zipCode,
     };
     dispatch(addAddress(newAddress));
+    setAddress("");
+    setCity("");
+    setNumber(1);
+    setZipCode("");
     successToast("Indirizzo aggiunto");
+  };
+
+  const handleDeleteAddress = (addressId: string | undefined) => {
+    if (addressId) {
+      dispatch(deleteAddress(addressId));
+      successToast("Indirizzo eliminato");
+    }
   };
 
   return (
@@ -51,8 +63,8 @@ const Addresses = () => {
                 {address.address}, {address.number}
               </p>
             </Col>
-            <Col>
-              <Trash />
+            <Col className="text-end">
+              <Trash className="mouseHover" onClick={() => handleDeleteAddress(address.id)} />
             </Col>
             <hr />
           </Row>
@@ -93,6 +105,7 @@ const Addresses = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      <ToastContainer />
     </>
   );
 };
