@@ -10,20 +10,16 @@ interface RemoveFromCartAction {
   payload: IProduct;
 }
 
-interface IncreaseQuantityAction {
-  type: ActionType.INCREASE_QUANTITY;
+interface UpdateQuantity {
+  type: ActionType.UPDATE_QUANTITY;
   payload: {
     product: IProduct;
     quantity: number;
   };
 }
 
-interface DecreaseQuantityAction {
-  type: ActionType.DECREASE_QUANTITY;
-  payload: {
-    product: IProduct;
-    quantity: number;
-  };
+interface ClearCart {
+  type: ActionType.CLEAR_CART;
 }
 
-export type CartAction = AddToCartAction | RemoveFromCartAction | IncreaseQuantityAction | DecreaseQuantityAction;
+export type CartAction = AddToCartAction | RemoveFromCartAction | UpdateQuantity | ClearCart;

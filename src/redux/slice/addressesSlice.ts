@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
   content: IAddress[];
+  addressChoice: IAddressAdd | null;
 }
 const initialState: InitialState = {
   content: [],
+  addressChoice: null,
 };
 
 const addressesSlice = createSlice({
@@ -14,8 +16,14 @@ const addressesSlice = createSlice({
     setAddresses: (state, action) => {
       state.content = action.payload;
     },
+    setAddressChoice: (state, action) => {
+      state.addressChoice = action.payload;
+    },
+    clearAddressChoice: (state) => {
+      state.addressChoice = null;
+    },
   },
 });
 
-export const { setAddresses } = addressesSlice.actions;
+export const { setAddresses, setAddressChoice, clearAddressChoice } = addressesSlice.actions;
 export default addressesSlice.reducer;

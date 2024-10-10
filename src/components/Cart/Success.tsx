@@ -10,7 +10,8 @@ const Success = () => {
   const [payerId, setPayerId] = useState("");
   const user: IUser = useAppSelector((state) => state.userReducer.user);
 
-  const cart: IItem[] = JSON.parse(localStorage.getItem("cart"));
+  const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
+  const address: IAddress = useAppSelector((state) => state.addresses.addressChoice);
 
   const handleCreateOrder = async () => {
     const orderDetails = cart.map((item: IItem) => ({
@@ -21,7 +22,7 @@ const Success = () => {
     const newOrder: IOrderAdd = {
       user: user.id,
       payment: paymentId,
-      shipment: "64b652be-1502-4f0b-8c47-50e99a9b0280",
+      shipment: address.id,
       orderDetails: orderDetails,
     };
     await dispatch(execute(paymentId, payerId));

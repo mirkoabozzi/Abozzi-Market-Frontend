@@ -21,18 +21,16 @@ const cartReducer = (state = initialState, action: CartAction) => {
         ...state,
         content: state.content.filter((item: IItem) => item.product.id !== action.payload?.id),
       };
-
-    case ActionType.INCREASE_QUANTITY:
+    case ActionType.UPDATE_QUANTITY:
       return {
         ...state,
         content: state.content.map((item: IItem) => (item.product.id === action.payload.product.id ? { ...item, quantity: action.payload.quantity } : item)),
       };
-    case ActionType.DECREASE_QUANTITY:
+    case ActionType.CLEAR_CART:
       return {
         ...state,
-        content: state.content.map((item: IItem) => (item.product.id === action.payload.product.id ? { ...item, quantity: action.payload.quantity } : item)),
+        content: [],
       };
-
     default:
       return state;
   }

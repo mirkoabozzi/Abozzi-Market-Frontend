@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { getUser } from "../../redux/actions/user";
+import { getUser, url } from "../../redux/actions/user";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
@@ -18,7 +18,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
 
   const loginFetch = async () => {
     try {
-      const resp = await fetch("http://localhost:3001/authentication/login", {
+      const resp = await fetch(`${url}/authentication/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password }),

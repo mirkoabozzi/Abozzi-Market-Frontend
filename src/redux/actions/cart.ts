@@ -1,4 +1,8 @@
 import { url } from "./user";
+import { AppDispatch } from "../store";
+import { clearAddressChoice } from "../slice/addressesSlice";
+import { ActionType } from "../enums/ActionType";
+const appUrl = import.meta.env.VITE_MY_APP_URL;
 
 export const pay = (sum: number) => {
   return async () => {
@@ -8,8 +12,8 @@ export const pay = (sum: number) => {
       method: "paypal",
       intent: "sale",
       description: "description",
-      cancelUrl: "http://localhost:5173/cancel",
-      successUrl: "http://localhost:5173/success",
+      cancelUrl: `${appUrl}/cancel`,
+      successUrl: `${appUrl}/success`,
     };
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -35,7 +39,7 @@ export const pay = (sum: number) => {
 };
 
 export const execute = (paymentId: string, payerId: string) => {
-  return async () => {
+  return async (dispatch: AppDispatch) => {
     const execute: IExecute = {
       paymentId,
       payerId,
@@ -53,6 +57,8 @@ export const execute = (paymentId: string, payerId: string) => {
         body: JSON.stringify(execute),
       });
       if (resp.ok) {
+        dispatch(clearAddressChoice());
+        dispatch({ type: ActionType.CLEAR_CART });
         const responseText = await resp.text();
         const redirectUrl = responseText.substring(9);
         window.location.href = redirectUrl;

@@ -24,7 +24,7 @@ export const getAllAddress = () => {
   };
 };
 
-export const addAddress = (newAddress: IAddress) => {
+export const addAddress = (newAddress: IAddressAdd) => {
   return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");

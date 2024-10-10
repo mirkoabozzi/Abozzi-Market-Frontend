@@ -8,6 +8,7 @@ import Login from "./Login";
 import Registration from "./Registration";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByName } from "../../redux/actions/products";
+import { ActionType } from "../../redux/enums/ActionType";
 
 const MyNav = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const MyNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
     navigate("/");
     window.location.reload();
   };

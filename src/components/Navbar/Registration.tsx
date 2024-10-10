@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
+import { url } from "../../redux/actions/user";
 
 interface RegistrationProps {
   show: boolean;
@@ -19,7 +20,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
 
   const register = async () => {
     try {
-      const resp = await fetch("http://localhost:3001/authentication/registration", {
+      const resp = await fetch(`${url}/authentication/registration`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),

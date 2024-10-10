@@ -1,5 +1,4 @@
-interface IAddress {
-  id: string;
+interface IAddressAdd {
   address: string;
   number: number;
   city: string;

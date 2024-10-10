@@ -8,6 +8,20 @@ import wishlistsReducer from "../reducers/WishlistsReducer";
 import categoriesReducer from "../reducers/CategoriesReducer";
 import cartReducer from "../reducers/CartReducer";
 import addressesSlice from "../slice/addressesSlice";
+import persistReducer from "redux-persist/es/persistReducer";
+import storage from "redux-persist/lib/storage";
+import persistStore from "redux-persist/es/persistStore";
+import { encryptTransform } from "redux-persist-transform-encrypt";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  transforms: [
+    encryptTransform({
+      secretKey: import.meta.env.VITE_PERSIST_KEY,
+    }),
+  ],
+};
 
 const rootReducer = combineReducers({
   userReducer: userReducer as Reducer,
@@ -16,10 +30,13 @@ const rootReducer = combineReducers({
   reviewsReducer: reviewsReducer as Reducer,
   wishlistsReducer: wishlistsReducer as Reducer,
   categoriesReducer: categoriesReducer as Reducer,
-  cartReducer: cartReducer,
-  addresses: addressesSlice,
+  cartReducer: cartReducer as Reducer,
+  addresses: addressesSlice as Reducer,
 });
-const store = configureStore({ reducer: rootReducer });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({ reducer: persistedReducer, middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }) });
 export default store;
 export type AppStore = typeof store;
 export type RootState = ReturnType<typeof store.getState>;
@@ -27,3 +44,4 @@ export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 export const useAppStore = useStore.withTypes<AppStore>();
+export const persistor = persistStore(store);

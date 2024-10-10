@@ -1,34 +1,50 @@
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, DropdownButton, Image, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
 import { warnToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
+import { useEffect, useState } from "react";
+import { getAllAddress } from "../../redux/actions/addressees";
+import { setAddressChoice } from "../../redux/slice/addressesSlice";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
 
   const total = cart.reduce((acc: number, item: IItem) => acc + item.product.price * item.quantity, 0);
-
   const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
+  const addresses: IAddress[] = useAppSelector((state) => state.addresses.content);
+  const [address, setAddress] = useState<IAddress | null>(null);
+
+  const handleAddress = (selectedAddress: IAddress) => {
+    setAddress(selectedAddress);
+  };
 
   const handleCartAndPayment = () => {
     if (isLogged) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-      dispatch(pay(Number(total.toFixed(2))));
+      dispatch(setAddressChoice(address));
+      if (address != null) {
+        dispatch(pay(Number(total.toFixed(2))));
+      } else {
+        warnToast("Devi selezionare un indirizzo di spedizione!");
+      }
     } else {
       warnToast("Devi fare l'accesso per procedere con l'acquisto!");
     }
   };
 
   const handleIncreaseQuantity = (item: IItem) => {
-    dispatch({ type: ActionType.INCREASE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
+    dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
   };
 
   const handleDecreaseQuantity = (item: IItem) => {
-    dispatch({ type: ActionType.DECREASE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
+    dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
   };
+
+  useEffect(() => {
+    dispatch(getAllAddress());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -63,6 +79,15 @@ const Cart = () => {
         <h3>Il carrello è vuoto!</h3>
       )}
       <h3 className="mb-4">Totale: {total.toFixed(2)} €</h3>
+      <DropdownButton className="mb-3" id="dropdown-button" title={address ? address.address + " " + address.number : "Seleziona un indirizzo"}>
+        {addresses?.map((address: IAddress) => {
+          return (
+            <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
+              {address.address} {address.number}
+            </Dropdown.Item>
+          );
+        })}
+      </DropdownButton>
       {cart.length > 0 ? <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}
       <ToastContainer />
     </Container>
