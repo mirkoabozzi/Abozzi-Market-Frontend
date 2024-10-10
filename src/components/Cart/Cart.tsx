@@ -12,7 +12,6 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
 
-  const total = cart.reduce((acc: number, item: IItem) => acc + item.product.price * item.quantity, 0);
   const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
   const addresses: IAddress[] = useAppSelector((state) => state.addresses.content);
   const [address, setAddress] = useState<IAddress | null>(null);
@@ -46,6 +45,26 @@ const Cart = () => {
     }
   };
 
+  const handleDiscount = (product: IProduct) => {
+    if (product.discountList.length === 0) {
+      return product.price;
+    }
+    const today = new Date();
+    const activeDiscount = product.discountList.find((discount) => {
+      return new Date(discount.startDate) <= today && new Date(discount.endDate) >= today;
+    });
+    if (activeDiscount) {
+      const discountPrice = product.price * (activeDiscount.percentage / 100);
+      return product.price - discountPrice;
+    }
+    return product.price;
+  };
+
+  const total = cart.reduce((acc: number, item: IItem) => {
+    const discountedPrice = handleDiscount(item.product);
+    return acc + discountedPrice * item.quantity;
+  }, 0);
+
   useEffect(() => {
     dispatch(getAllAddress());
   }, [dispatch]);
@@ -64,7 +83,7 @@ const Cart = () => {
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
-                  <p className="fs-2">{item.product.price.toFixed(2)} €</p>
+                  <p className="fs-2">{handleDiscount(item.product).toFixed(2)} €</p>
                   <div className="d-flex align-items-center gap-3">
                     <Button onClick={() => handleDecreaseQuantity(item)}>-</Button>
                     <p className="mb-0">{item.quantity}</p>

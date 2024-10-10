@@ -67,6 +67,21 @@ const Product = () => {
     successToast("Articolo aggiunto");
   };
 
+  const handleDiscount = (product: IProduct) => {
+    if (product.discountList.length === 0) {
+      return product.price;
+    }
+    const today = new Date();
+    const activeDiscount = product.discountList.find((discount) => {
+      return new Date(discount.startDate) <= today && new Date(discount.endDate) >= today;
+    });
+    if (activeDiscount) {
+      const discountPrice = product.price * (activeDiscount.percentage / 100);
+      return product.price - discountPrice;
+    }
+    return product.price;
+  };
+
   return (
     <Container>
       <Row>
@@ -82,7 +97,10 @@ const Product = () => {
           <h2>{product?.name}</h2>
           <p>{product?.description}</p>
           <p>{product?.category.name}</p>
-          <p className="fs-2">{product?.price.toFixed(2)} €</p>
+
+          <p className={product.discountList.length === 0 ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
+          {product.discountList.length > 0 ? <p className="fs-1">{handleDiscount(product).toFixed(2)} €</p> : ""}
+
           <Form.Group style={{ width: "70px" }} controlId="formQuantity">
             <Form.Label>Quantità</Form.Label>
             <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
@@ -90,13 +108,7 @@ const Product = () => {
           <div className="d-flex gap-2 mt-3">
             <Button onClick={handleAddToCart}>Aggiungi al carrello</Button>
             <Button onClick={handleShow}>Recensisci prodotto</Button>
-            {user?.role === "ADMIN" ? (
-              <Button onClick={handleShowProductUpdate} className="m-1">
-                Modifica Prodotto
-              </Button>
-            ) : (
-              ""
-            )}
+            {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}
           </div>
           <p>Disponibili: Pz. {product?.quantityAvailable}</p>
           <p>{product?.lastUpdate}</p>
