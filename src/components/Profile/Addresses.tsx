@@ -54,7 +54,7 @@ const Addresses = () => {
       </Button>
       {addressees.map((address: IAddress) => {
         return (
-          <Row>
+          <Row key={address.id}>
             <Col>
               <p>
                 {address.zipCode} {address.city}

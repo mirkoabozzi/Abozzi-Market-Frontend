@@ -39,7 +39,11 @@ const Cart = () => {
   };
 
   const handleDecreaseQuantity = (item: IItem) => {
-    dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
+    if (item.quantity > 1) {
+      dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
+    } else {
+      warnToast("La quantità non può essere inferiore a 1!");
+    }
   };
 
   useEffect(() => {
@@ -76,18 +80,24 @@ const Cart = () => {
           );
         })
       ) : (
-        <h3>Il carrello è vuoto!</h3>
+        <h3 className="text-center">Il carrello è vuoto!</h3>
       )}
-      <h3 className="mb-4">Totale: {total.toFixed(2)} €</h3>
-      <DropdownButton className="mb-3" id="dropdown-button" title={address ? address.address + " " + address.number : "Seleziona un indirizzo"}>
-        {addresses?.map((address: IAddress) => {
-          return (
-            <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
-              {address.address} {address.number}
-            </Dropdown.Item>
-          );
-        })}
-      </DropdownButton>
+      {isLogged && cart.length > 0 ? (
+        <>
+          <h3 className="mb-4">Totale: {total.toFixed(2)} €</h3>
+          <DropdownButton className="mb-3" id="dropdown-button" title={address ? address.address + " " + address.number : "Seleziona un indirizzo"}>
+            {addresses?.map((address: IAddress) => {
+              return (
+                <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
+                  {address.address} {address.number}
+                </Dropdown.Item>
+              );
+            })}
+          </DropdownButton>
+        </>
+      ) : (
+        ""
+      )}
       {cart.length > 0 ? <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}
       <ToastContainer />
     </Container>

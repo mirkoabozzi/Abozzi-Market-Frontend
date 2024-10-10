@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Box, ListStars, PersonCircle, Signpost2 } from "react-bootstrap-icons";
+import { Box, Boxes, Collection, ListStars, PersonCircle, PersonLinesFill, Signpost2 } from "react-bootstrap-icons";
 import { useAppSelector } from "../../redux/store";
 
 const Profile = () => {
@@ -27,15 +27,15 @@ const Profile = () => {
           {user?.role === "ADMIN" ? (
             <>
               <div onClick={() => navigate("/profile/addProduct")} className="d-flex align-items-center mb-5 mouseHover">
-                <ListStars size={25} />
+                <Collection size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Prodotti</h5>
               </div>
               <div onClick={() => navigate("/profile/clients")} className="d-flex align-items-center mb-5 mouseHover">
-                <ListStars size={25} />
+                <PersonLinesFill size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Clienti</h5>
               </div>
               <div onClick={() => navigate("/profile/clientsOrders")} className="d-flex align-items-center mb-5 mouseHover">
-                <ListStars size={25} />
+                <Boxes size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Ordini</h5>
               </div>
               <div onClick={() => navigate("/profile/category")} className="d-flex align-items-center mb-5 mouseHover">
