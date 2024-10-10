@@ -63,11 +63,11 @@ export const addImageCategory = (file: File, categoryId: string) => {
   };
 };
 
-export const deleteCategory = (categriId: string) => {
+export const deleteCategory = (categoryId: string) => {
   return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/categories/${categriId}`, {
+      const resp = await fetch(`${url}/categories/${categoryId}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + accessToken },
       });

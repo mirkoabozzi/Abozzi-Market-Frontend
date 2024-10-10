@@ -5,6 +5,7 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProducts } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { TypeH3 } from "react-bootstrap-icons";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ const Shop = () => {
           <Row>
             {isLoading ? (
               <Spinner animation="grow" />
-            ) : (
+            ) : products.length > 0 ? (
               products.map((product: IProduct) => {
                 return (
                   <Col sm={6} md={4} lg={3} xl={2} className="my-3" key={product.id}>
@@ -51,6 +52,8 @@ const Shop = () => {
                   </Col>
                 );
               })
+            ) : (
+              <h3 className="text-center">Nessun risultato!</h3>
             )}
           </Row>
         </Col>

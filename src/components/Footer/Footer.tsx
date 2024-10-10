@@ -1,5 +1,5 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
-import facebbok from "../../assets/img/facebook.svg";
+import facebook from "../../assets/img/facebook.svg";
 import instagram from "../../assets/img/instagram.svg";
 import visa from "../../assets/img/visa.svg";
 import mastercard from "../../assets/img/mastercard.svg";
@@ -15,7 +15,7 @@ const Footer = () => {
               <Col className="d-flex px-0">
                 <div className="p-3">
                   <a href="https://www.facebook.com/abozzimarket" title="Facebook">
-                    <Image src={facebbok} alt="facebook icon" />
+                    <Image src={facebook} alt="facebook icon" />
                   </a>
                 </div>
                 <div className="p-3">

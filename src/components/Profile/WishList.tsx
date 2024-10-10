@@ -14,7 +14,7 @@ const WishList = () => {
 
   return (
     <div>
-      <h3>Lista dei desideti</h3>
+      <h3>Lista dei desideri</h3>
       <Row className="text-center">
         {wishlist.length > 0 ? (
           wishlist.map((item: IWishlist) => {

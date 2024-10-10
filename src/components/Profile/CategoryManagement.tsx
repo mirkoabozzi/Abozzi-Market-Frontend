@@ -48,7 +48,7 @@ const CategoryManagement = () => {
 
   return (
     <>
-      <h3>Categrie</h3>
+      <h3>Categorie</h3>
       <div className="text-center">
         <Button onClick={handleShow}>Aggiungi categoria</Button>
         <Row className="mt-5">

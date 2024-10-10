@@ -42,7 +42,7 @@ const MyOrder = () => {
         })
       ) : (
         <div className="text-center">
-          <h3 className="mb-5">Hey, non hai abbastanza ordini, corri allo shop e inizia a fare aquisti!</h3>
+          <h3 className="mb-5">Hey, non hai abbastanza ordini, corri allo shop e inizia a fare acquisti!</h3>
           <Button onClick={() => navigate("/shop")}>Shop</Button>
         </div>
       )}

@@ -18,7 +18,7 @@ const Cart = () => {
       localStorage.setItem("cart", JSON.stringify(cart));
       dispatch(pay(Number(total.toFixed(2))));
     } else {
-      warnToast("Devi fare l'accesso per procedere con l'aquisto!");
+      warnToast("Devi fare l'accesso per procedere con l'acquisto!");
     }
   };
 
@@ -26,7 +26,7 @@ const Cart = () => {
     dispatch({ type: ActionType.INCREASE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
   };
 
-  const handleDecreseQuantity = (item: IItem) => {
+  const handleDecreaseQuantity = (item: IItem) => {
     dispatch({ type: ActionType.DECREASE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
   };
 
@@ -46,7 +46,7 @@ const Cart = () => {
                   <h3>{item.product.name}</h3>
                   <p className="fs-2">{item.product.price.toFixed(2)} €</p>
                   <div className="d-flex align-items-center gap-3">
-                    <Button onClick={() => handleDecreseQuantity(item)}>-</Button>
+                    <Button onClick={() => handleDecreaseQuantity(item)}>-</Button>
                     <p className="mb-0">{item.quantity}</p>
                     <Button onClick={() => handleIncreaseQuantity(item)}>+</Button>
                   </div>
@@ -60,7 +60,7 @@ const Cart = () => {
           );
         })
       ) : (
-        <h3>Il carrello è vuolto!</h3>
+        <h3>Il carrello è vuoto!</h3>
       )}
       <h3 className="mb-4">Totale: {total.toFixed(2)} €</h3>
       {cart.length > 0 ? <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}

@@ -4,7 +4,7 @@ import { execute } from "../../redux/actions/cart";
 import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
 
-const Succces = () => {
+const Success = () => {
   const dispatch = useAppDispatch();
   const [paymentId, setPaymentId] = useState("");
   const [payerId, setPayerId] = useState("");
@@ -48,4 +48,4 @@ const Succces = () => {
   );
 };
 
-export default Succces;
+export default Success;

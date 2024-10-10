@@ -59,7 +59,7 @@ export const removeFromWishlist = (id: string) => {
       if (resp.ok) {
         dispatch(getMyWishlists());
       } else {
-        throw new Error("Romove from wishlist error");
+        throw new Error("Remove from wishlist error");
       }
     } catch (error) {
       console.log(error);

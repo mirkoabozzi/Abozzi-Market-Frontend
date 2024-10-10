@@ -182,3 +182,26 @@ export const getProductByPriceRange = (min: number, max: number) => {
     }
   };
 };
+
+export const getProductByCategory = (categoryName: string) => {
+  return async (dispatch: Dispatch<ProductsAction>) => {
+    dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/category?name=${categoryName}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const products = await resp.json();
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
+      } else {
+        throw new Error("Get products error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

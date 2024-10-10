@@ -12,7 +12,7 @@ const AddProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(1);
-  const [quantityAvailable, setquantityAvailable] = useState(1);
+  const [quantityAvailable, setQuantityAvailable] = useState(1);
   const [category, setCategory] = useState<ICategory | null>();
 
   const handleCategory = (selectedCategory: ICategory) => {
@@ -35,7 +35,7 @@ const AddProduct = () => {
       setName("");
       setDescription("");
       setPrice(1);
-      setquantityAvailable(1);
+      setQuantityAvailable(1);
       setCategory(null);
       successToast(`Prodotto aggiunto!`);
     }
@@ -58,7 +58,7 @@ const AddProduct = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Quantità disponibile</Form.Label>
-          <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setquantityAvailable(Number(e.target.value))} />
+          <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
         </Form.Group>
         <Form.Group>
           <DropdownButton id="dropdown-basic-button" title={category ? category.name : "Seleziona una categoria"}>
