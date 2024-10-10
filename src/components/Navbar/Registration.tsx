@@ -91,7 +91,6 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 };

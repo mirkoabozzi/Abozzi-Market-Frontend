@@ -5,7 +5,6 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProducts } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { TypeH3 } from "react-bootstrap-icons";
 
 const Shop = () => {
   const dispatch = useAppDispatch();

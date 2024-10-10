@@ -13,7 +13,7 @@ import NotFound from "./components/NotFound/NotFound";
 import ProductDetails from "./components/Shop/ProductDetails";
 import MyOrder from "./components/Profile/MyOrder";
 import UpdateProfile from "./components/Profile/UpdateProfile";
-import MyAddress from "./components/Profile/MyAddress";
+import Addresses from "./components/Profile/Addresses";
 import WishList from "./components/Profile/WishList";
 import CategoryManagement from "./components/Profile/CategoryManagement";
 import AddProduct from "./components/Profile/AddProduct";
@@ -37,7 +37,7 @@ function App() {
           <Route path="orders" element={<MyOrder />} />
           <Route path="orders/details/:id" element={<OrderDetails />} />
           <Route path="update" element={<UpdateProfile />} />
-          <Route path="address" element={<MyAddress />} />
+          <Route path="address" element={<Addresses />} />
           <Route path="wishlist" element={<WishList />} />
           <Route path="category" element={<CategoryManagement />} />
           <Route path="addProduct" element={<AddProduct />} />
