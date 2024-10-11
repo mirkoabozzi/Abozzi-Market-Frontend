@@ -2,6 +2,8 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { OrderAction } from "../action-types";
 import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
+import { AppDispatch } from "../store";
+import { successToast } from "./toaster";
 
 export const getMyOrders = (page: number) => {
   return async (dispatch: Dispatch<OrderAction>) => {
@@ -79,6 +81,27 @@ export const getAllClientsOrders = (page: number) => {
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders.content });
       } else {
         throw new Error("Get orders error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateOrderState = (order: IOrderUpdateStatus) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/orders`, {
+        method: "PUT",
+        headers: { Authorization: "Bearer " + accessToken, "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+      if (resp.ok) {
+        dispatch(getOrder(order.order));
+        successToast("Stato ordine aggiornato");
+      } else {
+        throw new Error("Add order error");
       }
     } catch (error) {
       console.log(error);

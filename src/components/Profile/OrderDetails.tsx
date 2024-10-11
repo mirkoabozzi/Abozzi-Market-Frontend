@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOrder } from "../../redux/actions/orders";
+import { getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { handleDiscount } from "../../redux/actions/products";
+import { ToastContainer } from "react-toastify";
 
 const OrderDetails = () => {
   const params = useParams();
@@ -11,12 +12,18 @@ const OrderDetails = () => {
   const navigate = useNavigate();
 
   const order: IOrder = useAppSelector((state) => state.ordersReducer.order);
+  const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   useEffect(() => {
     if (params.id) {
       dispatch(getOrder(params.id));
     }
   }, [params.id, dispatch]);
+
+  const handleUpdateOrderState = (order: string, state: string) => {
+    const body: IOrderUpdateStatus = { order, state };
+    dispatch(updateOrderState(body));
+  };
 
   return (
     <Container>
@@ -27,6 +34,23 @@ const OrderDetails = () => {
         </Col>
         <Col>
           <p>Stato ordine: {order?.ordersState}</p>
+          {user.role === "ADMIN" ? (
+            <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Stato
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "PROCESSING")}>PROCESSING</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "CANCELLED")}>CANCELLED</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "SHIPPED")}>SHIPPED</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "IN_TRANSIT")}>IN_TRANSIT</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "ON_DELIVERY")}>ON_DELIVERY</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "DELIVERED")}>DELIVERED</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            ""
+          )}
         </Col>
         <Col>
           <p>Pagamento: {order?.payment.status}</p>
@@ -93,6 +117,7 @@ const OrderDetails = () => {
           </p>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 };
