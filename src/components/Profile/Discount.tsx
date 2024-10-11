@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { useAppDispatch } from "../../redux/store";
-import { addDiscount } from "../../redux/actions/discount";
+import { addDiscount, getAllDiscounts } from "../../redux/actions/discount";
 
 const Discount = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +26,10 @@ const Discount = () => {
     setStartDate("");
     setEndDate("");
   };
+
+  useEffect(() => {
+    dispatch(getAllDiscounts());
+  }, [dispatch]);
 
   return (
     <>

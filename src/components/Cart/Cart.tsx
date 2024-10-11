@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
-import { handleDiscount } from "../../redux/actions/products";
+import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -49,7 +49,7 @@ const Cart = () => {
   };
 
   const total = cart.reduce((acc: number, item: IItem) => {
-    const discountedPrice = handleDiscount(item.product);
+    const discountedPrice = handleDiscountPrice(item.product);
     return acc + discountedPrice * item.quantity;
   }, 0);
 
@@ -71,7 +71,7 @@ const Cart = () => {
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
-                  <p className="fs-2">{handleDiscount(item.product).toFixed(2)} €</p>
+                  <p className="fs-2">{handleDiscountPrice(item.product).toFixed(2)} €</p>
                   <div className="d-flex align-items-center gap-3">
                     <Button onClick={() => handleDecreaseQuantity(item)}>-</Button>
                     <p className="mb-0">{item.quantity}</p>

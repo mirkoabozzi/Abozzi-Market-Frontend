@@ -3,7 +3,7 @@ import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { handleDiscount } from "../../redux/actions/products";
+import { handleDiscountPrice } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
 
 const OrderDetails = () => {
@@ -83,10 +83,10 @@ const OrderDetails = () => {
                 <p>{item.quantity}</p>
               </Col>
               <Col>
-                <p>{handleDiscount(item.product).toFixed(2)} €</p>
+                <p>{handleDiscountPrice(item.product).toFixed(2)} €</p>
               </Col>
               <Col>
-                <p>{(handleDiscount(item.product) * item.quantity).toFixed(2)} €</p>
+                <p>{(handleDiscountPrice(item.product) * item.quantity).toFixed(2)} €</p>
               </Col>
             </Row>
             <hr />

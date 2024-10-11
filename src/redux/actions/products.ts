@@ -229,7 +229,7 @@ export const getProductByDiscount = () => {
   };
 };
 
-export const handleDiscount = (product: IProduct) => {
+export const handleDiscountPrice = (product: IProduct) => {
   if (product.discountList.length === 0) {
     return product.price;
   }
@@ -242,4 +242,27 @@ export const handleDiscount = (product: IProduct) => {
     return product.price - discountPrice;
   }
   return product.price;
+};
+
+export const addDiscountOnProduct = (discount: string, product: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/add/discount/${product}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ discount }),
+      });
+      if (resp.ok) {
+        dispatch(getProduct(product));
+      } else {
+        throw new Error("Add product error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };

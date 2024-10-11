@@ -1,6 +1,6 @@
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { getProduct } from "../../redux/actions/products";
+import { getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
@@ -66,21 +66,6 @@ const Product = () => {
     successToast("Articolo aggiunto");
   };
 
-  const handleDiscount = (product: IProduct) => {
-    if (product.discountList.length === 0) {
-      return product.price;
-    }
-    const today = new Date();
-    const activeDiscount = product.discountList.find((discount) => {
-      return new Date(discount.startDate) <= today && new Date(discount.endDate) >= today;
-    });
-    if (activeDiscount) {
-      const discountPrice = product.price * (activeDiscount.percentage / 100);
-      return product.price - discountPrice;
-    }
-    return product.price;
-  };
-
   return (
     <Container>
       <Row>
@@ -98,7 +83,7 @@ const Product = () => {
           <p>{product?.category.name}</p>
 
           <p className={product.discountList.length === 0 ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
-          {product.discountList.length > 0 ? <p className="fs-1">{handleDiscount(product).toFixed(2)} €</p> : ""}
+          {product.discountList.length > 0 ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
 
           <Form.Group style={{ width: "70px" }} controlId="formQuantity">
             <Form.Label>Quantità</Form.Label>

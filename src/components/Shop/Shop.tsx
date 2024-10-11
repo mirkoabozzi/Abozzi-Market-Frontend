@@ -2,7 +2,7 @@ import "./Shop.css";
 import { useEffect } from "react";
 import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
-import { getProducts, handleDiscount } from "../../redux/actions/products";
+import { getProducts, handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
@@ -40,7 +40,7 @@ const Shop = () => {
                       <Card.Body className="d-flex flex-column justify-content-end">
                         <Card.Title>{product.name}</Card.Title>
                         <Card.Text className="line-truncate-2">{product.description}</Card.Text>
-                        <p className="fs-2">{handleDiscount(product).toFixed(2)} €</p>
+                        <p className="fs-2">{handleDiscountPrice(product).toFixed(2)} €</p>
                         <div className="d-flex justify-content-end">
                           <Button variant="primary" onClick={() => navigate(`/product/details/${product.id}`)}>
                             Scopri di più

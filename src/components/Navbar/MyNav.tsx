@@ -31,6 +31,7 @@ const MyNav = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
+    dispatch({ type: ActionType.SET_USER, payload: null });
     navigate("/");
   };
 

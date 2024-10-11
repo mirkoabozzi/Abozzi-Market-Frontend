@@ -1,6 +1,6 @@
 import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
+import { addDiscountOnProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
 
   const product: IProduct = useAppSelector((state) => state.productReducer.product);
   const categories = useAppSelector((state) => state.categoriesReducer.categories);
+  const discounts = useAppSelector((state) => state.discounts.content);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +23,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const [quantityAvailable, setQuantityAvailable] = useState(1);
   const [category, setCategory] = useState("");
   const [image, setNewImage] = useState<File | null>(null);
+  const [discount, setDiscount] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -33,6 +35,11 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
     e.preventDefault();
     const newProductData: IProductUpdate = { name, description, price, quantityAvailable, category };
     await dispatch(updateProduct(newProductData, product.id));
+
+    if (discount) {
+      await dispatch(addDiscountOnProduct(discount, product.id));
+      setDiscount("");
+    }
 
     if (image) {
       await dispatch(updateProductImage(image, product.id));
@@ -79,7 +86,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
             <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
           </Form.Group>
           <Form.Group>
-            <DropdownButton id="dropdown-basic-button" title={"Seleziona una categoria"}>
+            <DropdownButton id="dropdown-basic-button" title={"Seleziona una categoria"} className="p-1">
               {categories?.map((category: ICategory) => {
                 return (
                   <Dropdown.Item onClick={() => setCategory(category.id)} key={category.id}>
@@ -88,6 +95,18 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                 );
               })}
             </DropdownButton>
+            <select className="rounded-5 p-2 " onChange={(e) => setDiscount(e.target.value)}>
+              <option>
+                <option>Seleziona offerta</option>
+              </option>
+              {discounts.map((promo: DiscountListItem) => {
+                return (
+                  <option key={promo.id} value={promo.id}>
+                    {promo.description} dal {promo.startDate} al {promo.endDate}
+                  </option>
+                );
+              })}
+            </select>
           </Form.Group>
           <Form.Group className="my-3" controlId="formAImage">
             <Form.Label>Immagine</Form.Label>
