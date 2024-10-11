@@ -49,3 +49,23 @@ export const addDiscount = (discount: IDiscountAdd) => {
     }
   };
 };
+
+export const deletePromo = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/discounts/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      if (resp.ok) {
+        dispatch(getAllDiscounts());
+        successToast("Promozione eliminata");
+      } else {
+        throw new Error("Delete promo error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

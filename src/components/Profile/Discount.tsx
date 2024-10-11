@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
-import { useAppDispatch } from "../../redux/store";
-import { addDiscount, getAllDiscounts } from "../../redux/actions/discount";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
+import { Trash } from "react-bootstrap-icons";
 
 const Discount = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +12,8 @@ const Discount = () => {
   const [percentage, setPercentage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const discounts = useAppSelector((state) => state.discounts.content);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,13 +30,17 @@ const Discount = () => {
     setEndDate("");
   };
 
+  const handleDeletePromo = (discountId: string) => {
+    dispatch(deletePromo(discountId));
+  };
+
   useEffect(() => {
     dispatch(getAllDiscounts());
   }, [dispatch]);
 
   return (
     <>
-      <h3>Promo</h3>
+      <h4>Aggiungi promozioni</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Descrizione</Form.Label>
@@ -57,6 +64,41 @@ const Discount = () => {
           </Button>
         </div>
       </Form>
+      {discounts.length > 0 ? (
+        <>
+          <h3 className="mt-5">Promozioni attive</h3>
+          <Table responsive striped bordered hover>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Descrizione</th>
+                <th>Sconto</th>
+                <th>Inizio</th>
+                <th>Fine</th>
+                <th>Elimina</th>
+              </tr>
+            </thead>
+            <tbody>
+              {discounts.map((discount: DiscountListItem, index: number) => {
+                return (
+                  <tr key={discount.id}>
+                    <td>{index + 1}</td>
+                    <td>{discount.description}</td>
+                    <td>{discount.percentage}</td>
+                    <td>{discount.startDate}</td>
+                    <td>{discount.endDate}</td>
+                    <td>
+                      <Trash className="mouseHover" onClick={() => handleDeletePromo(discount.id)} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </>
+      ) : (
+        <h3 className="mt-4 text-center">Nessuna promozione disponibile</h3>
+      )}
       <ToastContainer />
     </>
   );

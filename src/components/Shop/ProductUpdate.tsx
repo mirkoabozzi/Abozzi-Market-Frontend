@@ -95,18 +95,15 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                 );
               })}
             </DropdownButton>
-            <select className="rounded-5 p-2 " onChange={(e) => setDiscount(e.target.value)}>
-              <option>
-                <option>Seleziona offerta</option>
-              </option>
+            <DropdownButton className="rounded-5 p-2 " title={"Seleziona offerta"}>
               {discounts.map((promo: DiscountListItem) => {
                 return (
-                  <option key={promo.id} value={promo.id}>
+                  <Dropdown.Item key={promo.id} onClick={() => setDiscount(promo.id)}>
                     {promo.description} dal {promo.startDate} al {promo.endDate}
-                  </option>
+                  </Dropdown.Item>
                 );
               })}
-            </select>
+            </DropdownButton>
           </Form.Group>
           <Form.Group className="my-3" controlId="formAImage">
             <Form.Label>Immagine</Form.Label>

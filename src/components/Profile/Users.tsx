@@ -23,7 +23,7 @@ const Users = () => {
       <Table responsive striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
+            <th></th>
             <th>Avatar</th>
             <th>Nome</th>
             <th>Cognome</th>
