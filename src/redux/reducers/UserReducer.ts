@@ -4,11 +4,13 @@ import { ActionType } from "../enums/ActionType";
 interface InitialState {
   user: IUser | null;
   isLogged: boolean;
+  users: IUser[];
 }
 
 const initialState: InitialState = {
   user: null,
   isLogged: false,
+  users: [],
 };
 
 const userReducer = (state = initialState, action: UserAction) => {
@@ -28,7 +30,11 @@ const userReducer = (state = initialState, action: UserAction) => {
         ...state,
         isLogged: false,
       };
-
+    case ActionType.SET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
     default:
       return state;
   }

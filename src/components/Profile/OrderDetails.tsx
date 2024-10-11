@@ -70,12 +70,26 @@ const OrderDetails = () => {
       })}
       <Row className="mt-5">
         <Col>
-          <p>Totale ordine:</p>
+          <h3>Totale ordine:</h3>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-          <p>{order?.payment.total} €</p>
+          <h3>{order?.payment.total} €</h3>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="mt-5">
+          <h5>Dati spedizione:</h5>
+          <p>
+            {order.user.name} {order.user.surname}
+          </p>
+          <p>
+            {order.shipment.zipCode} {order.shipment.city}
+          </p>
+          <p>
+            {order.shipment.address}, {order.shipment.number}
+          </p>
         </Col>
       </Row>
     </Container>

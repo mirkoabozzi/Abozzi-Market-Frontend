@@ -2,6 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
+import { successToast } from "./toaster";
 
 export const url = import.meta.env.VITE_URL;
 
@@ -65,6 +66,52 @@ export const updateUserAvatar = (file: File) => {
         dispatch(getUser());
       } else {
         throw new Error("Update user avatar error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getAllUser = () => {
+  return async (dispatch: Dispatch<UserAction>) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const users = await resp.json();
+        dispatch({ type: ActionType.SET_USERS, payload: users.content });
+      } else {
+        throw new Error("Get all user error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateUserRole = (body: IUserRole) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/users/role`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (resp.ok) {
+        console.log(resp.status);
+        dispatch(getAllUser());
+        successToast("Ruolo aggiornato");
+      } else {
+        throw new Error("Update user error");
       }
     } catch (error) {
       console.log(error);

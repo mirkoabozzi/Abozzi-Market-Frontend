@@ -22,6 +22,10 @@ const Profile = () => {
             <ListStars size={25} />
             <h5 className="mb-0 ms-2 d-none d-lg-block">Lista dei desideri</h5>
           </div>
+          <div onClick={() => navigate("/profile/address")} className="d-flex align-items-center mb-5 mouseHover">
+            <Signpost2 size={25} />
+            <h5 className="mb-0 ms-2 d-none d-lg-block">Indirizzi</h5>
+          </div>
 
           {/* ADMIN SECTION */}
           {user?.role === "ADMIN" ? (
@@ -42,10 +46,7 @@ const Profile = () => {
                 <ListStars size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Categorie</h5>
               </div>
-              <div onClick={() => navigate("/profile/address")} className="d-flex align-items-center mb-5 mouseHover">
-                <Signpost2 size={25} />
-                <h5 className="mb-0 ms-2 d-none d-lg-block">Indirizzi</h5>
-              </div>
+
               <div onClick={() => navigate("/profile/promo")} className="d-flex align-items-center mb-5 mouseHover">
                 <ListStars size={25} />
                 <h5 className="mb-0 ms-2 d-none d-lg-block">Promozioni</h5>
@@ -55,7 +56,7 @@ const Profile = () => {
             ""
           )}
         </Col>
-        <Col>
+        <Col xs={10}>
           <Outlet />
         </Col>
       </Row>

@@ -2,12 +2,13 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setAddresses } from "../slice/addressesSlice";
 import { url } from "./user";
 import { AppDispatch } from "../store";
+import { successToast } from "./toaster";
 
 export const getAllAddress = () => {
   return async (dispatch: Dispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/shipments`, {
+      const resp = await fetch(`${url}/shipments/me`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -49,12 +50,13 @@ export const deleteAddress = (addressId: string) => {
   return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/shipments/${addressId}`, {
+      const resp = await fetch(`${url}/shipments/me/${addressId}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + accessToken },
       });
       if (resp.ok) {
         dispatch(getAllAddress());
+        successToast("Indirizzo eliminato");
       }
     } catch (error) {
       console.log(error);

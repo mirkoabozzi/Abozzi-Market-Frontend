@@ -32,7 +32,6 @@ const MyNav = () => {
     localStorage.removeItem("accessToken");
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
     navigate("/");
-    window.location.reload();
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

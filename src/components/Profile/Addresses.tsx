@@ -42,7 +42,6 @@ const Addresses = () => {
   const handleDeleteAddress = (addressId: string | undefined) => {
     if (addressId) {
       dispatch(deleteAddress(addressId));
-      successToast("Indirizzo eliminato");
     }
   };
 

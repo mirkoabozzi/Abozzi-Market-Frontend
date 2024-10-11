@@ -4,6 +4,8 @@ import { getUser, url } from "../../redux/actions/user";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
+import { errorToast } from "../../redux/actions/toaster";
+import { ToastContainer } from "react-toastify";
 
 interface LoginProps {
   show: boolean;
@@ -30,6 +32,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
         dispatch({ type: ActionType.SET_IS_LOGGED_TRUE });
         handleClose();
       } else {
+        errorToast("Login fallito!");
         throw new Error("Login error");
       }
     } catch (error) {
@@ -78,6 +81,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
         </Form>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>
+      <ToastContainer />
     </Modal>
   );
 };

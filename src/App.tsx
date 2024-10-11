@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNav from "./components/Navbar/MyNav";
 import TopBar from "./components/TopBar/TopBar";
@@ -22,6 +23,7 @@ import Success from "./components/Cart/Success";
 import Cancel from "./components/Cart/Cancel";
 import Failed from "./components/Cart/Failed";
 import Orders from "./components/Profile/Orders";
+import Users from "./components/Profile/Users";
 
 function App() {
   return (
@@ -41,6 +43,7 @@ function App() {
           <Route path="wishlist" element={<WishList />} />
           <Route path="category" element={<CategoryManagement />} />
           <Route path="addProduct" element={<AddProduct />} />
+          <Route path="clients" element={<Users />} />
           <Route path="clientsOrders" element={<Orders />} />
         </Route>
         <Route path="/cart" element={<Cart />} />

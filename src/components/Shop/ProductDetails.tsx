@@ -1,4 +1,3 @@
-import "react-toastify/dist/ReactToastify.css";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions/products";
