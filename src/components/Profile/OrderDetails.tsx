@@ -3,6 +3,7 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { handleDiscount } from "../../redux/actions/products";
 
 const OrderDetails = () => {
   const params = useParams();
@@ -58,10 +59,10 @@ const OrderDetails = () => {
                 <p>{item.quantity}</p>
               </Col>
               <Col>
-                <p>{item.product.price.toFixed(2)} €</p>
+                <p>{handleDiscount(item.product).toFixed(2)} €</p>
               </Col>
               <Col>
-                <p>{item.product.price * item.quantity} €</p>
+                <p>{(handleDiscount(item.product) * item.quantity).toFixed(2)} €</p>
               </Col>
             </Row>
             <hr />
@@ -75,7 +76,7 @@ const OrderDetails = () => {
         <Col></Col>
         <Col></Col>
         <Col>
-          <h3>{order?.payment.total} €</h3>
+          <h3>{order?.payment.total.toFixed(2)} €</h3>
         </Col>
       </Row>
       <Row>

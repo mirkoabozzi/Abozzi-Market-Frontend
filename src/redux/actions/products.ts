@@ -205,3 +205,41 @@ export const getProductByCategory = (categoryName: string) => {
     }
   };
 };
+
+export const getProductByDiscount = () => {
+  return async (dispatch: Dispatch<ProductsAction>) => {
+    dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/discount`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const products = await resp.json();
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
+      } else {
+        throw new Error("Get products error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const handleDiscount = (product: IProduct) => {
+  if (product.discountList.length === 0) {
+    return product.price;
+  }
+  const today = new Date();
+  const activeDiscount = product.discountList.find((discount) => {
+    return new Date(discount.startDate) <= today && new Date(discount.endDate) >= today;
+  });
+  if (activeDiscount) {
+    const discountPrice = product.price * (activeDiscount.percentage / 100);
+    return product.price - discountPrice;
+  }
+  return product.price;
+};

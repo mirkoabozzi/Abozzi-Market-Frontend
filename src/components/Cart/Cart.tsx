@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
+import { handleDiscount } from "../../redux/actions/products";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -43,21 +44,6 @@ const Cart = () => {
     } else {
       warnToast("La quantità non può essere inferiore a 1!");
     }
-  };
-
-  const handleDiscount = (product: IProduct) => {
-    if (product.discountList.length === 0) {
-      return product.price;
-    }
-    const today = new Date();
-    const activeDiscount = product.discountList.find((discount) => {
-      return new Date(discount.startDate) <= today && new Date(discount.endDate) >= today;
-    });
-    if (activeDiscount) {
-      const discountPrice = product.price * (activeDiscount.percentage / 100);
-      return product.price - discountPrice;
-    }
-    return product.price;
   };
 
   const total = cart.reduce((acc: number, item: IItem) => {

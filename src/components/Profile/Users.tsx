@@ -20,7 +20,6 @@ const Users = () => {
   return (
     <>
       <h3>Clienti</h3>
-
       <Table responsive striped bordered hover>
         <thead>
           <tr>

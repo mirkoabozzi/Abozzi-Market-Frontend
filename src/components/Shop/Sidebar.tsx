@@ -1,6 +1,6 @@
-import { Container, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { useAppDispatch } from "../../redux/store";
-import { getProductByPriceRange } from "../../redux/actions/products";
+import { getProductByDiscount, getProductByPriceRange } from "../../redux/actions/products";
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -11,6 +11,10 @@ const Sidebar = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(getProductByPriceRange(min, max));
+  };
+
+  const handlePromo = () => {
+    dispatch(getProductByDiscount());
   };
 
   return (
@@ -29,6 +33,9 @@ const Sidebar = () => {
         </Form.Group>
       </Form>
       <hr />
+      <Button className="ms-auto ms-sm-2" onClick={handlePromo}>
+        Promozioni
+      </Button>
     </Container>
   );
 };
