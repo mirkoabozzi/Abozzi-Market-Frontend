@@ -24,6 +24,7 @@ import Cancel from "./components/Cart/Cancel";
 import Failed from "./components/Cart/Failed";
 import Orders from "./components/Profile/Orders";
 import Users from "./components/Profile/Users";
+import Discount from "./components/Profile/Discount";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="addProduct" element={<AddProduct />} />
           <Route path="clients" element={<Users />} />
           <Route path="clientsOrders" element={<Orders />} />
+          <Route path="promo" element={<Discount />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/success/*" element={<Success />} />

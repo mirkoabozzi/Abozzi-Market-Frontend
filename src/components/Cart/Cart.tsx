@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
 import { handleDiscount } from "../../redux/actions/products";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
 
   const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
@@ -65,7 +67,7 @@ const Cart = () => {
             <div key={i}>
               <Row>
                 <Col sm={4} lg={2}>
-                  <Image src={item.product.imgUrl} className="w-100" />
+                  <Image src={item.product.imgUrl} className="w-100 mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
