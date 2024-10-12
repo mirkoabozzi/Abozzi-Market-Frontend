@@ -266,3 +266,26 @@ export const addDiscountOnProduct = (discount: string, product: string) => {
     }
   };
 };
+
+export const deleteDiscountFromProduct = (productId: string, discount: IDiscountRemove) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/products/remove/discount/${productId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discount),
+      });
+      if (resp.ok) {
+        dispatch(getProduct(productId));
+      } else {
+        throw new Error("Delete discount error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

@@ -1,8 +1,9 @@
 import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addDiscountOnProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
+import { addDiscountOnProduct, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Trash } from "react-bootstrap-icons";
 
 interface IProductUpdateProps {
   show: boolean;
@@ -24,6 +25,9 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const [category, setCategory] = useState("");
   const [image, setNewImage] = useState<File | null>(null);
   const [discount, setDiscount] = useState("");
+
+  const [selectedCategoryName, setSelectedCategoryName] = useState("Seleziona categoria");
+  const [selectedDiscountName, setSelectedDiscountName] = useState("Seleziona offerta");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -62,6 +66,11 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
     }
   }, [product]);
 
+  const handleDeleteDiscount = (discountId: string) => {
+    const discount = { discount: discountId };
+    dispatch(deleteDiscountFromProduct(product.id, discount));
+  };
+
   return (
     <Modal centered show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -86,24 +95,49 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
             <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
           </Form.Group>
           <Form.Group>
-            <DropdownButton id="dropdown-basic-button" title={"Seleziona una categoria"} className="p-1">
-              {categories?.map((category: ICategory) => {
-                return (
-                  <Dropdown.Item onClick={() => setCategory(category.id)} key={category.id}>
-                    {category.name}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-            <DropdownButton className="rounded-5 p-2 " title={"Seleziona offerta"}>
-              {discounts.map((promo: DiscountListItem) => {
-                return (
-                  <Dropdown.Item key={promo.id} onClick={() => setDiscount(promo.id)}>
-                    {promo.description} dal {promo.startDate} al {promo.endDate}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
+            <div className="d-block d-sm-flex gap-2">
+              <DropdownButton id="dropdown-basic-button" title={selectedCategoryName} className="mb-1">
+                {categories?.map((category: ICategory) => {
+                  return (
+                    <Dropdown.Item
+                      onClick={() => {
+                        setCategory(category.id);
+                        setSelectedCategoryName(category.name);
+                      }}
+                      key={category.id}
+                    >
+                      {category.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+              <DropdownButton title={selectedDiscountName}>
+                {discounts.map((promo: DiscountListItem) => {
+                  return (
+                    <Dropdown.Item
+                      key={promo.id}
+                      onClick={() => {
+                        setDiscount(promo.id);
+                        setSelectedDiscountName(promo.description);
+                      }}
+                    >
+                      {promo.description} dal {promo.startDate} al {promo.endDate}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+            </div>
+
+            {product.discountList.map((discount: DiscountListItem) => {
+              return (
+                <>
+                  <p className="mb-1 mt-3">
+                    Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
+                  </p>
+                  <p>Termina: {discount.endDate}</p>
+                </>
+              );
+            })}
           </Form.Group>
           <Form.Group className="my-3" controlId="formAImage">
             <Form.Label>Immagine</Form.Label>
@@ -122,7 +156,6 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 };

@@ -1,7 +1,7 @@
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { getProducts } from "../../redux/actions/products";
+import { getProducts, handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 
 const Suggested = () => {
@@ -37,7 +37,7 @@ const Suggested = () => {
                 <Card.Body className="d-flex flex-column justify-content-end">
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text className="line-truncate-2">{product.description}</Card.Text>
-                  <span className="fs-5">{product.price.toFixed(2)} €</span>
+                  <span className="fs-5">{handleDiscountPrice(product).toFixed(2)} €</span>
                   <div className="d-flex justify-content-end">
                     <Button variant="primary" onClick={() => navigate(`/product/details/${product.id}`)}>
                       Scopri di più
