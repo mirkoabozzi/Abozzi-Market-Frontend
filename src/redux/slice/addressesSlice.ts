@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface InitialState {
   content: IAddress[];
@@ -13,10 +13,10 @@ const addressesSlice = createSlice({
   name: "addresses",
   initialState,
   reducers: {
-    setAddresses: (state, action) => {
+    setAddresses: (state, action: PayloadAction<IAddress[]>) => {
       state.content = action.payload;
     },
-    setAddressChoice: (state, action) => {
+    setAddressChoice: (state, action: PayloadAction<IAddress>) => {
       state.addressChoice = action.payload;
     },
     clearAddressChoice: (state) => {

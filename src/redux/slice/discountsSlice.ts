@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface InitialState {
   content: DiscountListItem[];
@@ -12,7 +12,7 @@ const discountSlice = createSlice({
   name: "discounts",
   initialState,
   reducers: {
-    setDiscounts: (state, action) => {
+    setDiscounts: (state, action: PayloadAction<DiscountListItem[]>) => {
       state.content = action.payload;
     },
   },

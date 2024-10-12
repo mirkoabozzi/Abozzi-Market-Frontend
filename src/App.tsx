@@ -25,6 +25,8 @@ import Failed from "./components/Cart/Failed";
 import Orders from "./components/Profile/Orders";
 import Users from "./components/Profile/Users";
 import Discount from "./components/Profile/Discount";
+import Contact from "./components/Contact/Contact";
+import About from "./components/About/About";
 
 function App() {
   return (
@@ -53,6 +55,8 @@ function App() {
         <Route path="/cancel/*" element={<Cancel />} />
         <Route path="/failed/*" element={<Failed />} />
         <Route path="/product/details/:id" element={<ProductDetails />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

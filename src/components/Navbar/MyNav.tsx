@@ -95,7 +95,7 @@ const MyNav = () => {
               <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/shop">
                 Shop
               </NavLink>
-              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/contatti">
+              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/contact">
                 Contatti
               </NavLink>
               <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/about">
