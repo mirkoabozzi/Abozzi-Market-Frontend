@@ -1,6 +1,6 @@
 import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addDiscountOnProduct, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
+import { addDiscountOnProduct, dataConverter, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
@@ -121,20 +121,20 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                         setSelectedDiscountName(promo.description);
                       }}
                     >
-                      {promo.description} dal {promo.startDate} al {promo.endDate}
+                      {promo.description} dal {dataConverter(promo.startDate)} al {dataConverter(promo.endDate)}
                     </Dropdown.Item>
                   );
                 })}
               </DropdownButton>
             </div>
 
-            {product.discountList.map((discount: DiscountListItem) => {
+            {product.discountList.map((discount: DiscountListItem, index: number) => {
               return (
                 <>
-                  <p className="mb-1 mt-3">
+                  <p key={index} className="mb-1 mt-3">
                     Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
                   </p>
-                  <p>Termina: {discount.endDate}</p>
+                  <p>Termina: {dataConverter(discount.endDate)}</p>
                 </>
               );
             })}

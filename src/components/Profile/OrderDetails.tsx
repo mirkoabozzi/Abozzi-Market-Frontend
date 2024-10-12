@@ -3,7 +3,7 @@ import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { handleDiscountPrice } from "../../redux/actions/products";
+import { dataConverter, handleDiscountPrice } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
 
 const OrderDetails = () => {
@@ -30,7 +30,7 @@ const OrderDetails = () => {
       <h4 className="mb-5">Ordine: {order?.id}</h4>
       <Row className="mb-5">
         <Col xs={4}>
-          <p>Data ordine: {order?.orderDate}</p>
+          <p>Data ordine: {dataConverter(order?.orderDate)}</p>
         </Col>
         <Col>
           <p>Stato ordine: {order?.ordersState}</p>

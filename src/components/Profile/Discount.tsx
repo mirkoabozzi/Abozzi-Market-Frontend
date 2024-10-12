@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
 import { Trash } from "react-bootstrap-icons";
+import { dataConverter } from "../../redux/actions/products";
 
 const Discount = () => {
   const dispatch = useAppDispatch();
@@ -52,11 +53,11 @@ const Discount = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Inizio</Form.Label>
-          <Form.Control type="date" placeholder="Data inizio" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <Form.Control type="datetime-local" placeholder="Data inizio" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Fine</Form.Label>
-          <Form.Control type="date" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Form.Group>
         <div className="text-center mt-5">
           <Button type="submit" variant="primary">
@@ -85,8 +86,8 @@ const Discount = () => {
                     <td>{index + 1}</td>
                     <td>{discount.description}</td>
                     <td>{discount.percentage}</td>
-                    <td>{discount.startDate}</td>
-                    <td>{discount.endDate}</td>
+                    <td>{dataConverter(discount.startDate)}</td>
+                    <td>{dataConverter(discount.endDate)}</td>
                     <td>
                       <Trash className="mouseHover" onClick={() => handleDeletePromo(discount.id)} />
                     </td>

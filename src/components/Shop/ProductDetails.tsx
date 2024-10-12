@@ -1,6 +1,6 @@
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { getProduct, handleDiscountPrice } from "../../redux/actions/products";
+import { dataConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
@@ -95,7 +95,7 @@ const Product = () => {
             {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}
           </div>
           <p>Disponibili: Pz. {product?.quantityAvailable}</p>
-          <p>{product?.lastUpdate}</p>
+          <p>{dataConverter(product?.lastUpdate)}</p>
         </Col>
       </Row>
       <Row>

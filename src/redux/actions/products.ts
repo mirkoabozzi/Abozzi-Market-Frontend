@@ -244,6 +244,17 @@ export const handleDiscountPrice = (product: IProduct) => {
   return product.price;
 };
 
+export const dataConverter = (timeStamp: string) => {
+  const data = new Date(timeStamp);
+  return data.toLocaleString("it-IT", {
+    hour: "2-digit",
+    minute: "2-digit",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+};
+
 export const addDiscountOnProduct = (discount: string, product: string) => {
   return async (dispatch: AppDispatch) => {
     try {

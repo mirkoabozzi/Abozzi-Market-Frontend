@@ -4,6 +4,7 @@ import { getAllClientsOrders } from "../../redux/actions/orders";
 import { Badge, Col, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { dataConverter } from "../../redux/actions/products";
 
 const Orders = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +29,7 @@ const Orders = () => {
                   <p className="line-truncate-2">Order: {order.id}</p>
                   <p>Cliente: {order.user.name}</p>
                   <p>Stato pagamento: {order.payment.status}</p>
-                  <p>Data ordine: {order.orderDate}</p>
+                  <p>Data ordine: {dataConverter(order.orderDate)}</p>
                   <p>Stato: {order.ordersState}</p>
                 </Col>
                 <Col className="text-center">

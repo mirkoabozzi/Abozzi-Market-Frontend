@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getAllUser, updateUserRole } from "../../redux/actions/user";
 import { Dropdown, Image, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
+import { dataConverter } from "../../redux/actions/products";
 
 const Users = () => {
   const users: IUser[] = useAppSelector((state) => state.userReducer.users);
@@ -57,7 +58,7 @@ const Users = () => {
                   </Dropdown>
                 </td>
                 <td>{user.phoneNumber}</td>
-                <td>{user.registrationDate}</td>
+                <td>{dataConverter(user.registrationDate)}</td>
               </tr>
             );
           })}
