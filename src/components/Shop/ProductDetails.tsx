@@ -21,6 +21,7 @@ const Product = () => {
   const isLogged: boolean = useAppSelector((state: RootState) => state.userReducer.isLogged);
   const wishlist: IWishlist[] = useAppSelector((state: RootState) => state.wishlistsReducer.wishlist);
   const user: IUser = useAppSelector((state) => state.userReducer.user);
+  const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -61,7 +62,12 @@ const Product = () => {
   }, [dispatch, params.id]);
 
   const handleAddToCart = () => {
-    dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+    const existingCartItem = cart.find((item: IItem) => item.product.id === product.id);
+    if (existingCartItem) {
+      dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
+    } else {
+      dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+    }
     setQuantity(1);
     successToast("Articolo aggiunto");
   };
@@ -82,8 +88,8 @@ const Product = () => {
           <p>{product?.description}</p>
           <p>{product?.category.name}</p>
 
-          <p className={product.discountList.length === 0 ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
-          {product.discountList.length > 0 ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
+          <p className={!product.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
+          {product.discountStatus ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
 
           <Form.Group style={{ width: "70px" }} controlId="formQuantity">
             <Form.Label>Quantità</Form.Label>

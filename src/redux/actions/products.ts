@@ -230,7 +230,7 @@ export const getProductByDiscount = () => {
 };
 
 export const handleDiscountPrice = (product: IProduct) => {
-  if (product.discountList.length === 0) {
+  if (!product.discountStatus) {
     return product.price;
   }
   const today = new Date();

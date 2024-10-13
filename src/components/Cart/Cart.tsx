@@ -25,8 +25,8 @@ const Cart = () => {
 
   const handleCartAndPayment = () => {
     if (isLogged) {
-      dispatch(setAddressChoice(address));
       if (address != null) {
+        dispatch(setAddressChoice(address));
         dispatch(pay(Number(total.toFixed(2))));
       } else {
         warnToast("Devi selezionare un indirizzo di spedizione!");

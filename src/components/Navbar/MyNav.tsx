@@ -17,6 +17,8 @@ const MyNav = () => {
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
   const dispatch = useAppDispatch();
 
+  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   const [mainSearch, setMainSearch] = useState("");
 
   const [showLogin, setShowLogin] = useState(false);
@@ -79,7 +81,7 @@ const MyNav = () => {
           <div className="position-relative ms-auto ms-sm-0">
             <Cart4 title="Carrello" width={40} height={40} className="m-2 mouseHover" onClick={() => navigate("/cart")} />
             <Badge bg="primary" pill={true} className="position-absolute top-0 end-0">
-              {cart.length}
+              {totalQuantity}
             </Badge>
           </div>
         </Container>

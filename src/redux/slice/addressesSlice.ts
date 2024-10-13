@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface InitialState {
   content: IAddress[];
-  addressChoice: IAddressAdd | null;
+  addressChoice: IAddress | null;
 }
 const initialState: InitialState = {
   content: [],

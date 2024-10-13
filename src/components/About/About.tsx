@@ -1,9 +1,9 @@
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 const About = () => {
   return (
     <Container className="text-center">
-      <h1>Abozzi Market</h1>
+      <h1 className="my-5">Abozzi Market</h1>
       <div>
         <h2>Italiano</h2>
         <p>
@@ -36,6 +36,20 @@ const About = () => {
           8:00 hasta las 13:00 en el punto de venta en Via Nazionale 65. Abozzi Market: gran servicio y calidad elevada.
         </p>
       </div>
+      <h2 className="mt-5">Dove siamo?</h2>
+      <Row>
+        <Col xs={12}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.138866304493!2d8.81152419016746!3d40.853340397559414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12dc735d2d0c47c3%3A0x6ddfd2d7a8000c13!2sVia%20S.%20Giacomo%2C%2035%2C%2007035%20Sedini%20SS!5e1!3m2!1sit!2sit!4v1728565984753!5m2!1sit!2sit"
+            width="600"
+            height="450"
+            style={{ border: "0" }}
+            allowFullScreen={false}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </Col>
+      </Row>
     </Container>
   );
 };
