@@ -73,3 +73,26 @@ export const updateReview = (reviewId: string, updatedReview: IUpdatedReview, pr
     }
   };
 };
+
+export const deleteReview = (reviewId: string, productId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/reviews/me/${reviewId}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      if (resp.ok) {
+        dispatch(getReview(productId));
+        successToast("Recensione eliminata");
+      } else {
+        if (resp.status === 401) {
+          errorToast("Puoi eliminare solo le tue recensioni!");
+          throw new Error("Delete review error");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

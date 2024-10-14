@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useAppDispatch } from "../../redux/store";
-import { updateReview } from "../../redux/actions/reviews";
+import { deleteReview, updateReview } from "../../redux/actions/reviews";
 
 interface UpdateReviewsProps {
   show: boolean;
@@ -41,8 +41,18 @@ const ReviewUpdate = ({ show, handleClose, review }: UpdateReviewsProps) => {
             <Button className="m-2" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button type="submit" variant="primary">
+            <Button className="me-2" type="submit" variant="primary">
               Invia
+            </Button>
+            <Button
+              type="button"
+              variant="danger"
+              onClick={() => {
+                dispatch(deleteReview(review.id, review.product.id));
+                handleClose();
+              }}
+            >
+              Elimina
             </Button>
           </div>
         </Form>
