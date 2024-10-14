@@ -4,6 +4,7 @@ import { addDiscountOnProduct, dataConverter, deleteDiscountFromProduct, deleteP
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
+import ModalAlert from "../ModalAlert";
 
 interface IProductUpdateProps {
   show: boolean;
@@ -28,6 +29,10 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("Seleziona categoria");
   const [selectedDiscountName, setSelectedDiscountName] = useState("Seleziona offerta");
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const handleShowDeleteModal = () => setShowDeleteModal(true);
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -72,91 +77,94 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   };
 
   return (
-    <Modal centered show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Modifica prodotto</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" placeholder="Nome" value={name} required autoFocus onChange={(e) => setName(e.target.value)} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Descrizione</Form.Label>
-            <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Prezzo</Form.Label>
-            <Form.Control type="number" placeholder="Prezzo" required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Quantità</Form.Label>
-            <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
-          </Form.Group>
-          <Form.Group>
-            <div className="d-block d-sm-flex gap-2">
-              <DropdownButton id="dropdown-basic-button" title={selectedCategoryName} className="mb-1">
-                {categories?.map((category: ICategory) => {
-                  return (
-                    <Dropdown.Item
-                      onClick={() => {
-                        setCategory(category.id);
-                        setSelectedCategoryName(category.name);
-                      }}
-                      key={category.id}
-                    >
-                      {category.name}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownButton>
-              <DropdownButton title={selectedDiscountName}>
-                {discounts.map((promo: DiscountListItem) => {
-                  return (
-                    <Dropdown.Item
-                      key={promo.id}
-                      onClick={() => {
-                        setDiscount(promo.id);
-                        setSelectedDiscountName(promo.description);
-                      }}
-                    >
-                      {promo.description} dal {dataConverter(promo.startDate)} al {dataConverter(promo.endDate)}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownButton>
-            </div>
+    <>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica prodotto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control type="text" placeholder="Nome" value={name} required autoFocus onChange={(e) => setName(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Descrizione</Form.Label>
+              <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Prezzo</Form.Label>
+              <Form.Control type="number" placeholder="Prezzo" required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Quantità</Form.Label>
+              <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
+            </Form.Group>
+            <Form.Group>
+              <div className="d-block d-sm-flex gap-2">
+                <DropdownButton id="dropdown-basic-button" title={selectedCategoryName} className="mb-1">
+                  {categories?.map((category: ICategory) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => {
+                          setCategory(category.id);
+                          setSelectedCategoryName(category.name);
+                        }}
+                        key={category.id}
+                      >
+                        {category.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+                <DropdownButton title={selectedDiscountName}>
+                  {discounts.map((promo: DiscountListItem) => {
+                    return (
+                      <Dropdown.Item
+                        key={promo.id}
+                        onClick={() => {
+                          setDiscount(promo.id);
+                          setSelectedDiscountName(promo.description);
+                        }}
+                      >
+                        {promo.description} dal {dataConverter(promo.startDate)} al {dataConverter(promo.endDate)}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+              </div>
 
-            {product.discountList.map((discount: DiscountListItem, index: number) => {
-              return (
-                <>
-                  <p key={index} className="mb-1 mt-3">
-                    Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
-                  </p>
-                  <p>Termina: {dataConverter(discount.endDate)}</p>
-                </>
-              );
-            })}
-          </Form.Group>
-          <Form.Group className="my-3" controlId="formAImage">
-            <Form.Label>Immagine</Form.Label>
-            <Form.Control type="file" onChange={handleFileChange} />
-          </Form.Group>
-          <div className="d-flex justify-content-center gap-2">
-            <Button variant="secondary" onClick={handleClose}>
-              Chiudi
-            </Button>
-            <Button type="submit" variant="primary">
-              Invia
-            </Button>
-            <Button type="button" variant="danger" onClick={handleDeleteProduct}>
-              Elimina
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
-    </Modal>
+              {product.discountList.map((discount: DiscountListItem) => {
+                return (
+                  <>
+                    <p key={discount.id} className="mb-1 mt-3">
+                      Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
+                    </p>
+                    <p>Termina: {dataConverter(discount.endDate)}</p>
+                  </>
+                );
+              })}
+            </Form.Group>
+            <Form.Group className="my-3" controlId="formAImage">
+              <Form.Label>Immagine</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} />
+            </Form.Group>
+            <div className="d-flex justify-content-center gap-2">
+              <Button variant="secondary" onClick={handleClose}>
+                Chiudi
+              </Button>
+              <Button type="submit" variant="primary">
+                Invia
+              </Button>
+              <Button type="button" variant="danger" onClick={handleShowDeleteModal}>
+                Elimina
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      <ModalAlert show={showDeleteModal} handleClose={handleCloseDeleteModal} handleEvent={handleDeleteProduct} />
+    </>
   );
 };
 

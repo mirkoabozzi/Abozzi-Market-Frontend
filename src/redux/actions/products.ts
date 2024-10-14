@@ -3,6 +3,7 @@ import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { url } from "./user";
 import { AppDispatch } from "../store";
+import { successToast } from "./toaster";
 
 export const getProducts = () => {
   return async (dispatch: Dispatch<ProductsAction>) => {
@@ -268,6 +269,7 @@ export const addDiscountOnProduct = (discount: string, product: string) => {
         body: JSON.stringify({ discount }),
       });
       if (resp.ok) {
+        successToast("Sconto aggiunto");
         dispatch(getProduct(product));
       } else {
         throw new Error("Add product error");
@@ -291,6 +293,7 @@ export const deleteDiscountFromProduct = (productId: string, discount: IDiscount
         body: JSON.stringify(discount),
       });
       if (resp.ok) {
+        successToast("Sconto rimosso");
         dispatch(getProduct(productId));
       } else {
         throw new Error("Delete discount error");
