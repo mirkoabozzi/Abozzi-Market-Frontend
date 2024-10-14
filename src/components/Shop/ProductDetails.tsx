@@ -11,6 +11,7 @@ import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/a
 import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
 import { successToast, warnToast } from "../../redux/actions/toaster";
+import ReviewUpdate from "./ReviewUpdate";
 
 const Product = () => {
   const params = useParams();
@@ -22,6 +23,7 @@ const Product = () => {
   const wishlist: IWishlist[] = useAppSelector((state: RootState) => state.wishlistsReducer.wishlist);
   const user: IUser = useAppSelector((state) => state.userReducer.user);
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
+  const [review, SetReview] = useState<IReview>();
 
   const [quantity, setQuantity] = useState(1);
 
@@ -30,6 +32,10 @@ const Product = () => {
   const [showProductUpdate, setShowProductUpdate] = useState(false);
   const handleShowProductUpdate = () => setShowProductUpdate(true);
   const handleCloseProductUpdate = () => setShowProductUpdate(false);
+
+  const [showReviewUpdate, setShowReviewUpdate] = useState(false);
+  const handleShowReviewUpdate = () => setShowReviewUpdate(true);
+  const handleCloseReviewUpdate = () => setShowReviewUpdate(false);
 
   const handleShow = () => {
     if (isLogged) {
@@ -74,36 +80,38 @@ const Product = () => {
 
   return (
     <Container>
-      <Row>
-        <Col sm={4} className="position-relative">
-          <Image src={product?.imgUrl} className="w-100" />
-          {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
-            <HeartFill className="heartPosition" onClick={handleRemoveFromWishlist} />
-          ) : (
-            <Heart className="heartPosition" onClick={handleAddToWishlist} />
-          )}
-        </Col>
-        <Col>
-          <h2>{product?.name}</h2>
-          <p>{product?.description}</p>
-          <p>{product?.category.name}</p>
+      {product && (
+        <Row>
+          <Col sm={4} className="position-relative">
+            <Image src={product?.imgUrl} className="w-100" />
+            {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
+              <HeartFill className="heartPosition" onClick={handleRemoveFromWishlist} />
+            ) : (
+              <Heart className="heartPosition" onClick={handleAddToWishlist} />
+            )}
+          </Col>
+          <Col>
+            <h2>{product?.name}</h2>
+            <p>{product?.description}</p>
+            <p>{product?.category.name}</p>
 
-          <p className={!product.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
-          {product.discountStatus ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
+            <p className={!product?.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
+            {product?.discountStatus ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
 
-          <Form.Group style={{ width: "70px" }} controlId="formQuantity">
-            <Form.Label>Quantità</Form.Label>
-            <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
-          </Form.Group>
-          <div className="d-flex gap-2 mt-3">
-            <Button onClick={handleAddToCart}>Aggiungi al carrello</Button>
-            <Button onClick={handleShow}>Recensisci prodotto</Button>
-            {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}
-          </div>
-          <p>Disponibili: Pz. {product?.quantityAvailable}</p>
-          <p>{dataConverter(product?.lastUpdate)}</p>
-        </Col>
-      </Row>
+            <Form.Group style={{ width: "70px" }} controlId="formQuantity">
+              <Form.Label>Quantità</Form.Label>
+              <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
+            </Form.Group>
+            <div className="d-flex gap-2 mt-3">
+              <Button onClick={handleAddToCart}>Aggiungi al carrello</Button>
+              <Button onClick={handleShow}>Recensisci prodotto</Button>
+              {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}
+            </div>
+            <p>Disponibili: Pz. {product?.quantityAvailable}</p>
+            <p>{dataConverter(product?.lastUpdate)}</p>
+          </Col>
+        </Row>
+      )}
       <Row>
         <Col>
           <h3 className="mt-5">Recensioni</h3>
@@ -111,9 +119,15 @@ const Product = () => {
             reviews.map((review: IReview) => {
               return (
                 <Row key={review.id}>
-                  <Col>
+                  <Col
+                    className="mouseHover"
+                    onClick={() => {
+                      SetReview(review);
+                      handleShowReviewUpdate();
+                    }}
+                  >
                     <p>
-                      {review.user.name} il <span>{review.updatedAt}</span>
+                      {review.user.name} il <span>{dataConverter(review.updatedAt)}</span>
                     </p>
                     <p>Voto: {review.rating}</p>
                     <p>{review.comment}</p>
@@ -130,8 +144,10 @@ const Product = () => {
 
       {/* modal */}
       <AddReview show={show} handleClose={handleClose} />
-      <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />
+      {product && <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />}
       <ToastContainer />
+
+      {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} />}
     </Container>
   );
 };
