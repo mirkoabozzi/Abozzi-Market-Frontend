@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
 import { Trash } from "react-bootstrap-icons";
 import { dataConverter } from "../../redux/actions/products";
+import ModalAlert from "../ModalAlert";
 
 const Discount = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,11 @@ const Discount = () => {
   const [percentage, setPercentage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  const [promoSelected, setPromoSelected] = useState("");
 
   const discounts = useAppSelector((state) => state.discounts.content);
 
@@ -29,10 +35,6 @@ const Discount = () => {
     setPercentage("");
     setStartDate("");
     setEndDate("");
-  };
-
-  const handleDeletePromo = (discountId: string) => {
-    dispatch(deletePromo(discountId));
   };
 
   useEffect(() => {
@@ -89,7 +91,13 @@ const Discount = () => {
                     <td>{dataConverter(discount.startDate)}</td>
                     <td>{dataConverter(discount.endDate)}</td>
                     <td>
-                      <Trash className="mouseHover" onClick={() => handleDeletePromo(discount.id)} />
+                      <Trash
+                        className="mouseHover"
+                        onClick={() => {
+                          setShow(true);
+                          setPromoSelected(discount.id);
+                        }}
+                      />
                     </td>
                   </tr>
                 );
@@ -100,6 +108,14 @@ const Discount = () => {
       ) : (
         <h3 className="mt-4 text-center">Nessuna promozione disponibile</h3>
       )}
+      <ModalAlert
+        show={show}
+        handleClose={handleClose}
+        handleEvent={() => {
+          dispatch(deletePromo(promoSelected));
+          handleClose();
+        }}
+      />
       <ToastContainer />
     </>
   );

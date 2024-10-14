@@ -87,7 +87,7 @@ const Addresses = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Numero</Form.Label>
-              <Form.Control type="number" placeholder="numero" value={number} onChange={(e) => setNumber(Number(e.target.value))} />
+              <Form.Control type="number" placeholder="numero" min={1} value={number} onChange={(e) => setNumber(Number(e.target.value))} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Città</Form.Label>

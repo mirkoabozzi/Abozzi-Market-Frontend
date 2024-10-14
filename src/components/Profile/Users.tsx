@@ -1,14 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteUser, getAllUser, updateUserRole } from "../../redux/actions/user";
 import { Dropdown, Image, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { dataConverter } from "../../redux/actions/products";
 import { Trash } from "react-bootstrap-icons";
+import ModalAlert from "../ModalAlert";
 
 const Users = () => {
   const users: IUser[] = useAppSelector((state) => state.userReducer.users);
   const dispatch = useAppDispatch();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  const [userSelected, setUserSelected] = useState("");
 
   useEffect(() => {
     dispatch(getAllUser());
@@ -62,13 +68,27 @@ const Users = () => {
                 <td>{user.phoneNumber}</td>
                 <td>{dataConverter(user.registrationDate)}</td>
                 <td>
-                  <Trash className="mouseHover" onClick={() => dispatch(deleteUser(user.id))} />
+                  <Trash
+                    className="mouseHover"
+                    onClick={() => {
+                      setShow(true);
+                      setUserSelected(user.id);
+                    }}
+                  />
                 </td>
               </tr>
             );
           })}
         </tbody>
       </Table>
+      <ModalAlert
+        show={show}
+        handleClose={handleClose}
+        handleEvent={() => {
+          dispatch(deleteUser(userSelected));
+          handleClose();
+        }}
+      />
       <ToastContainer />
     </>
   );
