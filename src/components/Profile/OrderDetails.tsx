@@ -27,7 +27,7 @@ const OrderDetails = () => {
 
   return (
     <Container>
-      <h4 className="mb-5">Ordine: {order?.id}</h4>
+      <h3 className="mb-5">Ordine: {order?.id}</h3>
       <Row className="mb-5">
         <Col xs={4}>
           <p>Data ordine: {dataConverter(order?.orderDate)}</p>
@@ -83,10 +83,10 @@ const OrderDetails = () => {
                 <p>{item.quantity}</p>
               </Col>
               <Col>
-                <p>{handleDiscountPrice(item.product).toFixed(2)} €</p>
+                <p>€ {handleDiscountPrice(item.product).toFixed(2)}</p>
               </Col>
               <Col>
-                <p>{(handleDiscountPrice(item.product) * item.quantity).toFixed(2)} €</p>
+                <p>€ {(handleDiscountPrice(item.product) * item.quantity).toFixed(2)}</p>
               </Col>
             </Row>
             <hr />
@@ -100,7 +100,7 @@ const OrderDetails = () => {
         <Col></Col>
         <Col></Col>
         <Col>
-          <h3>{order?.payment.total.toFixed(2)} €</h3>
+          <h3>€ {order?.payment.total.toFixed(2)}</h3>
         </Col>
       </Row>
       {order?.user && (

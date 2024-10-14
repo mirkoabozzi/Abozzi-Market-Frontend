@@ -36,7 +36,7 @@ const Contact = () => {
   };
 
   return (
-    <Container className="w-75">
+    <Container className="w-75 mt-4">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Nome">
           <Form.Label>Nome</Form.Label>

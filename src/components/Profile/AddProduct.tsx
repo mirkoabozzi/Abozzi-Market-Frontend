@@ -43,6 +43,7 @@ const AddProduct = () => {
 
   return (
     <>
+      <h3>Prodotti</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Nome</Form.Label>

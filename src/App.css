@@ -1,9 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;1,300;0,400;1,700;0,900&display=swap");
 
 body {
   /* font-family: "Roboto", sans-serif; */
-  font-family: "Fredoka", sans-serif;
+  /* font-family: "Fredoka", sans-serif; */
+  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-style: normal;
   background-color: #eef5fb;
@@ -19,6 +21,7 @@ body {
   /* scale: 1; */
   transition: scale 300ms, box-shadow 300ms;
   animation: fadeScaleIn 1s backwards 300ms;
+  color: rgb(0, 36, 99);
 }
 .cardHover:hover {
   box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
@@ -36,4 +39,38 @@ body {
     opacity: 1;
     scale: 1;
   }
+}
+
+.textPretty {
+  text-wrap: pretty;
+}
+
+.maps {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+}
+.maps iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.line-truncate-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
+.categoryHover {
+  transform: translateY(0);
+  transition: transform 300ms;
+}
+.categoryHover:hover {
+  transform: translateY(-15px);
+  transition: transform 300ms;
 }

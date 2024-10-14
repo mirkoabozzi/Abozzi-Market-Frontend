@@ -6,7 +6,7 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { ToastContainer } from "react-toastify";
-import { Heart, HeartFill } from "react-bootstrap-icons";
+import { Heart, HeartFill, Pencil } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
@@ -95,8 +95,8 @@ const Product = () => {
             <p>{product?.description}</p>
             <p>{product?.category.name}</p>
 
-            <p className={!product?.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>{product?.price.toFixed(2)} €</p>
-            {product?.discountStatus ? <p className="fs-1">{handleDiscountPrice(product).toFixed(2)} €</p> : ""}
+            <p className={!product?.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>€ {product?.price.toFixed(2)}</p>
+            {product?.discountStatus ? <p className="fs-1">€ {handleDiscountPrice(product).toFixed(2)}</p> : ""}
 
             <Form.Group style={{ width: "70px" }} controlId="formQuantity">
               <Form.Label>Quantità</Form.Label>
@@ -119,19 +119,27 @@ const Product = () => {
             reviews.map((review: IReview) => {
               return (
                 <Row key={review.id}>
-                  <Col
-                    className="mouseHover"
-                    onClick={() => {
-                      SetReview(review);
-                      handleShowReviewUpdate();
-                    }}
-                  >
+                  <Col>
                     <p>
-                      {review.user.name} il <span>{dataConverter(review.updatedAt)}</span>
+                      {review.user.name} il{" "}
+                      <span>
+                        {dataConverter(review.updatedAt)}{" "}
+                        {isLogged && (
+                          <Pencil
+                            size={20}
+                            className="mouseHover"
+                            onClick={() => {
+                              SetReview(review);
+                              handleShowReviewUpdate();
+                            }}
+                          />
+                        )}
+                      </span>
                     </p>
                     <p>Voto: {review.rating}</p>
                     <p>{review.comment}</p>
                   </Col>
+
                   <hr />
                 </Row>
               );

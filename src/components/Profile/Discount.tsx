@@ -43,7 +43,7 @@ const Discount = () => {
 
   return (
     <>
-      <h4>Aggiungi promozioni</h4>
+      <h3>Promozioni</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Descrizione</Form.Label>

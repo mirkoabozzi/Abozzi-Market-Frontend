@@ -71,7 +71,7 @@ const Cart = () => {
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
-                  <p className="fs-2">{handleDiscountPrice(item.product).toFixed(2)} €</p>
+                  <p className="fs-2">€ {handleDiscountPrice(item.product).toFixed(2)}</p>
                   <div className="d-flex align-items-center gap-3">
                     <Button onClick={() => handleDecreaseQuantity(item)}>-</Button>
                     <p className="mb-0">{item.quantity}</p>
@@ -91,7 +91,7 @@ const Cart = () => {
       )}
       {isLogged && cart.length > 0 ? (
         <>
-          <h3 className="mb-4">Totale: {total.toFixed(2)} €</h3>
+          <h3 className="mb-4">Totale: € {total.toFixed(2)}</h3>
           <DropdownButton className="mb-3" id="dropdown-button" title={address ? address.address + " " + address.number : "Seleziona un indirizzo"}>
             {addresses?.map((address: IAddress) => {
               return (

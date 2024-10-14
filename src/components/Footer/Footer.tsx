@@ -4,8 +4,10 @@ import instagram from "../../assets/img/instagram.svg";
 import visa from "../../assets/img/visa.svg";
 import mastercard from "../../assets/img/mastercard.svg";
 import paypal from "../../assets/img/paypal.svg";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Row className="justify-content-center">
@@ -32,11 +34,17 @@ const Footer = () => {
                 <p>Note legali</p>
               </Container>
               <Container>
-                <p>Contattaci</p>
-                <p>Lavora con noi</p>
+                <p className="mouseHover" onClick={() => navigate("/contact")}>
+                  Contattaci
+                </p>
+                <p className="mouseHover" onClick={() => navigate("/contact")}>
+                  Lavora con noi
+                </p>
               </Container>
               <Container>
-                <p>Help Center</p>
+                <p className="mouseHover" onClick={() => navigate("/contact")}>
+                  Help Center
+                </p>
                 <p>Cookie</p>
               </Container>
               <Container>

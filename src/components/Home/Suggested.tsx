@@ -37,7 +37,7 @@ const Suggested = () => {
                 <Card.Body className="d-flex flex-column justify-content-end">
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text className="line-truncate-2">{product.description}</Card.Text>
-                  <span className="fs-5">{handleDiscountPrice(product).toFixed(2)} €</span>
+                  <span className="fs-5">€ {handleDiscountPrice(product).toFixed(2)}</span>
                   <div className="d-flex justify-content-end">
                     <Button variant="primary" onClick={() => navigate(`/product/details/${product.id}`)}>
                       Scopri di più

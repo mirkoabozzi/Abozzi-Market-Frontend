@@ -1,6 +1,6 @@
 import { Button, Container, Image, Navbar, Form, Nav, Badge } from "react-bootstrap";
-import logo from "/src/assets/img/logo4.svg";
-import logoRounded from "/src/assets/img/logo-rounded.svg";
+import logo from "/src/assets/img/logo5.svg";
+import logoRounded from "/src/assets/img/logo-rounded2.svg";
 import { Cart4, Search } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -86,7 +86,7 @@ const MyNav = () => {
           </div>
         </Container>
       </Navbar>
-      <Navbar className="pt-0">
+      <Navbar className="p-0">
         <Container fluid>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">

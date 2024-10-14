@@ -1,4 +1,3 @@
-import "./Profile.css";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getMyOrders } from "../../redux/actions/orders";
@@ -32,7 +31,7 @@ const MyOrder = () => {
                 </Col>
                 <Col className="text-center">
                   <p>Totale</p>
-                  <p>{order.payment.total.toFixed(2)} €</p>
+                  <p>€ {order.payment.total.toFixed(2)}</p>
                 </Col>
                 <Col className="text-end">
                   <ArrowRight title="Dettagli ordine" className="mouseHover" size={25} onClick={() => navigate(`/profile/orders/details/${order.id}`)} />
