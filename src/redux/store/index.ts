@@ -26,17 +26,17 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  userReducer: userReducer as Reducer,
-  productReducer: productReducer as Reducer,
-  ordersReducer: ordersReducer as Reducer,
-  reviewsReducer: reviewsReducer as Reducer,
-  wishlistsReducer: wishlistsReducer as Reducer,
-  categoriesReducer: categoriesReducer as Reducer,
-  cartReducer: cartReducer as Reducer,
-  addresses: addressesSlice as Reducer,
-  discounts: discountsSlice as Reducer,
-  weather: weatherSlice as Reducer,
-});
+  userReducer: userReducer,
+  productReducer: productReducer,
+  ordersReducer: ordersReducer,
+  reviewsReducer: reviewsReducer,
+  wishlistsReducer: wishlistsReducer,
+  categoriesReducer: categoriesReducer,
+  cartReducer: cartReducer,
+  addresses: addressesSlice,
+  discounts: discountsSlice,
+  weather: weatherSlice,
+}) as Reducer;
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

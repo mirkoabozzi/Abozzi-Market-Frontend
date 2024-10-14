@@ -51,7 +51,7 @@ const Addresses = () => {
       <Button className="my-4" onClick={handleShow}>
         Aggiungi indirizzo
       </Button>
-      {addressees.map((address: IAddress) => {
+      {addressees?.map((address: IAddress) => {
         return (
           <Row key={address.id}>
             <Col>

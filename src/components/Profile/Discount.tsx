@@ -82,7 +82,7 @@ const Discount = () => {
               </tr>
             </thead>
             <tbody>
-              {discounts.map((discount: DiscountListItem, index: number) => {
+              {discounts?.map((discount: DiscountListItem, index: number) => {
                 return (
                   <tr key={discount.id}>
                     <td>{index + 1}</td>

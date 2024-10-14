@@ -34,7 +34,7 @@ const OrderDetails = () => {
         </Col>
         <Col>
           <p>Stato ordine: {order?.ordersState}</p>
-          {user.role === "ADMIN" ? (
+          {user?.role === "ADMIN" ? (
             <Dropdown>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                 Stato
@@ -103,20 +103,22 @@ const OrderDetails = () => {
           <h3>{order?.payment.total.toFixed(2)} €</h3>
         </Col>
       </Row>
-      <Row>
-        <Col className="mt-5">
-          <h5>Dati spedizione:</h5>
-          <p>
-            {order.user.name} {order.user.surname}
-          </p>
-          <p>
-            {order.shipment.zipCode} {order.shipment.city}
-          </p>
-          <p>
-            {order.shipment.address}, {order.shipment.number}
-          </p>
-        </Col>
-      </Row>
+      {order?.user && (
+        <Row>
+          <Col className="mt-5">
+            <h5>Dati spedizione:</h5>
+            <p>
+              {order?.user.name} {order.user.surname}
+            </p>
+            <p>
+              {order?.shipment.zipCode} {order.shipment.city}
+            </p>
+            <p>
+              {order?.shipment.address}, {order.shipment.number}
+            </p>
+          </Col>
+        </Row>
+      )}
       <ToastContainer />
     </Container>
   );

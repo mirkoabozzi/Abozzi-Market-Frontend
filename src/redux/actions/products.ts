@@ -5,12 +5,12 @@ import { url } from "./user";
 import { AppDispatch } from "../store";
 import { successToast } from "./toaster";
 
-export const getProducts = () => {
+export const getProducts = (page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/all`, {
+      const resp = await fetch(`${url}/products/all?page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -62,7 +62,7 @@ export const addProduct = (product: IProductAdd) => {
         body: JSON.stringify(product),
       });
       if (resp.ok) {
-        dispatch(getProducts());
+        dispatch(getProducts(0));
       } else {
         throw new Error("Add product error");
       }
@@ -85,7 +85,8 @@ export const updateProduct = (product: IProductUpdate, productId: string) => {
         body: JSON.stringify(product),
       });
       if (resp.ok) {
-        dispatch(getProducts());
+        successToast("Prodotto aggiornato");
+        dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
         throw new Error("Update product error");
@@ -108,7 +109,7 @@ export const updateProductImage = (file: File, productId: string) => {
         body: formData,
       });
       if (resp.ok) {
-        dispatch(getProducts());
+        dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
         throw new Error("Update product image error");
@@ -128,7 +129,8 @@ export const deleteProduct = (productId: string) => {
         headers: { Authorization: "Bearer " + accessToken },
       });
       if (resp.ok) {
-        dispatch(getProducts());
+        successToast("Prodotto eliminato");
+        dispatch(getProducts(0));
       } else {
         throw new Error("Delete product error");
       }

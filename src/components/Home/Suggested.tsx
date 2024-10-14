@@ -20,7 +20,7 @@ const Suggested = () => {
   }, [products]);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts(0));
   }, [dispatch]);
 
   return (
@@ -30,7 +30,7 @@ const Suggested = () => {
         {isLoading ? (
           <Spinner animation="grow" />
         ) : (
-          randomProducts.map((product: IProduct) => (
+          randomProducts?.map((product: IProduct) => (
             <Col xs="12" sm={6} md={4} lg={3} className="my-3" key={product.id}>
               <Card className=" rounded-3 h-100 cardHover">
                 <Card.Img variant="top" src={product.imgUrl} className=" rounded-3" />

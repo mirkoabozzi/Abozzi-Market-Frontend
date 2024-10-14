@@ -1,22 +1,28 @@
 import "./Shop.css";
-import { useEffect } from "react";
-import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Badge, Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProducts, handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { ToastContainer } from "react-toastify";
+import { ArrowLeftCircle, ArrowRightCircle } from "react-bootstrap-icons";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const products: IProduct[] = useAppSelector((state: RootState) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state: RootState) => state.productReducer.isLoading);
-  const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+
+  const [productsLoaded, setProductsLoaded] = useState(false);
 
   useEffect(() => {
-    if (products.length < 0) {
-      dispatch(getProducts());
+    if (!productsLoaded) {
+      dispatch(getProducts(page));
+      setProductsLoaded(true);
     }
-  }, [dispatch]);
+  }, [dispatch, page, productsLoaded]);
 
   return (
     <Container fluid>
@@ -57,6 +63,36 @@ const Shop = () => {
           </Row>
         </Col>
       </Row>
+      <Row className="text-center mt-5">
+        <Col>
+          {page > 0 ? (
+            <ArrowLeftCircle
+              width={30}
+              height={30}
+              onClick={() => {
+                setPage(page - 1);
+                setProductsLoaded(false);
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </Col>
+        <Col>
+          <Badge className="fs-6">{page}</Badge>
+        </Col>
+        <Col>
+          <ArrowRightCircle
+            width={30}
+            height={30}
+            onClick={() => {
+              setPage(page + 1);
+              setProductsLoaded(false);
+            }}
+          />
+        </Col>
+      </Row>
+      <ToastContainer />
     </Container>
   );
 };

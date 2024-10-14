@@ -7,7 +7,7 @@ import { useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getProductByName } from "../../redux/actions/products";
+import { getProductByName, getProducts } from "../../redux/actions/products";
 import { ActionType } from "../../redux/enums/ActionType";
 
 const MyNav = () => {
@@ -94,7 +94,12 @@ const MyNav = () => {
               <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/">
                 Home
               </NavLink>
-              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/shop">
+              <NavLink
+                className="nav-link"
+                style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })}
+                to="/shop"
+                onClick={() => dispatch(getProducts(0))}
+              >
                 Shop
               </NavLink>
               <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/contact">
