@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getAllUser, updateUserRole } from "../../redux/actions/user";
+import { deleteUser, getAllUser, updateUserRole } from "../../redux/actions/user";
 import { Dropdown, Image, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { dataConverter } from "../../redux/actions/products";
+import { Trash } from "react-bootstrap-icons";
 
 const Users = () => {
   const users: IUser[] = useAppSelector((state) => state.userReducer.users);
@@ -32,6 +33,7 @@ const Users = () => {
             <th>Ruolo</th>
             <th>Telefono</th>
             <th>Data registrazione</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +61,9 @@ const Users = () => {
                 </td>
                 <td>{user.phoneNumber}</td>
                 <td>{dataConverter(user.registrationDate)}</td>
+                <td>
+                  <Trash className="mouseHover" onClick={() => dispatch(deleteUser(user.id))} />
+                </td>
               </tr>
             );
           })}

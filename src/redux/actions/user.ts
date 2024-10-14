@@ -118,3 +118,21 @@ export const updateUserRole = (body: IUserRole) => {
     }
   };
 };
+
+export const deleteUser = (userId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/users/${userId}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      if (resp.ok) {
+        dispatch(getAllUser());
+        successToast("Utente eliminato");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
