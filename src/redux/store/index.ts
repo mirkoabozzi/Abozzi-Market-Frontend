@@ -9,6 +9,7 @@ import categoriesReducer from "../reducers/CategoriesReducer";
 import cartReducer from "../reducers/CartReducer";
 import addressesSlice from "../slice/addressesSlice";
 import discountsSlice from "../slice/discountsSlice";
+import weatherSlice from "../slice/weatherSlice";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   cartReducer: cartReducer as Reducer,
   addresses: addressesSlice as Reducer,
   discounts: discountsSlice as Reducer,
+  weather: weatherSlice as Reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
