@@ -1,6 +1,6 @@
 import { Button, Container, Image, Navbar, Form, Nav, Badge } from "react-bootstrap";
-import logo from "/src/assets/img/logo5.svg";
-import logoRounded from "/src/assets/img/logo-rounded2.svg";
+import logo from "/src/assets/img/logo6.svg";
+import logoRounded from "/src/assets/img/logo-rounded3.svg";
 import { Cart4, Search } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
