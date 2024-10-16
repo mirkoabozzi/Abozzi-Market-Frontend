@@ -12,6 +12,15 @@ body {
   cursor: pointer;
 }
 
+.scale {
+  transition: scale 300ms;
+}
+
+.scale:hover {
+  scale: 1.2;
+  transition: scale 300ms;
+}
+
 .cardHover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: scale 300ms, box-shadow 300ms;
@@ -37,24 +46,6 @@ body {
   }
 }
 
-.textPretty {
-  text-wrap: pretty;
-}
-
-.maps {
-  position: relative;
-  padding-bottom: 75%;
-  height: 0;
-  overflow: hidden;
-}
-.maps iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-}
-
 .line-truncate-2 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -69,4 +60,16 @@ body {
 .categoryHover:hover {
   transform: translateY(-15px);
   transition: transform 300ms;
+}
+
+.btn-primary {
+  --bs-btn-bg: #1a51bf;
+}
+
+.btn-danger {
+  --bs-btn-bg: #b10f0f;
+}
+
+.badge {
+  background-color: #1a51bf !important;
 }

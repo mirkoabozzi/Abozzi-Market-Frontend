@@ -85,9 +85,9 @@ const Product = () => {
           <Col sm={4} className="position-relative">
             <Image src={product?.imgUrl} className="w-100" />
             {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
-              <HeartFill className="heartPosition" onClick={handleRemoveFromWishlist} />
+              <HeartFill className="heartPosition mouseHover scale" onClick={handleRemoveFromWishlist} />
             ) : (
-              <Heart className="heartPosition" onClick={handleAddToWishlist} />
+              <Heart className="heartPosition mouseHover scale" onClick={handleAddToWishlist} />
             )}
           </Col>
           <Col>
@@ -127,7 +127,7 @@ const Product = () => {
                         {isLogged && (
                           <Pencil
                             size={20}
-                            className="mouseHover"
+                            className="mouseHover scale"
                             onClick={() => {
                               SetReview(review);
                               handleShowReviewUpdate();
