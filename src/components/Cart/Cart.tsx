@@ -1,4 +1,4 @@
-import { Button, Col, Container, Dropdown, DropdownButton, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, DropdownButton, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
@@ -10,6 +10,7 @@ import { setAddressChoice } from "../../redux/slice/addressesSlice";
 import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import { DashCircle, PlusCircle } from "react-bootstrap-icons";
+import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,8 @@ const Cart = () => {
   const addresses: IAddress[] = useAppSelector((state) => state.addresses.content);
   const [address, setAddress] = useState<IAddress | null>(null);
 
+  const paymentLoading: boolean = useAppSelector((state) => state.payment.paymentLoading);
+
   const handleAddress = (selectedAddress: IAddress) => {
     setAddress(selectedAddress);
   };
@@ -27,6 +30,7 @@ const Cart = () => {
   const handleCartAndPayment = () => {
     if (isLogged) {
       if (address != null) {
+        dispatch(setPaymentLoading(true));
         dispatch(setAddressChoice(address));
         dispatch(pay(Number(total.toFixed(2))));
       } else {
@@ -106,7 +110,7 @@ const Cart = () => {
       ) : (
         ""
       )}
-      {cart.length > 0 ? <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}
+      {cart.length > 0 ? paymentLoading ? <Spinner /> : <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}
       <ToastContainer />
     </Container>
   );

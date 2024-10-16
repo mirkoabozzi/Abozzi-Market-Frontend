@@ -2,10 +2,11 @@ import { url } from "./user";
 import { AppDispatch } from "../store";
 import { clearAddressChoice } from "../slice/addressesSlice";
 import { ActionType } from "../enums/ActionType";
+import { setPaymentLoading } from "../slice/paymentSlice";
 const appUrl = import.meta.env.VITE_MY_APP_URL;
 
 export const pay = (sum: number) => {
-  return async () => {
+  return async (dispatch: AppDispatch) => {
     const payment: IPayment = {
       sum,
       currency: "EUR",
@@ -27,13 +28,16 @@ export const pay = (sum: number) => {
       });
       if (resp.ok) {
         const responseText = await resp.text();
+        dispatch(setPaymentLoading(false));
         const redirectUrl = responseText.substring(9);
         window.location.href = redirectUrl;
       } else {
-        throw new Error("Add product error");
+        throw new Error("Payment error");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setPaymentLoading(false));
     }
   };
 };
@@ -59,14 +63,17 @@ export const execute = (paymentId: string, payerId: string) => {
       if (resp.ok) {
         dispatch(clearAddressChoice());
         dispatch({ type: ActionType.CLEAR_CART });
+        dispatch(setPaymentLoading(false));
         const responseText = await resp.text();
         const redirectUrl = responseText.substring(9);
         window.location.href = redirectUrl;
       } else {
-        throw new Error("Add product error");
+        throw new Error("Execute payment error");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setPaymentLoading(false));
     }
   };
 };

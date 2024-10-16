@@ -1,8 +1,9 @@
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { execute } from "../../redux/actions/cart";
 import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
+import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 
 const Success = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,10 @@ const Success = () => {
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
   const address: IAddress = useAppSelector((state) => state.addresses.addressChoice);
 
+  const paymentLoading: boolean = useAppSelector((state) => state.payment.paymentLoading);
+
   const handleCreateOrder = async () => {
+    dispatch(setPaymentLoading(true));
     const orderDetails = cart.map((item: IItem) => ({
       product: item.product.id,
       quantity: item.quantity,
@@ -42,9 +46,7 @@ const Success = () => {
   return (
     <Container className="mainContainer mt-5 rounded-4 text-center">
       <h1>Conferma il tuo acquisto!</h1>
-      <Button variant="outline-primary" onClick={handleCreateOrder}>
-        Paga
-      </Button>
+      {paymentLoading ? <Spinner /> : <Button onClick={handleCreateOrder}>Paga</Button>}
     </Container>
   );
 };
