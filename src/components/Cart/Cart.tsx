@@ -9,6 +9,7 @@ import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
 import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
+import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -66,16 +67,16 @@ const Cart = () => {
           return (
             <div key={i}>
               <Row>
-                <Col sm={4} lg={2}>
+                <Col xs={4} lg={2}>
                   <Image src={item.product.imgUrl} className="w-100 mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
                   <p className="fs-2">€ {handleDiscountPrice(item.product).toFixed(2)}</p>
-                  <div className="d-flex align-items-center gap-3">
-                    <Button onClick={() => handleDecreaseQuantity(item)}>-</Button>
+                  <div className="d-flex align-items-center gap-3 mb-3">
+                    <DashCircle className="fs-4 mouseHover scale" onClick={() => handleDecreaseQuantity(item)} />
                     <p className="mb-0">{item.quantity}</p>
-                    <Button onClick={() => handleIncreaseQuantity(item)}>+</Button>
+                    <PlusCircle className="fs-4 mouseHover scale" onClick={() => handleIncreaseQuantity(item)} />
                   </div>
                   <div className="mt-2">
                     <Button onClick={() => dispatch({ type: ActionType.REMOVE_FROM_CART, payload: item.product })}>Rimuovi articolo</Button>
