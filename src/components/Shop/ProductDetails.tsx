@@ -102,7 +102,7 @@ const Product = () => {
               <Form.Label>Quantità</Form.Label>
               <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
             </Form.Group>
-            <div className="d-flex gap-2 mt-3">
+            <div className="d-flex gap-2 my-3">
               <Button onClick={handleAddToCart}>Aggiungi al carrello</Button>
               <Button onClick={handleShow}>Recensisci prodotto</Button>
               {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}

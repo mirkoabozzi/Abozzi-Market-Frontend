@@ -27,10 +27,12 @@ import Users from "./components/Profile/Users";
 import Discount from "./components/Profile/Discount";
 import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
+import ScrollTop from "./components/ScrollTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <TopBar />
       <MyNav />
       <Category />

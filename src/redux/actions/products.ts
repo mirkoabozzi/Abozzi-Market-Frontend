@@ -3,7 +3,7 @@ import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { url } from "./user";
 import { AppDispatch } from "../store";
-import { successToast } from "./toaster";
+import { errorToast, successToast } from "./toaster";
 
 export const getProducts = (page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
@@ -112,6 +112,7 @@ export const updateProductImage = (file: File, productId: string) => {
         dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
+        errorToast("Caricamento immagine fallito");
         throw new Error("Update product image error");
       }
     } catch (error) {

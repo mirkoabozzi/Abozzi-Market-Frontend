@@ -55,7 +55,7 @@ const MyNav = () => {
           </div>
           <Form className="d-flex w-100 position-relative order-5 order-sm-0" onSubmit={handleSubmit}>
             <Form.Control type="search" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" value={mainSearch} onChange={(e) => setMainSearch(e.target.value)} />
-            <Button variant="transparent" className="position-absolute end-0">
+            <Button type="submit" variant="transparent" className="position-absolute end-0">
               <Search width={20} height={20} />
             </Button>
           </Form>
@@ -70,7 +70,7 @@ const MyNav = () => {
             </>
           ) : (
             <>
-              <div title="Account" className="ms-auto ms-sm-2 mouseHover" onClick={() => navigate("/profile")}>
+              <div title="Account" className="ms-auto ms-sm-2 mouseHover scale" onClick={() => navigate("/profile")}>
                 <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
@@ -79,7 +79,7 @@ const MyNav = () => {
               </Button>
             </>
           )}
-          <div className="position-relative ms-auto ms-sm-0">
+          <div className="position-relative ms-auto ms-sm-0 scale">
             <Cart4 title="Carrello" width={40} height={40} className="m-2 mouseHover" onClick={() => navigate("/cart")} />
             <Badge bg="primary" pill={true} className="position-absolute top-0 end-0">
               {totalQuantity}
