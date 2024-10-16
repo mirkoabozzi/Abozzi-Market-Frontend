@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
 import { Trash } from "react-bootstrap-icons";
 import { dataConverter } from "../../redux/actions/products";
-import ModalAlert from "../ModalAlert";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Discount = () => {
   const dispatch = useAppDispatch();

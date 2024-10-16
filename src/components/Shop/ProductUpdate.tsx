@@ -4,7 +4,7 @@ import { addDiscountOnProduct, dataConverter, deleteDiscountFromProduct, deleteP
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
-import ModalAlert from "../ModalAlert";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 interface IProductUpdateProps {
   show: boolean;

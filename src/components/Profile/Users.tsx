@@ -5,7 +5,7 @@ import { Badge, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { dataConverter } from "../../redux/actions/products";
 import { ArrowLeftCircle, ArrowRightCircle, Trash } from "react-bootstrap-icons";
-import ModalAlert from "../ModalAlert";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Users = () => {
   const users: IUser[] = useAppSelector((state) => state.userReducer.users);

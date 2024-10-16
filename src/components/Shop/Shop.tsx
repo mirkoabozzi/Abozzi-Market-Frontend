@@ -7,19 +7,19 @@ import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
 import { ArrowLeftCircle, ArrowRightCircle } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
+import { ActionType } from "../../redux/enums/ActionType";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
   const products: IProduct[] = useAppSelector((state: RootState) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state: RootState) => state.productReducer.isLoading);
+  const productsLoaded = useAppSelector((state) => state.productReducer.productsLoaded);
   const [page, setPage] = useState(0);
-
-  const [productsLoaded, setProductsLoaded] = useState(false);
 
   useEffect(() => {
     if (!productsLoaded) {
       dispatch(getProducts(page));
-      setProductsLoaded(true);
+      dispatch({ type: ActionType.SET_PRODUCTS_LOADED_TRUE });
     }
   }, [dispatch, page, productsLoaded]);
 
@@ -58,7 +58,7 @@ const Shop = () => {
               height={30}
               onClick={() => {
                 setPage(page - 1);
-                setProductsLoaded(false);
+                dispatch({ type: ActionType.SET_PRODUCTS_LOADED_FALSE });
               }}
             />
           ) : (
@@ -74,7 +74,7 @@ const Shop = () => {
             height={30}
             onClick={() => {
               setPage(page + 1);
-              setProductsLoaded(false);
+              dispatch({ type: ActionType.SET_PRODUCTS_LOADED_FALSE });
             }}
           />
         </Col>
