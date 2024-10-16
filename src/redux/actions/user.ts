@@ -73,11 +73,11 @@ export const updateUserAvatar = (file: File) => {
   };
 };
 
-export const getAllUser = () => {
+export const getAllUser = (page: number) => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/users`, {
+      const resp = await fetch(`${url}/users?page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -108,7 +108,7 @@ export const updateUserRole = (body: IUserRole) => {
       });
       if (resp.ok) {
         console.log(resp.status);
-        dispatch(getAllUser());
+        dispatch(getAllUser(0));
         successToast("Ruolo aggiornato");
       } else {
         throw new Error("Update user error");
@@ -128,8 +128,29 @@ export const deleteUser = (userId: string) => {
         headers: { Authorization: "Bearer " + accessToken },
       });
       if (resp.ok) {
-        dispatch(getAllUser());
+        dispatch(getAllUser(0));
         successToast("Utente eliminato");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const findUserByName = (name: string) => {
+  return async (dispatch: Dispatch<UserAction>) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/users/name?user=${name}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const users = await resp.json();
+        dispatch({ type: ActionType.SET_USERS, payload: users.content });
+      } else {
+        throw new Error("Find user by name error");
       }
     } catch (error) {
       console.log(error);
