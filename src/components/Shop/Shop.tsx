@@ -39,7 +39,7 @@ const Shop = () => {
             ) : products.length > 0 ? (
               products.map((product: IProduct) => {
                 return (
-                  <Col sm={6} md={4} lg={3} xl={2} className="my-3" key={product.id}>
+                  <Col xs={6} md={4} lg={3} xl={2} className="my-3" key={product.id}>
                     <ProductCard product={product} />
                   </Col>
                 );

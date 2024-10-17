@@ -1,7 +1,8 @@
 import { Button, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useState } from "react";
-import { addCategory, addImageCategory, deleteCategory } from "../../redux/actions/categories";
+import { addCategory, addImageCategory, deleteCategory, updateCategory } from "../../redux/actions/categories";
+import { ToastContainer } from "react-toastify";
 
 const CategoryManagement = () => {
   const categories = useAppSelector((state) => state.categoriesReducer.categories);
@@ -14,9 +15,9 @@ const CategoryManagement = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [showModalImage, setShowModalImage] = useState(false);
-  const handleCloseModalImage = () => setShowModalImage(false);
-  const handleShowModalImage = () => setShowModalImage(true);
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
+  const handleCloseModalUpdate = () => setShowModalUpdate(false);
+  const handleShowModalUpdate = () => setShowModalUpdate(true);
 
   const [categoryId, setCategoryId] = useState("");
 
@@ -30,19 +31,23 @@ const CategoryManagement = () => {
     e.preventDefault();
     const newCategory: IAddCategory = { name };
     dispatch(addCategory(newCategory));
+    setName("");
   };
 
-  const handleSubmitImage = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await dispatch(updateCategory(name, categoryId));
+    setName("");
     if (avatar) {
       dispatch(addImageCategory(avatar, categoryId));
     }
-    handleCloseModalImage();
+    handleCloseModalUpdate();
   };
 
   const handleDeleteCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(deleteCategory(categoryId));
+    handleCloseModalUpdate();
   };
 
   return (
@@ -57,8 +62,9 @@ const CategoryManagement = () => {
                 key={category.id}
                 className="text-center mouseHover"
                 onClick={() => {
-                  handleShowModalImage();
+                  handleShowModalUpdate();
                   setCategoryId(category.id);
+                  setName(category.name);
                 }}
               >
                 <Image height={100} width={100} src={category.image} alt="category image" className="border rounded-circle object-fit-cover shadow" />
@@ -91,19 +97,23 @@ const CategoryManagement = () => {
           </Modal.Body>
         </Modal>
 
-        {/* modal add image*/}
-        <Modal show={showModalImage} onHide={handleCloseModalImage}>
+        {/* modal edit category*/}
+        <Modal show={showModalUpdate} onHide={handleCloseModalUpdate}>
           <Modal.Header closeButton>
-            <Modal.Title>Aggiungi immagine</Modal.Title>
+            <Modal.Title>Modifica</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={handleSubmitImage}>
+            <Form onSubmit={handleUpdate}>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Nome</Form.Label>
+                <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formAvatar">
                 <Form.Label>Avatar</Form.Label>
                 <Form.Control type="file" onChange={handleFileChange} />
               </Form.Group>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModalImage}>
+                <Button variant="secondary" onClick={handleCloseModalUpdate}>
                   Chiudi
                 </Button>
                 <Button type="submit" variant="primary" onClick={handleClose}>
@@ -117,6 +127,7 @@ const CategoryManagement = () => {
           </Modal.Body>
         </Modal>
       </div>
+      <ToastContainer />
     </>
   );
 };

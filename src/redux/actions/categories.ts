@@ -3,6 +3,7 @@ import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
 import { CategoryAction } from "../action-types";
 import { AppDispatch } from "../store";
+import { errorToast, successToast } from "./toaster";
 
 export const getCategories = () => {
   return async (dispatch: Dispatch<CategoryAction>) => {
@@ -34,6 +35,33 @@ export const addCategory = (newCategory: IAddCategory) => {
       });
       if (resp.ok) {
         dispatch(getCategories());
+        successToast("Categoria aggiunta");
+      } else {
+        if (resp.status === 400) errorToast("Categoria già presente!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateCategory = (name: string, categoryId: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/categories/${categoryId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+      });
+      if (resp.ok) {
+        successToast("Categoria aggiornata");
+        dispatch(getCategories());
+      } else {
+        if (resp.status === 400) errorToast("Categoria già presente!");
       }
     } catch (error) {
       console.log(error);
@@ -73,6 +101,9 @@ export const deleteCategory = (categoryId: string) => {
       });
       if (resp.ok) {
         dispatch(getCategories());
+        successToast("Categoria eliminata");
+      } else {
+        if (resp.status === 400) errorToast("Categoria in uso!");
       }
     } catch (error) {
       console.log(error);
