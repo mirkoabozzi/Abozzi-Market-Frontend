@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Col, Container, Dropdown, Image, Row } from "react-bootstrap";
+import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
@@ -26,13 +26,13 @@ const OrderDetails = () => {
   };
 
   return (
-    <Container>
+    <>
       <h3 className="mb-5">Ordine: {order?.id}</h3>
       <Row className="mb-5">
-        <Col xs={4}>
+        <Col sm={4}>
           <p>Data ordine: {dataConverter(order?.orderDate)}</p>
         </Col>
-        <Col>
+        <Col sm={4}>
           <p>Stato ordine: {order?.ordersState}</p>
           {user?.role === "ADMIN" ? (
             <Dropdown>
@@ -52,8 +52,8 @@ const OrderDetails = () => {
             ""
           )}
         </Col>
-        <Col>
-          <p>Pagamento: {order?.payment.status}</p>
+        <Col sm={4}>
+          <p className="mt-3 mt-sm-0">Pagamento: {order?.payment.status}</p>
         </Col>
       </Row>
       <Row>
@@ -75,18 +75,18 @@ const OrderDetails = () => {
         return (
           <div key={item.id}>
             <Row>
-              <Col>
-                <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
+              <Col xs={3}>
+                <Image src={item.product.imgUrl} alt="product image" className="mouseHover w-100" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 <p>{item.product.name}</p>
               </Col>
-              <Col>
+              <Col xs={3}>
                 <p>{item.quantity}</p>
               </Col>
-              <Col>
-                <p>€ {handleDiscountPrice(item.product).toFixed(2)}</p>
+              <Col xs={3}>
+                <p>€{handleDiscountPrice(item.product).toFixed(2)}</p>
               </Col>
-              <Col>
-                <p>€ {(handleDiscountPrice(item.product) * item.quantity).toFixed(2)}</p>
+              <Col xs={3}>
+                <p>€{(handleDiscountPrice(item.product) * item.quantity).toFixed(2)}</p>
               </Col>
             </Row>
             <hr />
@@ -100,7 +100,7 @@ const OrderDetails = () => {
         <Col></Col>
         <Col></Col>
         <Col>
-          <h3>€ {order?.payment.total.toFixed(2)}</h3>
+          <h3>€{order?.payment.total.toFixed(2)}</h3>
         </Col>
       </Row>
       {order?.user && (
@@ -120,7 +120,7 @@ const OrderDetails = () => {
         </Row>
       )}
       <ToastContainer />
-    </Container>
+    </>
   );
 };
 

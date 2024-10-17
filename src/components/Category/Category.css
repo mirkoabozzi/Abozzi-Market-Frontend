@@ -1,0 +1,16 @@
+.custom-scrollbar {
+  overflow-x: auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #1a51bfcb;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #1a51bf;
+}

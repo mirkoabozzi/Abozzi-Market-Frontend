@@ -13,7 +13,7 @@ const WishList = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <h3>Lista dei desideri</h3>
       <Row className="text-center">
         {wishlist.length > 0 ? (
@@ -30,7 +30,7 @@ const WishList = () => {
           <p>Non hai nessun prodotto nella wishlist</p>
         )}
       </Row>
-    </div>
+    </>
   );
 };
 

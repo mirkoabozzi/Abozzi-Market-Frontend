@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getMyOrders } from "../../redux/actions/orders";
@@ -14,7 +16,15 @@ const MyOrder = () => {
 
   useEffect(() => {
     dispatch(getMyOrders(page, navigate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }, []);
 
   return (
     <>
@@ -23,7 +33,7 @@ const MyOrder = () => {
         orders?.map((order: IOrder) => {
           return (
             <div key={order.id}>
-              <Row>
+              <Row data-aos="fade-left">
                 <Col>
                   <p className="line-truncate-2">Order: {order.id}</p>
                   <p>Data: {dataConverter(order.orderDate)}</p>

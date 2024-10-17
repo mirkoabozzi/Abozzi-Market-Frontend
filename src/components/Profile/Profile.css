@@ -1,0 +1,6 @@
+.sidebarPosition {
+  overflow-y: auto;
+  position: sticky;
+  top: 180px;
+  background-color: #eef5fb;
+}

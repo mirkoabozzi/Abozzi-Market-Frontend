@@ -31,11 +31,10 @@ const Sidebar = () => {
           <Form.Label>Max</Form.Label>
           <Form.Control type="number" placeholder="max" value={max} onChange={(e) => setMax(Number(e.target.value))} />
         </Form.Group>
+        <Button type="submit">Applica</Button>
       </Form>
       <hr />
-      <Button className="ms-auto ms-sm-2" onClick={handlePromo}>
-        Promozioni
-      </Button>
+      <Button onClick={handlePromo}>Promo</Button>
     </Container>
   );
 };

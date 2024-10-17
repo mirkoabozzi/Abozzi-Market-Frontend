@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getAllClientsOrders } from "../../redux/actions/orders";
@@ -17,6 +19,13 @@ const Orders = () => {
     dispatch(getAllClientsOrders(page));
   }, [dispatch, page]);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }, []);
+
   return (
     <>
       <h3 className="mb-5">Ordini clienti</h3>
@@ -24,7 +33,7 @@ const Orders = () => {
         orders.map((order: IOrder) => {
           return (
             <div key={order.id}>
-              <Row>
+              <Row data-aos="fade-left">
                 <Col>
                   <p className="line-truncate-2">Order: {order.id}</p>
                   <p>Cliente: {order.user.name}</p>
