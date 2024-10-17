@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
-import { successToast } from "./toaster";
+import { errorToast, successToast } from "./toaster";
 
 export const url = import.meta.env.VITE_URL;
 
@@ -40,9 +40,10 @@ export const updateUser = (body: IUserUpdate) => {
         body: JSON.stringify(body),
       });
       if (resp.ok) {
-        console.log(resp.status);
+        successToast("Dati aggiornati con successo!");
         dispatch(getUser());
       } else {
+        errorToast("Aggiornamento fallito!");
         throw new Error("Update user error");
       }
     } catch (error) {
@@ -130,6 +131,9 @@ export const deleteUser = (userId: string) => {
       if (resp.ok) {
         dispatch(getAllUser(0));
         successToast("Utente eliminato");
+      } else {
+        errorToast("Impossibile eliminare questo utente");
+        throw new Error("Delete user error");
       }
     } catch (error) {
       console.log(error);

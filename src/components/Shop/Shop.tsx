@@ -54,6 +54,7 @@ const Shop = () => {
         <Col>
           {page > 0 ? (
             <ArrowLeftCircle
+              className="mouseHover scale"
               width={30}
               height={30}
               onClick={() => {
@@ -62,7 +63,7 @@ const Shop = () => {
               }}
             />
           ) : (
-            ""
+            <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
           )}
         </Col>
         <Col>
@@ -70,6 +71,7 @@ const Shop = () => {
         </Col>
         <Col>
           <ArrowRightCircle
+            className="mouseHover scale"
             width={30}
             height={30}
             onClick={() => {

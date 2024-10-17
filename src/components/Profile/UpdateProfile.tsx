@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const UpdateProfile = () => {
   const user: IUser = useAppSelector((state) => state.userReducer.user);
@@ -21,20 +21,6 @@ const UpdateProfile = () => {
     }
   };
 
-  const infoToast = () => {
-    toast.info("Dati aggiornati con successo!", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userData: IUserUpdate = { name, surname, email, phoneNumber };
@@ -45,7 +31,6 @@ const UpdateProfile = () => {
       await dispatch(updateUserAvatar(avatar));
     }
     dispatch(getUser());
-    infoToast();
   };
 
   useEffect(() => {

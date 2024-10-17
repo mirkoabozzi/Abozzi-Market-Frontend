@@ -3,7 +3,7 @@ import { Button, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addProduct } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
-import { errorToast, successToast } from "../../redux/actions/toaster";
+import { errorToast } from "../../redux/actions/toaster";
 
 const AddProduct = () => {
   const categories = useAppSelector((state) => state.categoriesReducer.categories);
@@ -37,7 +37,6 @@ const AddProduct = () => {
       setPrice(1);
       setQuantityAvailable(1);
       setCategory(null);
-      successToast(`Prodotto aggiunto!`);
     }
   };
 

@@ -13,7 +13,7 @@ const MyOrder = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    dispatch(getMyOrders(page));
+    dispatch(getMyOrders(page, navigate));
   }, [dispatch, page]);
 
   return (
@@ -48,12 +48,14 @@ const MyOrder = () => {
         </div>
       )}
       <Row className="text-center mt-5">
-        <Col>{page > 0 ? <ArrowLeftCircle width={30} height={30} onClick={() => setPage(page - 1)} /> : ""}</Col>
+        <Col>
+          {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
+        </Col>
         <Col>
           <Badge className="fs-6">{page}</Badge>
         </Col>
         <Col>
-          <ArrowRightCircle width={30} height={30} onClick={() => setPage(page + 1)} />
+          <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
         </Col>
       </Row>
     </>

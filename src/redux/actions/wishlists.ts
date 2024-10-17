@@ -3,6 +3,7 @@ import { WishlistAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { url } from "./user";
 import { AppDispatch } from "../store";
+import { successToast } from "./toaster";
 
 export const getMyWishlists = () => {
   return async (dispatch: Dispatch<WishlistAction>) => {
@@ -39,6 +40,7 @@ export const addToWishlist = (product: IWishlistAdd) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
+        successToast("Articolo aggiunto ai preferiti!");
       } else {
         throw new Error("Add to wishlist error");
       }
@@ -58,6 +60,7 @@ export const removeFromWishlist = (id: string) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
+        successToast("Articolo rimosso dai preferiti!");
       } else {
         throw new Error("Remove from wishlist error");
       }

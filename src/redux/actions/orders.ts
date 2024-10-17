@@ -3,10 +3,11 @@ import { OrderAction } from "../action-types";
 import { url } from "./user";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
-import { successToast } from "./toaster";
+import { errorToast, successToast } from "./toaster";
+import { NavigateFunction } from "react-router-dom";
 
-export const getMyOrders = (page: number) => {
-  return async (dispatch: Dispatch<OrderAction>) => {
+export const getMyOrders = (page: number, navigate: NavigateFunction) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/me?page=${page}`, {
@@ -18,6 +19,12 @@ export const getMyOrders = (page: number) => {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ORDERS, payload: orders.content });
       } else {
+        if (resp.status === 401) {
+          errorToast("Token scaduto effettua il login");
+          dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
+          dispatch({ type: ActionType.SET_USER, payload: null });
+          navigate("/");
+        }
         throw new Error("Get orders error");
       }
     } catch (error) {
@@ -57,7 +64,7 @@ export const addOrder = (order: IOrderAdd) => {
         body: JSON.stringify(order),
       });
       if (resp.ok) {
-        // dispatch(getMyOrders());
+        successToast("Ordine creato");
       } else {
         throw new Error("Add order error");
       }

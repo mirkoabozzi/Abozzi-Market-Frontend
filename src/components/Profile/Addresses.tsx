@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addAddress, deleteAddress, getAllAddress } from "../../redux/actions/addressees";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
-import { successToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
 
 const Addresses = () => {
@@ -36,7 +35,6 @@ const Addresses = () => {
     setCity("");
     setNumber(1);
     setZipCode("");
-    successToast("Indirizzo aggiunto");
   };
 
   const handleDeleteAddress = (addressId: string | undefined) => {

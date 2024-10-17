@@ -63,6 +63,7 @@ export const addProduct = (product: IProductAdd) => {
       });
       if (resp.ok) {
         dispatch(getProducts(0));
+        successToast("Prodotto aggiunto!");
       } else {
         throw new Error("Add product error");
       }

@@ -39,6 +39,7 @@ export const addAddress = (newAddress: IAddressAdd) => {
       });
       if (resp.ok) {
         dispatch(getAllAddress());
+        successToast("Indirizzo aggiunto");
       }
     } catch (error) {
       console.log(error);
