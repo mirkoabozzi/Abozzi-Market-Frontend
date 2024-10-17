@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { it, expect, describe } from "vitest";
 import MyNav from "../../components/Navbar/MyNav";
 import store from "../../redux/store";
 import { MemoryRouter } from "react-router-dom";
