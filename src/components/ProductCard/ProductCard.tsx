@@ -27,11 +27,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card className=" rounded-3 h-100 cardHover">
-      <Card.Img variant="top" src={product.imgUrl} className=" rounded-3 mouseHover" onClick={() => navigate(`/product/details/${product.id}`)} />
-      <Card.Body className="d-flex flex-column justify-content-end">
+      <Card.Img variant="top" src={product.imgUrl} alt={product.name} className="rounded-3 mouseHover p-2" onClick={() => navigate(`/product/details/${product.id}`)} />
+      <Card.Body className="d-flex flex-column justify-content-end p-2">
         <Card.Title>{product.name}</Card.Title>
         <Card.Text className="line-truncate-2">{product.description}</Card.Text>
-        <p className="fs-2">€ {handleDiscountPrice(product).toFixed(2)}</p>
+        <p className={!product?.discountStatus ? "fs-1 mb-0" : "fs-5 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</p>
+        {product?.discountStatus ? <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p> : null}
         <div className="d-flex justify-content-end">
           <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />
         </div>

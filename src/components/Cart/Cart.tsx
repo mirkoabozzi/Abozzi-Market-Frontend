@@ -63,7 +63,7 @@ const Cart = () => {
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container className="mt-4">
       <h3>Carrello</h3>
       <hr />
       {cart.length > 0 ? (

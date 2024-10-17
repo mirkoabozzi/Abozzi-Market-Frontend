@@ -1,3 +1,4 @@
+import "./MyNav.css";
 import { Button, Container, Image, Navbar, Form, Nav, Badge } from "react-bootstrap";
 import logo from "/src/assets/img/logo6.svg";
 import logoRounded from "/src/assets/img/logo-rounded3.svg";
@@ -46,7 +47,7 @@ const MyNav = () => {
   };
 
   return (
-    <div className="sticky-top z-3" style={{ backgroundColor: "#eef5fb" }}>
+    <div className="sticky-top z-3 myNav">
       <Navbar expand="sm" className="pb-0">
         <Container fluid className="justify-content-lg-between">
           <div className="me-2 mb-2 mouseHover" title="Home" onClick={() => navigate("/")}>
@@ -61,10 +62,10 @@ const MyNav = () => {
           </Form>
           {!isLogged ? (
             <>
-              <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowLogin}>
+              <Button variant="transparent" className="ms-auto ms-sm-2" onClick={handleShowLogin}>
                 Accedi
               </Button>
-              <Button variant="transparent" className="ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleShowRegistration}>
+              <Button variant="transparent" className="ms-sm-2" onClick={handleShowRegistration}>
                 Registrati
               </Button>
             </>
@@ -74,7 +75,7 @@ const MyNav = () => {
                 <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
-              <Button variant="transparent" className="ms-auto ms-sm-2" style={{ color: "#1A51BF" }} onClick={handleLogout}>
+              <Button variant="transparent" className="ms-auto ms-sm-2" onClick={handleLogout}>
                 Logout
               </Button>
             </>
@@ -92,21 +93,16 @@ const MyNav = () => {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/">
+              <NavLink className="nav-link" to="/">
                 Home
               </NavLink>
-              <NavLink
-                className="nav-link"
-                style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })}
-                to="/shop"
-                onClick={() => dispatch(getProducts(0))}
-              >
+              <NavLink className="nav-link" to="/shop" onClick={() => dispatch(getProducts(0))}>
                 Shop
               </NavLink>
-              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/contact">
+              <NavLink className="nav-link" to="/contact">
                 Contatti
               </NavLink>
-              <NavLink className="nav-link" style={({ isActive }) => (isActive ? { color: "#1A51BF", borderBottom: "2px solid #1A51BF" } : { color: "" })} to="/about">
+              <NavLink className="nav-link" to="/about">
                 Chi siamo
               </NavLink>
             </Nav>

@@ -24,7 +24,7 @@ const Shop = () => {
   }, [dispatch, page, productsLoaded]);
 
   return (
-    <Container fluid>
+    <Container fluid className="mt-4">
       <Row>
         <Col sm={2}>
           <div className="d-none d-sm-block">

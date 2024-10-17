@@ -5,7 +5,7 @@ body {
   font-weight: 400;
   font-style: normal;
   background-color: #eef5fb;
-  color: rgb(0, 36, 99);
+  color: #002463;
 }
 
 .mouseHover {
@@ -25,7 +25,7 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: scale 300ms, box-shadow 300ms;
   animation: fadeScaleIn 1s backwards 300ms;
-  color: rgb(0, 36, 99);
+  color: #002463;
 }
 
 .cardHover:hover {

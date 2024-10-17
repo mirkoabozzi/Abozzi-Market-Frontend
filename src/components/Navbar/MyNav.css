@@ -1,0 +1,13 @@
+.navbar-nav .active {
+  color: #1a51bf !important;
+  border-bottom: 3px solid #1a51bf;
+}
+
+.nav-link:hover {
+  color: #1a51bf;
+}
+
+.myNav {
+  background-color: #eef5fb;
+  color: #1a51bf;
+}
