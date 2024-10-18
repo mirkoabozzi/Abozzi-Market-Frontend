@@ -162,7 +162,7 @@ export const findUserByName = (name: string) => {
   };
 };
 
-export const findUserByEmail = (email: string) => {
+export const resetUserPasswordRequest = (email: string) => {
   return async () => {
     try {
       const resp = await fetch(`${url}/authentication/reset`, {
@@ -177,6 +177,28 @@ export const findUserByEmail = (email: string) => {
       } else {
         errorToast("Email non trovata");
         throw new Error("Find user by email error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const resetUserPassword = (id: string, password: string) => {
+  return async () => {
+    try {
+      const resp = await fetch(`${url}/authentication/reset/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
+      if (resp.ok) {
+        successToast("Password cambiata con successo");
+      } else {
+        errorToast("Errore cambio password");
+        throw new Error("Reset user password error");
       }
     } catch (error) {
       console.log(error);

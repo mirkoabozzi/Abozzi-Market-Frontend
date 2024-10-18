@@ -46,7 +46,13 @@ const Success = () => {
   return (
     <Container className="mainContainer mt-5 rounded-4 text-center">
       <h1>Conferma il tuo acquisto!</h1>
-      {paymentLoading ? <Spinner /> : <Button onClick={handleCreateOrder}>Paga</Button>}
+      {paymentLoading ? (
+        <Spinner />
+      ) : (
+        <Button className="rounded-pill" onClick={handleCreateOrder}>
+          Paga
+        </Button>
+      )}
     </Container>
   );
 };

@@ -6,7 +6,7 @@ import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
 import { errorToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
-import Password from "./Password";
+import ResetUserPasswordRequest from "./ResetUserPasswordRequest";
 
 interface LoginProps {
   show: boolean;
@@ -14,9 +14,9 @@ interface LoginProps {
 }
 
 const Login = ({ show, handleClose }: LoginProps) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const [showResetPassword, setShowResetPassword] = useState(false);
@@ -94,9 +94,9 @@ const Login = ({ show, handleClose }: LoginProps) => {
           </Form>
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
-        <ToastContainer />
       </Modal>
-      <Password show={showResetPassword} handleClose={handleCloseResetPassword} />
+      <ToastContainer />
+      <ResetUserPasswordRequest show={showResetPassword} handleClose={handleCloseResetPassword} />
     </>
   );
 };

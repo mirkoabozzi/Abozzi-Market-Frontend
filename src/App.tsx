@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./Toastyfy.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNav from "./components/Navbar/MyNav";
 import TopBar from "./components/TopBar/TopBar";
@@ -28,6 +29,7 @@ import Discount from "./components/Profile/Discount";
 import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
 import ScrollTop from "./components/ScrollTop";
+import ResetUserPassword from "./components/Navbar/ResetUserPassword";
 
 function App() {
   return (
@@ -59,6 +61,7 @@ function App() {
         <Route path="/product/details/:id" element={<ProductDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="/passwordReset/:id" element={<ResetUserPassword />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

@@ -7,7 +7,7 @@ const Cancel = () => {
   return (
     <Container className="mainContainer mt-5 rounded-4 text-center">
       <h1>Hai annullato il pagamento!</h1>
-      <Button variant="outline-primary" onClick={() => navigate("/")}>
+      <Button variant="outline-primary" className="rounded-pill" onClick={() => navigate("/")}>
         Torna alla Home
       </Button>
     </Container>

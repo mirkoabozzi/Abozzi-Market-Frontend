@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useAppDispatch } from "../../redux/store";
-import { findUserByEmail } from "../../redux/actions/user";
+import { resetUserPasswordRequest } from "../../redux/actions/user";
 
-interface PasswordProps {
+interface ResetUserPasswordRequestProps {
   show: boolean;
   handleClose: () => void;
 }
-const Password = ({ show, handleClose }: PasswordProps) => {
+const ResetUserPasswordRequest = ({ show, handleClose }: ResetUserPasswordRequestProps) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(findUserByEmail(email));
+    if (email) {
+      dispatch(resetUserPasswordRequest(email));
+    }
     handleClose();
   };
 
@@ -39,10 +40,8 @@ const Password = ({ show, handleClose }: PasswordProps) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
-      <ToastContainer />
     </Modal>
   );
 };
 
-export default Password;
+export default ResetUserPasswordRequest;
