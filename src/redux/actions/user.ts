@@ -161,3 +161,25 @@ export const findUserByName = (name: string) => {
     }
   };
 };
+
+export const findUserByEmail = (email: string) => {
+  return async () => {
+    try {
+      const resp = await fetch(`${url}/authentication/reset`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (resp.ok) {
+        successToast("Email di recupero inviata");
+      } else {
+        errorToast("Email non trovata");
+        throw new Error("Find user by email error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

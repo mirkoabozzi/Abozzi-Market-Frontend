@@ -6,6 +6,7 @@ import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
 import { errorToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
+import Password from "./Password";
 
 interface LoginProps {
   show: boolean;
@@ -17,6 +18,14 @@ const Login = ({ show, handleClose }: LoginProps) => {
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const handleCloseResetPassword = () => setShowResetPassword(false);
+
+  const handleShowResetPassword = () => {
+    setShowResetPassword(true);
+    handleClose();
+  };
 
   const loginFetch = async () => {
     try {
@@ -51,38 +60,44 @@ const Login = ({ show, handleClose }: LoginProps) => {
   };
 
   return (
-    <Modal centered show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Accedi</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="name@example.com" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Password</Form.Label>
-            <div className="position-relative">
-              <Form.Control type={showPassword ? "text" : "password"} placeholder="****" required value={password} onChange={(e) => setPassword(e.target.value)} />
-              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
-                {showPassword ? <EyeSlashFill /> : <EyeFill />}{" "}
-              </span>
+    <>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Accedi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="name@example.com" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Password</Form.Label>
+              <div className="position-relative">
+                <Form.Control type={showPassword ? "text" : "password"} placeholder="****" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
+                  {showPassword ? <EyeSlashFill /> : <EyeFill />}{" "}
+                </span>
+              </div>
+            </Form.Group>
+            <div className="d-flex gap-1 justify-content-center">
+              <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+                Chiudi
+              </Button>
+              <Button variant="primary" className="rounded-pill" onClick={handleShowResetPassword}>
+                Recupera password
+              </Button>
+              <Button type="submit" variant="primary" className="rounded-pill">
+                Accedi
+              </Button>
             </div>
-          </Form.Group>
-          <div className="text-center">
-            <Button variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
-              Chiudi
-            </Button>
-            <Button type="submit" variant="primary" className="rounded-pill">
-              Accedi
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer></Modal.Footer>
-      <ToastContainer />
-    </Modal>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+        <ToastContainer />
+      </Modal>
+      <Password show={showResetPassword} handleClose={handleCloseResetPassword} />
+    </>
   );
 };
 
