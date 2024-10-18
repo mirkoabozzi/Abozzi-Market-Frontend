@@ -51,7 +51,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal centered show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Accedi</Modal.Title>
       </Modal.Header>

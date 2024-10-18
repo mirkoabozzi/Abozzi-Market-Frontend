@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setAddresses } from "../slice/addressesSlice";
 import { url } from "./user";
 import { AppDispatch } from "../store";
-import { successToast } from "./toaster";
+import { errorToast, successToast } from "./toaster";
 
 export const getAllAddress = () => {
   return async (dispatch: Dispatch) => {
@@ -58,6 +58,9 @@ export const deleteAddress = (addressId: string) => {
       if (resp.ok) {
         dispatch(getAllAddress());
         successToast("Indirizzo eliminato");
+      } else {
+        errorToast("Indirizzo in uso!");
+        throw new Error("Delete address error");
       }
     } catch (error) {
       console.log(error);

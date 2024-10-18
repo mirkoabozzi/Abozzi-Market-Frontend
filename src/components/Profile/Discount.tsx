@@ -3,24 +3,27 @@ import { Button, Form, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
-import { Trash } from "react-bootstrap-icons";
+import { Pencil, Trash } from "react-bootstrap-icons";
 import { dataConverter } from "../../redux/actions/products";
 import ModalAlert from "../ModalAlert/ModalAlert";
+import DiscountUpdateModal from "./DiscountUpdateModal";
 
 const Discount = () => {
   const dispatch = useAppDispatch();
 
+  const discounts = useAppSelector((state) => state.discounts.content);
   const [description, setDescription] = useState("");
   const [percentage, setPercentage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [discount, setDiscount] = useState<DiscountListItem>();
+  const [promoSelected, setPromoSelected] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
-  const [promoSelected, setPromoSelected] = useState("");
-
-  const discounts = useAppSelector((state) => state.discounts.content);
+  const [showUpdateDiscount, setShowUpdateDiscount] = useState(false);
+  const handleCloseUpdateDiscountModal = () => setShowUpdateDiscount(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,7 +81,7 @@ const Discount = () => {
                 <th>Sconto</th>
                 <th>Inizio</th>
                 <th>Fine</th>
-                <th>Elimina</th>
+                <th>Modifica</th>
               </tr>
             </thead>
             <tbody>
@@ -91,13 +94,22 @@ const Discount = () => {
                     <td>{dataConverter(discount.startDate)}</td>
                     <td>{dataConverter(discount.endDate)}</td>
                     <td>
-                      <Trash
-                        className="mouseHover"
-                        onClick={() => {
-                          setShow(true);
-                          setPromoSelected(discount.id);
-                        }}
-                      />
+                      <div className="d-flex justify-content-around">
+                        <Trash
+                          className="mouseHover scale"
+                          onClick={() => {
+                            setShow(true);
+                            setPromoSelected(discount.id);
+                          }}
+                        />
+                        <Pencil
+                          className="mouseHover scale"
+                          onClick={() => {
+                            setDiscount(discount);
+                            setShowUpdateDiscount(true);
+                          }}
+                        />
+                      </div>
                     </td>
                   </tr>
                 );
@@ -116,6 +128,7 @@ const Discount = () => {
           handleClose();
         }}
       />
+      {discount && <DiscountUpdateModal show={showUpdateDiscount} handleClose={handleCloseUpdateDiscountModal} discount={discount} />}
       <ToastContainer />
     </>
   );

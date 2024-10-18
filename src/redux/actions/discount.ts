@@ -42,7 +42,7 @@ export const addDiscount = (discount: IDiscountAdd) => {
         successToast("Promozione aggiunta");
       } else {
         errorToast("Errore aggiunta promo");
-        throw new Error("Add product error");
+        throw new Error("Add discount error");
       }
     } catch (error) {
       console.log(error);
@@ -62,7 +62,32 @@ export const deletePromo = (id: string) => {
         dispatch(getAllDiscounts());
         successToast("Promozione eliminata");
       } else {
-        throw new Error("Delete promo error");
+        throw new Error("Delete discount error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateDiscount = (discount: DiscountListItem) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/discounts/${discount.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discount),
+      });
+      if (resp.ok) {
+        dispatch(getAllDiscounts());
+        successToast("Promozione aggiornata");
+      } else {
+        errorToast("Errore aggiornamento promozione");
+        throw new Error("Update discount error");
       }
     } catch (error) {
       console.log(error);

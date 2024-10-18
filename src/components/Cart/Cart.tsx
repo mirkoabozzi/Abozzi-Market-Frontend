@@ -11,6 +11,7 @@ import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
+import payPal from "../../assets/img/paypal.svg";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -107,10 +108,15 @@ const Cart = () => {
             })}
           </DropdownButton>
         </>
-      ) : (
-        ""
-      )}
-      {cart.length > 0 ? paymentLoading ? <Spinner /> : <Button onClick={handleCartAndPayment}>Acquista</Button> : ""}
+      ) : null}
+      {cart.length > 0 ? (
+        <div className="d-flex flex-column align-items-center gap-2">
+          <div className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={handleCartAndPayment}>
+            <Image width={70} src={payPal} alt="paypal button" />
+          </div>
+          <div>{paymentLoading && <Spinner />}</div>
+        </div>
+      ) : null}
       <ToastContainer />
     </Container>
   );

@@ -101,7 +101,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
             </Form.Group>
             <Form.Group>
-              <div className="d-block d-sm-flex gap-2">
+              <div className="d-flex gap-2 justify-content-center flex-wrap">
                 <DropdownButton id="dropdown-basic-button" title={selectedCategoryName} className="mb-1">
                   {categories?.map((category: ICategory) => {
                     return (
@@ -133,15 +133,14 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                   })}
                 </DropdownButton>
               </div>
-
               {product.discountList.map((discount: DiscountListItem) => {
                 return (
-                  <>
-                    <p key={discount.id} className="mb-1 mt-3">
+                  <div key={discount.id}>
+                    <p className="mb-1 mt-3">
                       Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
                     </p>
                     <p>Termina: {dataConverter(discount.endDate)}</p>
-                  </>
+                  </div>
                 );
               })}
             </Form.Group>

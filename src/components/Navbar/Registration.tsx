@@ -51,7 +51,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal centered show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Registrati</Modal.Title>
       </Modal.Header>
