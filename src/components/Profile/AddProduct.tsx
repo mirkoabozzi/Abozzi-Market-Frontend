@@ -72,7 +72,7 @@ const AddProduct = () => {
           </DropdownButton>
         </Form.Group>
         <div className="text-center mt-5">
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" className="rounded-pill">
             Aggiungi prodotto
           </Button>
         </div>

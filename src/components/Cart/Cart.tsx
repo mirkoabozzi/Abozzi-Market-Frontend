@@ -1,4 +1,4 @@
-import { Button, Col, Container, Dropdown, DropdownButton, Image, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
@@ -84,7 +84,9 @@ const Cart = () => {
                     <PlusCircle className="fs-4 mouseHover scale" onClick={() => handleIncreaseQuantity(item)} />
                   </div>
                   <div className="mt-2">
-                    <Button onClick={() => dispatch({ type: ActionType.REMOVE_FROM_CART, payload: item.product })}>Rimuovi articolo</Button>
+                    <Button className="rounded-pill" onClick={() => dispatch({ type: ActionType.REMOVE_FROM_CART, payload: item.product })}>
+                      Rimuovi articolo
+                    </Button>
                   </div>
                 </Col>
               </Row>
@@ -98,15 +100,20 @@ const Cart = () => {
       {isLogged && cart.length > 0 ? (
         <>
           <h3 className="mb-4">Totale: € {total.toFixed(2)}</h3>
-          <DropdownButton className="mb-3" id="dropdown-button" title={address ? address.address + " " + address.number : "Seleziona un indirizzo"}>
-            {addresses?.map((address: IAddress) => {
-              return (
-                <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
-                  {address.address} {address.number}
-                </Dropdown.Item>
-              );
-            })}
-          </DropdownButton>
+          <Dropdown>
+            <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
+              {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
+            </Dropdown.Toggle>
+            <DropdownMenu>
+              {addresses?.map((address: IAddress) => {
+                return (
+                  <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
+                    {address.address} {address.number}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
         </>
       ) : null}
       {cart.length > 0 ? (

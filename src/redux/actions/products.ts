@@ -249,7 +249,7 @@ export const handleDiscountPrice = (product: IProduct) => {
   return product.price;
 };
 
-export const dataConverter = (timeStamp: string) => {
+export const dateConverter = (timeStamp: string) => {
   const data = new Date(timeStamp);
   return data.toLocaleString("it-IT", {
     hour: "2-digit",

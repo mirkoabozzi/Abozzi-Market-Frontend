@@ -15,10 +15,10 @@ const ModalAlert = ({ show, handleClose, handleEvent }: ModalAlertProps) => {
         </Modal.Header>
         <Modal.Body>Vuoi eliminare il record?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
             Chiudi
           </Button>
-          <Button variant="danger" onClick={handleEvent}>
+          <Button variant="danger" className="rounded-pill" onClick={handleEvent}>
             Conferma
           </Button>
         </Modal.Footer>

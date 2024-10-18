@@ -27,7 +27,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card className=" rounded-3 h-100 cardHover">
-      <Card.Img variant="top" src={product.imgUrl} alt={product.name} className="rounded-3 mouseHover p-2" onClick={() => navigate(`/product/details/${product.id}`)} />
+      <Card.Img variant="top" src={product.imgUrl} alt={product.name} className="rounded-3 mouseHover p-2 object-fit-contain" onClick={() => navigate(`/product/details/${product.id}`)} height={200} />
       <Card.Body className="d-flex flex-column justify-content-end p-2">
         <Card.Title>{product.name}</Card.Title>
         <Card.Text className="line-truncate-2">{product.description}</Card.Text>

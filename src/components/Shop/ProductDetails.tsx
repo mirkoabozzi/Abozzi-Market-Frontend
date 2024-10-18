@@ -1,6 +1,6 @@
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { dataConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
+import { dateConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
@@ -127,19 +127,32 @@ const Product = () => {
             </div>
 
             <p className={!product?.discountStatus ? "fs-1 mb-0" : "fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</p>
-            {product?.discountStatus ? <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p> : null}
+            {product?.discountStatus ? (
+              <>
+                <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p>
+                <p>Termina il: {dateConverter(product.discountList[0].endDate)}</p>
+              </>
+            ) : null}
 
             <Form.Group style={{ width: "70px" }} controlId="formQuantity">
               <Form.Label>Quantità</Form.Label>
               <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
             </Form.Group>
             <div className="d-flex gap-2 my-3">
-              <Button onClick={handleAddToCart}>Aggiungi al carrello</Button>
-              <Button onClick={handleShow}>Recensisci prodotto</Button>
-              {user?.role === "ADMIN" ? <Button onClick={handleShowProductUpdate}>Modifica Prodotto</Button> : ""}
+              <Button className="rounded-pill" onClick={handleAddToCart}>
+                Aggiungi al carrello
+              </Button>
+              <Button className="rounded-pill" onClick={handleShow}>
+                Recensisci prodotto
+              </Button>
+              {user?.role === "ADMIN" ? (
+                <Button className="rounded-pill" onClick={handleShowProductUpdate}>
+                  Modifica Prodotto
+                </Button>
+              ) : null}
             </div>
             <p>Disponibili: Pz. {product?.quantityAvailable}</p>
-            <p>{dataConverter(product?.lastUpdate)}</p>
+            <p>{dateConverter(product?.lastUpdate)}</p>
           </Col>
         </Row>
       )}
@@ -154,7 +167,7 @@ const Product = () => {
                     <p>
                       {review.user.name} il{" "}
                       <span>
-                        {dataConverter(review.updatedAt)}{" "}
+                        {dateConverter(review.updatedAt)}{" "}
                         {isLogged && user?.id === review?.user.id && (
                           <Pencil
                             size={20}
@@ -186,9 +199,8 @@ const Product = () => {
       {/* modal */}
       <AddReview show={show} handleClose={handleClose} />
       {product && <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />}
-      <ToastContainer />
-
       {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} />}
+      <ToastContainer />
     </Container>
   );
 };

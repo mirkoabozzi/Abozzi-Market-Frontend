@@ -83,10 +83,10 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
             </div>
           </Form.Group>
           <div className="text-center">
-            <Button className="m-2" variant="secondary" onClick={handleClose}>
+            <Button className="m-2 rounded-pill" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" className="rounded-pill">
               Registrati
             </Button>
           </div>

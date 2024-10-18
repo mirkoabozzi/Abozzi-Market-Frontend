@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
 import { Pencil, Trash } from "react-bootstrap-icons";
-import { dataConverter } from "../../redux/actions/products";
+import { dateConverter } from "../../redux/actions/products";
 import ModalAlert from "../ModalAlert/ModalAlert";
 import DiscountUpdateModal from "./DiscountUpdateModal";
 
@@ -65,7 +65,7 @@ const Discount = () => {
           <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Form.Group>
         <div className="text-center mt-5">
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" className="rounded-pill">
             Aggiungi promozione
           </Button>
         </div>
@@ -91,8 +91,8 @@ const Discount = () => {
                     <td>{index + 1}</td>
                     <td>{discount.description}</td>
                     <td>{discount.percentage}</td>
-                    <td>{dataConverter(discount.startDate)}</td>
-                    <td>{dataConverter(discount.endDate)}</td>
+                    <td>{dateConverter(discount.startDate)}</td>
+                    <td>{dateConverter(discount.endDate)}</td>
                     <td>
                       <div className="d-flex justify-content-around">
                         <Trash

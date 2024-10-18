@@ -1,6 +1,6 @@
-import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
+import { Button, Dropdown, DropdownMenu, Form, Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addDiscountOnProduct, dataConverter, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
+import { addDiscountOnProduct, dateConverter, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
@@ -102,36 +102,46 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
             </Form.Group>
             <Form.Group>
               <div className="d-flex gap-2 justify-content-center flex-wrap">
-                <DropdownButton id="dropdown-basic-button" title={selectedCategoryName} className="mb-1">
-                  {categories?.map((category: ICategory) => {
-                    return (
-                      <Dropdown.Item
-                        onClick={() => {
-                          setCategory(category.id);
-                          setSelectedCategoryName(category.name);
-                        }}
-                        key={category.id}
-                      >
-                        {category.name}
-                      </Dropdown.Item>
-                    );
-                  })}
-                </DropdownButton>
-                <DropdownButton title={selectedDiscountName}>
-                  {discounts.map((promo: DiscountListItem) => {
-                    return (
-                      <Dropdown.Item
-                        key={promo.id}
-                        onClick={() => {
-                          setDiscount(promo.id);
-                          setSelectedDiscountName(promo.description);
-                        }}
-                      >
-                        {promo.description} dal {dataConverter(promo.startDate)} al {dataConverter(promo.endDate)}
-                      </Dropdown.Item>
-                    );
-                  })}
-                </DropdownButton>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic" className="mb-1 rounded-pill">
+                    {selectedCategoryName}
+                  </Dropdown.Toggle>
+                  <DropdownMenu>
+                    {categories?.map((category: ICategory) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => {
+                            setCategory(category.id);
+                            setSelectedCategoryName(category.name);
+                          }}
+                          key={category.id}
+                        >
+                          {category.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownMenu>
+                </Dropdown>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
+                    {selectedDiscountName}
+                  </Dropdown.Toggle>
+                  <DropdownMenu>
+                    {discounts.map((promo: DiscountListItem) => {
+                      return (
+                        <Dropdown.Item
+                          key={promo.id}
+                          onClick={() => {
+                            setDiscount(promo.id);
+                            setSelectedDiscountName(promo.description);
+                          }}
+                        >
+                          {promo.description} dal {dateConverter(promo.startDate)} al {dateConverter(promo.endDate)}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownMenu>
+                </Dropdown>
               </div>
               {product.discountList.map((discount: DiscountListItem) => {
                 return (
@@ -139,7 +149,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     <p className="mb-1 mt-3">
                       Offerta attiva: {discount.description} <Trash className="mouseHover" onClick={() => handleDeleteDiscount(discount.id)} />
                     </p>
-                    <p>Termina: {dataConverter(discount.endDate)}</p>
+                    <p>Termina: {dateConverter(discount.endDate)}</p>
                   </div>
                 );
               })}
@@ -149,14 +159,14 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
             <div className="d-flex justify-content-center gap-2">
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
-              <Button type="submit" variant="primary">
-                Invia
-              </Button>
-              <Button type="button" variant="danger" onClick={handleShowDeleteModal}>
+              <Button type="button" variant="danger" className="rounded-pill" onClick={handleShowDeleteModal}>
                 Elimina
+              </Button>
+              <Button type="submit" variant="primary" className="rounded-pill">
+                Invia
               </Button>
             </div>
           </Form>

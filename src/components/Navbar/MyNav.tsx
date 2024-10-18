@@ -62,10 +62,10 @@ const MyNav = () => {
           </Form>
           {!isLogged ? (
             <>
-              <Button variant="transparent" className="ms-auto ms-sm-2" onClick={handleShowLogin}>
+              <Button type="button" variant="transparent" className="ms-auto ms-sm-2 rounded-pill" onClick={handleShowLogin}>
                 Accedi
               </Button>
-              <Button variant="transparent" className="ms-sm-2" onClick={handleShowRegistration}>
+              <Button type="button" variant="transparent" className="ms-sm-2 rounded-pill" onClick={handleShowRegistration}>
                 Registrati
               </Button>
             </>
@@ -75,7 +75,7 @@ const MyNav = () => {
                 <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
-              <Button variant="transparent" className="ms-auto ms-sm-2" onClick={handleLogout}>
+              <Button type="button" variant="transparent" className="ms-auto ms-sm-2 rounded-pill" onClick={handleLogout}>
                 Logout
               </Button>
             </>

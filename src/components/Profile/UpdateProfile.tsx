@@ -76,7 +76,7 @@ const UpdateProfile = () => {
             <Form.Control type="file" onChange={handleFileChange} />
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className="rounded-pill">
               Salva Modifiche
             </Button>
           </div>

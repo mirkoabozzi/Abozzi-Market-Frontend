@@ -46,7 +46,7 @@ const Addresses = () => {
   return (
     <>
       <h3>Indirizzi</h3>
-      <Button className="my-4" onClick={handleShow}>
+      <Button className="my-4 rounded-pill" onClick={handleShow}>
         Aggiungi indirizzo
       </Button>
       {addressees?.map((address: IAddress) => {
@@ -92,10 +92,10 @@ const Addresses = () => {
               <Form.Control type="text" placeholder="Città" value={city} onChange={(e) => setCity(e.target.value)} />
             </Form.Group>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
-              <Button type="submit" variant="primary" onClick={handleClose}>
+              <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
                 Salva
               </Button>
             </Modal.Footer>

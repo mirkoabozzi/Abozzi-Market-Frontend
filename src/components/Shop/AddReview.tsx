@@ -41,10 +41,10 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
             <Form.Control as={"textarea"} rows={3} placeholder="Ottimo!" required value={comment} onChange={(e) => setComment(e.target.value)} />
           </Form.Group>
           <div className="text-center">
-            <Button className="m-2" variant="secondary" onClick={handleClose}>
+            <Button className="m-2 rounded-pill" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button type="submit" variant="primary">
+            <Button className="rounded-pill" type="submit" variant="primary">
               Invia
             </Button>
           </div>

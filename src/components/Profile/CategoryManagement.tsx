@@ -54,7 +54,9 @@ const CategoryManagement = () => {
     <>
       <h3>Categorie</h3>
       <div className="text-center">
-        <Button onClick={handleShow}>Aggiungi categoria</Button>
+        <Button className="rounded-pill" onClick={handleShow}>
+          Aggiungi categoria
+        </Button>
         <Row className="mt-5">
           {categories?.map((category: ICategory) => {
             return (
@@ -86,10 +88,10 @@ const CategoryManagement = () => {
                 <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
               </Form.Group>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                   Chiudi
                 </Button>
-                <Button type="submit" variant="primary" onClick={handleClose}>
+                <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
                   Salva
                 </Button>
               </Modal.Footer>
@@ -113,14 +115,14 @@ const CategoryManagement = () => {
                 <Form.Control type="file" onChange={handleFileChange} />
               </Form.Group>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModalUpdate}>
+                <Button variant="secondary" className="rounded-pill" onClick={handleCloseModalUpdate}>
                   Chiudi
                 </Button>
-                <Button type="submit" variant="primary" onClick={handleClose}>
-                  Salva
-                </Button>
-                <Button type="button" variant="warning" onClick={handleDeleteCategory}>
+                <Button variant="danger" className="rounded-pill" onClick={handleDeleteCategory}>
                   Elimina
+                </Button>
+                <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
+                  Salva
                 </Button>
               </Modal.Footer>
             </Form>

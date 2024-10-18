@@ -6,7 +6,7 @@ import { getMyOrders } from "../../redux/actions/orders";
 import { Badge, Button, Col, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { dataConverter } from "../../redux/actions/products";
+import { dateConverter } from "../../redux/actions/products";
 
 const MyOrder = () => {
   const orders: IOrder[] = useAppSelector((state) => state.ordersReducer.orders);
@@ -36,7 +36,7 @@ const MyOrder = () => {
               <Row data-aos="fade-left">
                 <Col>
                   <p className="line-truncate-2">Order: {order.id}</p>
-                  <p>Data: {dataConverter(order.orderDate)}</p>
+                  <p>Data: {dateConverter(order.orderDate)}</p>
                   <p>Stato: {order.ordersState}</p>
                 </Col>
                 <Col className="text-center">

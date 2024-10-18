@@ -37,22 +37,23 @@ const ReviewUpdate = ({ show, handleClose, review }: UpdateReviewsProps) => {
             <Form.Label>Commento</Form.Label>
             <Form.Control as={"textarea"} rows={3} placeholder="Ottimo!" required value={comment} onChange={(e) => setComment(e.target.value)} />
           </Form.Group>
-          <div className="text-center">
-            <Button className="m-2" variant="secondary" onClick={handleClose}>
+          <div className="d-flex gap-1 justify-content-center">
+            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
-            </Button>
-            <Button className="me-2" type="submit" variant="primary">
-              Invia
             </Button>
             <Button
               type="button"
               variant="danger"
+              className="rounded-pill"
               onClick={() => {
                 dispatch(deleteReview(review.id, review.product.id));
                 handleClose();
               }}
             >
               Elimina
+            </Button>
+            <Button type="submit" variant="primary" className="rounded-pill">
+              Invia
             </Button>
           </div>
         </Form>

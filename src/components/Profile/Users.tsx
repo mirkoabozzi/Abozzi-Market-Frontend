@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteUser, findUserByName, getAllUser, updateUserRole } from "../../redux/actions/user";
 import { Badge, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
-import { dataConverter } from "../../redux/actions/products";
+import { dateConverter } from "../../redux/actions/products";
 import { ArrowLeftCircle, ArrowRightCircle, Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
@@ -71,7 +71,7 @@ const Users = () => {
                   <td>
                     {user.role}
                     <Dropdown>
-                      <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                      <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-0 rounded-pill">
                         Ruolo
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
@@ -81,7 +81,7 @@ const Users = () => {
                     </Dropdown>
                   </td>
                   <td>{user.phoneNumber}</td>
-                  <td>{dataConverter(user.registrationDate)}</td>
+                  <td>{dateConverter(user.registrationDate)}</td>
                   <td>
                     <Trash
                       className="mouseHover"

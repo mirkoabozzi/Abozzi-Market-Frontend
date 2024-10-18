@@ -71,10 +71,10 @@ const Login = ({ show, handleClose }: LoginProps) => {
             </div>
           </Form.Group>
           <div className="text-center">
-            <Button className="m-2" variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" className="rounded-pill">
               Accedi
             </Button>
           </div>

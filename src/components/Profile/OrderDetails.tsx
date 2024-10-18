@@ -3,7 +3,7 @@ import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { dataConverter, handleDiscountPrice } from "../../redux/actions/products";
+import { dateConverter, handleDiscountPrice } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
 
 const OrderDetails = () => {
@@ -30,13 +30,13 @@ const OrderDetails = () => {
       <h3 className="mb-5">Ordine: {order?.id}</h3>
       <Row className="mb-5">
         <Col sm={4}>
-          <p>Data ordine: {dataConverter(order?.orderDate)}</p>
+          <p>Data ordine: {dateConverter(order?.orderDate)}</p>
         </Col>
         <Col sm={4}>
           <p>Stato ordine: {order?.ordersState}</p>
           {user?.role === "ADMIN" ? (
             <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
                 Stato
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -48,9 +48,7 @@ const OrderDetails = () => {
                 <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "DELIVERED")}>DELIVERED</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          ) : (
-            ""
-          )}
+          ) : null}
         </Col>
         <Col sm={4}>
           <p className="mt-3 mt-sm-0">Pagamento: {order?.payment.status}</p>

@@ -54,9 +54,7 @@ const Profile = () => {
                   <h5 className="mb-0 ms-2 d-none d-lg-block">Promozioni</h5>
                 </div>
               </>
-            ) : (
-              ""
-            )}
+            ) : null}
           </div>
         </Col>
         <Col xs={10}>

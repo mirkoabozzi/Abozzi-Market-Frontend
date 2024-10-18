@@ -57,10 +57,10 @@ const DiscountUpdateModal = ({ show, handleClose, discount }: DiscountUpdateModa
             <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
           </Form.Group>
           <div className="text-center">
-            <Button type="submit" variant="primary" className="m-2">
+            <Button type="submit" variant="primary" className="m-2 rounded-pill">
               Aggiorna
             </Button>
-            <Button type="button" variant="secondary" className="m-2" onClick={handleClose}>
+            <Button variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
           </div>
