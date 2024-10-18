@@ -63,10 +63,7 @@ export const updateReview = (reviewId: string, updatedReview: IUpdatedReview, pr
         successToast("Recensione aggiornata");
         dispatch(getReview(productId));
       } else {
-        if (resp.status === 401) {
-          errorToast("Puoi modificare solo le tue recensioni!");
-          throw new Error("Update review error");
-        }
+        throw new Error("Update review error");
       }
     } catch (error) {
       console.log(error);

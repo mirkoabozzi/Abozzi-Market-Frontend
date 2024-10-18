@@ -6,7 +6,7 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { ToastContainer } from "react-toastify";
-import { Heart, HeartFill, Pencil } from "react-bootstrap-icons";
+import { Heart, HeartFill, Pencil, StarFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
@@ -24,9 +24,8 @@ const Product = () => {
   const user: IUser = useAppSelector((state) => state.userReducer.user);
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
   const [review, SetReview] = useState<IReview>();
-
   const [quantity, setQuantity] = useState(1);
-
+  const [rating, setRating] = useState(0);
   const [show, setShow] = useState(false);
 
   const [showProductUpdate, setShowProductUpdate] = useState(false);
@@ -45,6 +44,7 @@ const Product = () => {
       warnToast("Devi fare il login per lasciare una recensione!");
     }
   };
+
   const handleClose = () => setShow(false);
 
   const handleAddToWishlist = () => {
@@ -78,25 +78,56 @@ const Product = () => {
     successToast("Articolo aggiunto");
   };
 
+  const handleAverageRate = () => {
+    if (reviews.length === 0) return 0;
+    let value = 0;
+    for (let i = 0; i < reviews.length; i++) {
+      value += reviews[i].rating;
+    }
+    return value / reviews.length;
+  };
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(<StarFill key={i} color={i < rating ? "gold" : "gray"} className="mx-1" />);
+    }
+    return stars;
+  };
+
+  useEffect(() => {
+    setRating(handleAverageRate());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviews]);
+
   return (
-    <Container>
+    <Container className="mt-4">
       {product && (
         <Row>
-          <Col sm={4} className="position-relative">
-            <Image src={product?.imgUrl} className="w-100" />
-            {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
-              <HeartFill className="heartPosition mouseHover scale" onClick={handleRemoveFromWishlist} />
-            ) : (
-              <Heart className="heartPosition mouseHover scale" onClick={handleAddToWishlist} />
-            )}
+          <Col sm={4} className="mb-3">
+            <div>
+              <Image src={product?.imgUrl} className="w-100" />
+            </div>
+            <div className="d-flex justify-content-end mt-3">
+              {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
+                <HeartFill className="mouseHover scale" onClick={handleRemoveFromWishlist} />
+              ) : (
+                <Heart className="mouseHover scale" onClick={handleAddToWishlist} />
+              )}
+            </div>
           </Col>
           <Col>
             <h2>{product?.name}</h2>
             <p>{product?.description}</p>
             <p>{product?.category.name}</p>
 
-            <p className={!product?.discountStatus ? "fs-2" : "fs-2 text-decoration-line-through"}>€ {product?.price.toFixed(2)}</p>
-            {product?.discountStatus ? <p className="fs-1">€ {handleDiscountPrice(product).toFixed(2)}</p> : ""}
+            <div className="my-2">
+              <span className="me-2">{rating.toFixed(1)}</span>
+              {renderStars(rating)}
+            </div>
+
+            <p className={!product?.discountStatus ? "fs-1 mb-0" : "fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</p>
+            {product?.discountStatus ? <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p> : null}
 
             <Form.Group style={{ width: "70px" }} controlId="formQuantity">
               <Form.Label>Quantità</Form.Label>
@@ -114,8 +145,8 @@ const Product = () => {
       )}
       <Row>
         <Col>
-          <h3 className="mt-5">Recensioni</h3>
-          {reviews.length > 0 ? (
+          <h3 className="mt-5 mb-4">Recensioni</h3>
+          {reviews?.length > 0 ? (
             reviews.map((review: IReview) => {
               return (
                 <Row key={review.id}>
@@ -124,7 +155,7 @@ const Product = () => {
                       {review.user.name} il{" "}
                       <span>
                         {dataConverter(review.updatedAt)}{" "}
-                        {isLogged && (
+                        {isLogged && user?.id === review?.user.id && (
                           <Pencil
                             size={20}
                             className="mouseHover scale"
@@ -136,7 +167,9 @@ const Product = () => {
                         )}
                       </span>
                     </p>
-                    <p>Voto: {review.rating}</p>
+                    <p>
+                      Voto: {review.rating} {renderStars(review.rating)}
+                    </p>
                     <p>{review.comment}</p>
                   </Col>
 
