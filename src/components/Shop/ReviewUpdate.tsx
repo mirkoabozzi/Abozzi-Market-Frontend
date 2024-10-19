@@ -58,7 +58,6 @@ const ReviewUpdate = ({ show, handleClose, review }: UpdateReviewsProps) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 };

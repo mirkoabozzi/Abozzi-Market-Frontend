@@ -5,7 +5,6 @@ import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
 import { errorToast } from "../../redux/actions/toaster";
-import { ToastContainer } from "react-toastify";
 import ResetUserPasswordRequest from "./ResetUserPasswordRequest";
 
 interface LoginProps {
@@ -94,7 +93,6 @@ const Login = ({ show, handleClose }: LoginProps) => {
           </Form>
         </Modal.Body>
       </Modal>
-      <ToastContainer />
       <ResetUserPasswordRequest show={showResetPassword} handleClose={handleCloseResetPassword} />
     </>
   );

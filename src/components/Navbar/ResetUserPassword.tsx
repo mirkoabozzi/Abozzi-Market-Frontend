@@ -6,17 +6,17 @@ import { resetUserPassword } from "../../redux/actions/user";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ActionType } from "../../redux/enums/ActionType";
+import { errorToast } from "../../redux/actions/toaster";
 
 const ResetUserPassword = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const togglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
@@ -33,21 +33,34 @@ const ResetUserPassword = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(resetUserPassword(userId, password));
-    navigate("/");
+    if (password !== confirmPassword) {
+      errorToast("Le password non corrispondono");
+    } else {
+      dispatch(resetUserPassword(userId, password));
+      navigate("/");
+    }
   };
 
   return (
     <Container className="mt-4">
-      <h1>Cambio password</h1>
+      <h2>Cambio password</h2>
       <div className="d-flex justify-content-center">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Nuova password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showPassword ? "text" : "password"} placeholder="****" required value={password} onChange={(e) => setPassword(e.target.value)} />
-              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeSlashFill /> : <EyeFill />}{" "}
+              </span>
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Conferma password</Form.Label>
+            <div className="position-relative">
+              <Form.Control type={showConfirmPassword ? "text" : "password"} placeholder="****" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                {showConfirmPassword ? <EyeSlashFill /> : <EyeFill />}
               </span>
             </div>
           </Form.Group>
