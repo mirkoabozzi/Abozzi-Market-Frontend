@@ -205,3 +205,27 @@ export const resetUserPassword = (id: string, password: string) => {
     }
   };
 };
+
+export const updateUserPassword = (newPasswordObk: IUserPasswordUpdate) => {
+  return async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/users/me/password`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPasswordObk),
+      });
+      if (resp.ok) {
+        successToast("Password cambiata con successo");
+      } else {
+        errorToast("Errore cambio password");
+        throw new Error("Update user password error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

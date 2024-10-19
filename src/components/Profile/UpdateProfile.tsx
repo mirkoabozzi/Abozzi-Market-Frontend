@@ -3,8 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import ChangePassword from "./ChangePassword";
 
 const UpdateProfile = () => {
+  const dispatch = useAppDispatch();
   const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const [name, setName] = useState("");
@@ -13,7 +15,8 @@ const UpdateProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [avatar, setNewAvatar] = useState<File | null>(null);
 
-  const dispatch = useAppDispatch();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -76,6 +79,9 @@ const UpdateProfile = () => {
             <Form.Control type="file" onChange={handleFileChange} />
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
+            <Button variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
+              Cambia password
+            </Button>
             <Button variant="primary" type="submit" className="rounded-pill">
               Salva Modifiche
             </Button>
@@ -83,6 +89,7 @@ const UpdateProfile = () => {
         </Form>
       </Col>
       <ToastContainer />
+      <ChangePassword show={show} handleClose={handleClose} />
     </Row>
   );
 };
