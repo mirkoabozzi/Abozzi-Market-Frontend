@@ -84,16 +84,15 @@ const Login = ({ show, handleClose }: LoginProps) => {
               <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
-              <Button variant="primary" className="rounded-pill" onClick={handleShowResetPassword}>
-                Recupera password
-              </Button>
               <Button type="submit" variant="primary" className="rounded-pill">
                 Accedi
               </Button>
             </div>
+            <p className="text-end mb-0 mt-2 mouseHover" onClick={handleShowResetPassword}>
+              Password dimenticata?
+            </p>
           </Form>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
       <ToastContainer />
       <ResetUserPasswordRequest show={showResetPassword} handleClose={handleCloseResetPassword} />

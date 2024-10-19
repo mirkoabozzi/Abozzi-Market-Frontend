@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
+import { errorToast } from "../../redux/actions/toaster";
 
 interface RegistrationProps {
   show: boolean;
@@ -14,9 +15,11 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
     phoneNumber: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const register = async () => {
     try {
@@ -30,6 +33,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
         localStorage.setItem("token", result.accessToken);
         handleClose();
       } else {
+        errorToast("Email già presente!");
         throw new Error("Registration error");
       }
     } catch (error) {
@@ -39,15 +43,15 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register();
+    if (userData.password !== userData.confirmPassword) {
+      errorToast("Le password non corrispondono");
+    } else {
+      register();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
-
-  const togglePassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -77,8 +81,17 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
             <Form.Label>Password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showPassword ? "text" : "password"} placeholder="****" name="password" required value={userData.password} onChange={handleChange} />
-              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={togglePassword}>
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeSlashFill /> : <EyeFill />}
+              </span>
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Conferma password</Form.Label>
+            <div className="position-relative">
+              <Form.Control type={showConfirmPassword ? "text" : "password"} placeholder="****" name="confirmPassword" required value={userData.confirmPassword} onChange={handleChange} />
+              <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                {showConfirmPassword ? <EyeSlashFill /> : <EyeFill />}
               </span>
             </div>
           </Form.Group>
