@@ -58,7 +58,7 @@ const TopBar = () => {
           <Image className="mb-1" width={20} src={allIcon[weather.weather[0].icon]} />
         </div>
       )}
-      <small>Via Nazionale, 35 &#183; 079588777</small>
+      <small>Via Nazionale, 65 &#183; 079588777</small>
     </Container>
   );
 };
