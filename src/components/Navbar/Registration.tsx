@@ -47,6 +47,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       errorToast("Le password non corrispondono");
     } else {
       register();
+      setUserData({ name: "", surname: "", phoneNumber: "", email: "", password: "", confirmPassword: "" });
     }
   };
 

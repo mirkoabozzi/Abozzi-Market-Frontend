@@ -93,16 +93,16 @@ const MyNav = () => {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-              <NavLink className="nav-link" to="/">
+              <NavLink className="nav-link pt-1" to="/">
                 Home
               </NavLink>
-              <NavLink className="nav-link" to="/shop" onClick={() => dispatch(getProducts(0))}>
+              <NavLink className="nav-link pt-1" to="/shop" onClick={() => dispatch(getProducts(0))}>
                 Shop
               </NavLink>
-              <NavLink className="nav-link" to="/contact">
+              <NavLink className="nav-link pt-1" to="/contact">
                 Contatti
               </NavLink>
-              <NavLink className="nav-link" to="/about">
+              <NavLink className="nav-link pt-1" to="/about">
                 Chi siamo
               </NavLink>
             </Nav>

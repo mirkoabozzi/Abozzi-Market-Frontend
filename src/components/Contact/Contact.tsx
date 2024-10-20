@@ -37,6 +37,7 @@ const Contact = () => {
 
   return (
     <Container className="w-75 mt-4">
+      <h3>Contatti</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Nome">
           <Form.Label>Nome</Form.Label>
@@ -51,7 +52,7 @@ const Contact = () => {
           <Form.Label>Note</Form.Label>
           <Form.Control as="textarea" rows={5} placeholder="Note" required value={text} onChange={(e) => setText(e.target.value)} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary rounded-pill" type="submit">
           Invia
         </Button>
       </Form>

@@ -104,10 +104,14 @@ const Users = () => {
           {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
         </Col>
         <Col>
-          <Badge className="fs-6">{page}</Badge>
+          <Badge className="fs-6 rounded-pill">{page}</Badge>
         </Col>
         <Col>
-          <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
+          {users.length > 0 ? (
+            <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
+          ) : (
+            <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+          )}
         </Col>
       </Row>
       <ModalAlert

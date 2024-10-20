@@ -67,18 +67,22 @@ const Shop = () => {
           )}
         </Col>
         <Col>
-          <Badge className="fs-6">{page}</Badge>
+          <Badge className="fs-6 rounded-pill">{page}</Badge>
         </Col>
         <Col>
-          <ArrowRightCircle
-            className="mouseHover scale"
-            width={30}
-            height={30}
-            onClick={() => {
-              setPage(page + 1);
-              dispatch({ type: ActionType.SET_PRODUCTS_LOADED_FALSE });
-            }}
-          />
+          {products.length > 0 ? (
+            <ArrowRightCircle
+              className="mouseHover scale"
+              width={30}
+              height={30}
+              onClick={() => {
+                setPage(page + 1);
+                dispatch({ type: ActionType.SET_PRODUCTS_LOADED_FALSE });
+              }}
+            />
+          ) : (
+            <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+          )}
         </Col>
       </Row>
       <ToastContainer />

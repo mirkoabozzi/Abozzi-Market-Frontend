@@ -39,6 +39,8 @@ const Login = ({ show, handleClose }: LoginProps) => {
         dispatch(getUser());
         dispatch({ type: ActionType.SET_IS_LOGGED_TRUE });
         handleClose();
+        setEmail("");
+        setPassword("");
       } else {
         errorToast("Login fallito!");
         throw new Error("Login error");
