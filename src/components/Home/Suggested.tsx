@@ -27,7 +27,9 @@ const Suggested = () => {
       <h2>Prodotti consigliati</h2>
       <Row>
         {isLoading ? (
-          <Spinner animation="grow" />
+          <div className="d-flex justify-content-center">
+            <Spinner animation="grow" />
+          </div>
         ) : (
           randomProducts?.map((product: IProduct) => (
             <Col xs={6} md={3} className="my-3" key={product.id}>

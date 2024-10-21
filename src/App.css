@@ -24,7 +24,7 @@ body {
 .cardHover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: scale 300ms, box-shadow 300ms;
-  animation: fadeScaleIn 600ms;
+  animation: fadeIn 800ms;
   color: #002463;
 }
 
@@ -35,13 +35,18 @@ body {
   z-index: 1;
 }
 
-@keyframes fadeScaleIn {
-  from {
-    opacity: 0;
-    scale: 0.8;
+.mainAnimation {
+  animation: fadeIn 800ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    scale: 0;
   }
-  to {
-    opacity: 1;
+  50% {
+    scale: 1.01;
+  }
+  100% {
     scale: 1;
   }
 }
@@ -72,10 +77,6 @@ body {
 
 .badge {
   background-color: #1a51bf !important;
-}
-
-.mainAnimation {
-  animation: fadeScaleIn 600ms;
 }
 
 .custom-dropdown-item {
