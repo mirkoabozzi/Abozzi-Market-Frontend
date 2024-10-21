@@ -6,7 +6,7 @@ import MySlick from "./MySlick";
 
 const Home = () => {
   return (
-    <Container className="mt-3">
+    <Container className="mt-3 mainAnimation">
       <h1 className="text-center">Abozzi Market Spesa Online</h1>
       <MyCarousel />
       <MySlick />

@@ -35,7 +35,7 @@ const Users = () => {
   };
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3>Clienti</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -123,7 +123,7 @@ const Users = () => {
         }}
       />
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

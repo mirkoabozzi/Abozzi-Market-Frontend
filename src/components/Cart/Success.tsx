@@ -44,7 +44,7 @@ const Success = () => {
   }, []);
 
   return (
-    <Container className="mainContainer mt-5 rounded-4 text-center">
+    <Container className="mainAnimation mt-5 rounded-4 text-center">
       <h1>Conferma il tuo acquisto!</h1>
       {paymentLoading ? (
         <Spinner />

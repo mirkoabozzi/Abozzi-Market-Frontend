@@ -44,7 +44,7 @@ const Addresses = () => {
   };
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3>Indirizzi</h3>
       <Button className="my-4 rounded-pill" onClick={handleShow}>
         Aggiungi indirizzo
@@ -103,7 +103,7 @@ const Addresses = () => {
         </Modal.Body>
       </Modal>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

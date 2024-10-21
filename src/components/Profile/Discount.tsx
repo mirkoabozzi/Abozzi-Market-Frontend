@@ -45,7 +45,7 @@ const Discount = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3>Promozioni</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -130,7 +130,7 @@ const Discount = () => {
       />
       {discount && <DiscountUpdateModal show={showUpdateDiscount} handleClose={handleCloseUpdateDiscountModal} discount={discount} />}
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

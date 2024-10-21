@@ -46,7 +46,7 @@ const UpdateProfile = () => {
   }, [user]);
 
   return (
-    <Row className="justify-content-center">
+    <Row className="justify-content-center mainAnimation">
       <Col>
         <h3 className="mb-4">Aggiorna Profilo</h3>
         <Form onSubmit={handleSubmit}>

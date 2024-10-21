@@ -8,7 +8,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const user: IUser = useAppSelector((state) => state.userReducer.user);
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 mainAnimation">
       <Row>
         <Col xs={2}>
           <div className="sidebarPosition">

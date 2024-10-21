@@ -51,7 +51,7 @@ const CategoryManagement = () => {
   };
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3>Categorie</h3>
       <div className="text-center">
         <Button className="rounded-pill" onClick={handleShow}>
@@ -130,7 +130,7 @@ const CategoryManagement = () => {
         </Modal>
       </div>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

@@ -73,3 +73,7 @@ body {
 .badge {
   background-color: #1a51bf !important;
 }
+
+.mainAnimation {
+  animation: fadeScaleIn 1s;
+}

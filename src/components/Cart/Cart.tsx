@@ -64,7 +64,7 @@ const Cart = () => {
   }, [dispatch]);
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 mainAnimation">
       <h3>Carrello</h3>
       <hr />
       {cart.length > 0 ? (

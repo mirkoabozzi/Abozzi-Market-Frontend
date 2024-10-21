@@ -27,13 +27,13 @@ const Orders = () => {
   }, []);
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3 className="mb-5">Ordini clienti</h3>
       {orders.length > 0 ? (
         orders.map((order: IOrder) => {
           return (
             <div key={order.id}>
-              <Row data-aos="fade-left">
+              <Row data-aos="fade-zoom-in">
                 <Col>
                   <p className="line-truncate-2">Order: {order.id}</p>
                   <p>Cliente: {order.user.name}</p>
@@ -73,7 +73,7 @@ const Orders = () => {
           )}
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

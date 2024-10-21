@@ -101,7 +101,7 @@ const Product = () => {
   }, [reviews]);
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 mainAnimation">
       {product && (
         <Row>
           <Col sm={4} className="mb-3">

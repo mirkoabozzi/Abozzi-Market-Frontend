@@ -26,7 +26,7 @@ const OrderDetails = () => {
   };
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3 className="mb-5">Ordine: {order?.id}</h3>
       <Row className="mb-5">
         <Col sm={4}>
@@ -118,7 +118,7 @@ const OrderDetails = () => {
         </Row>
       )}
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

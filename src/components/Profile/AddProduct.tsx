@@ -41,7 +41,7 @@ const AddProduct = () => {
   };
 
   return (
-    <>
+    <div className="mainAnimation">
       <h3>Prodotti</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -78,7 +78,7 @@ const AddProduct = () => {
         </div>
       </Form>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
