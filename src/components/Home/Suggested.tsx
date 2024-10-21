@@ -30,7 +30,7 @@ const Suggested = () => {
           <Spinner animation="grow" />
         ) : (
           randomProducts?.map((product: IProduct) => (
-            <Col xs={6} sm={6} md={4} lg={3} className="my-3" key={product.id}>
+            <Col xs={6} md={3} className="my-3" key={product.id}>
               <ProductCard product={product} />
             </Col>
           ))

@@ -24,7 +24,7 @@ body {
 .cardHover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: scale 300ms, box-shadow 300ms;
-  animation: fadeScaleIn 1s backwards 300ms;
+  animation: fadeScaleIn 600ms;
   color: #002463;
 }
 
@@ -50,7 +50,7 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 
 .categoryHover {
@@ -75,5 +75,14 @@ body {
 }
 
 .mainAnimation {
-  animation: fadeScaleIn 1s;
+  animation: fadeScaleIn 600ms;
+}
+
+.custom-dropdown-item {
+  color: #002463;
+}
+
+.custom-dropdown-item:hover {
+  background-color: #1a51bf;
+  color: white;
 }

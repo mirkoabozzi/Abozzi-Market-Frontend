@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dropdown, DropdownButton, Form } from "react-bootstrap";
+import { Button, Dropdown, DropdownMenu, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addProduct } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
@@ -61,15 +61,20 @@ const AddProduct = () => {
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
         </Form.Group>
         <Form.Group>
-          <DropdownButton id="dropdown-basic-button" title={category ? category.name : "Seleziona una categoria"}>
-            {categories?.map((category: ICategory) => {
-              return (
-                <Dropdown.Item onClick={() => handleCategory(category)} key={category.id}>
-                  {category.name}
-                </Dropdown.Item>
-              );
-            })}
-          </DropdownButton>
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
+              {category ? category.name : "Seleziona una categoria"}
+            </Dropdown.Toggle>
+            <DropdownMenu>
+              {categories?.map((category: ICategory) => {
+                return (
+                  <Dropdown.Item className="custom-dropdown-item" onClick={() => handleCategory(category)} key={category.id}>
+                    {category.name}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
         </Form.Group>
         <div className="text-center mt-5">
           <Button type="submit" variant="primary" className="rounded-pill">

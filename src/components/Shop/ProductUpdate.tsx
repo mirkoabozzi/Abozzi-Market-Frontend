@@ -117,6 +117,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     {categories?.map((category: ICategory) => {
                       return (
                         <Dropdown.Item
+                          className="custom-dropdown-item"
                           onClick={() => {
                             setCategory(category.id);
                             setSelectedCategoryName(category.name);
@@ -137,6 +138,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     {discounts?.map((promo: DiscountListItem) => {
                       return (
                         <Dropdown.Item
+                          className="custom-dropdown-item"
                           key={promo.id}
                           onClick={() => {
                             setDiscount(promo.id);

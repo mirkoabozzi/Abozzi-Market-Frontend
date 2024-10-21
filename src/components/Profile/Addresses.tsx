@@ -46,9 +46,11 @@ const Addresses = () => {
   return (
     <div className="mainAnimation">
       <h3>Indirizzi</h3>
-      <Button className="my-4 rounded-pill" onClick={handleShow}>
-        Aggiungi indirizzo
-      </Button>
+      <div className="d-flex justify-content-center">
+        <Button className="my-4 rounded-pill" onClick={handleShow}>
+          Aggiungi indirizzo
+        </Button>
+      </div>
       {addressees?.map((address: IAddress) => {
         return (
           <Row key={address.id}>
@@ -69,7 +71,7 @@ const Addresses = () => {
       })}
 
       {/* modal add category*/}
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Aggiungi nuovo indirizzo</Modal.Title>
         </Modal.Header>
@@ -91,14 +93,14 @@ const Addresses = () => {
               <Form.Label>Città</Form.Label>
               <Form.Control type="text" placeholder="Città" value={city} onChange={(e) => setCity(e.target.value)} />
             </Form.Group>
-            <Modal.Footer>
+            <div className="d-flex gap-1 justify-content-center">
               <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
               <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
                 Salva
               </Button>
-            </Modal.Footer>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

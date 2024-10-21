@@ -40,12 +40,24 @@ const OrderDetails = () => {
                 Stato
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "PROCESSING")}>PROCESSING</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "CANCELLED")}>CANCELLED</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "SHIPPED")}>SHIPPED</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "IN_TRANSIT")}>IN_TRANSIT</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "ON_DELIVERY")}>ON_DELIVERY</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleUpdateOrderState(order.id, "DELIVERED")}>DELIVERED</Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "PROCESSING")}>
+                  PROCESSING
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "CANCELLED")}>
+                  CANCELLED
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "SHIPPED")}>
+                  SHIPPED
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "IN_TRANSIT")}>
+                  IN_TRANSIT
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "ON_DELIVERY")}>
+                  ON_DELIVERY
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "DELIVERED")}>
+                  DELIVERED
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : null}

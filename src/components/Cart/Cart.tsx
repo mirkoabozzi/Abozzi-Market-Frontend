@@ -107,7 +107,7 @@ const Cart = () => {
             <DropdownMenu>
               {addresses?.map((address: IAddress) => {
                 return (
-                  <Dropdown.Item onClick={() => handleAddress(address)} key={address.id}>
+                  <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
                     {address.address} {address.number}
                   </Dropdown.Item>
                 );

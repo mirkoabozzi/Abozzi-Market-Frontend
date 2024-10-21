@@ -75,8 +75,12 @@ const Users = () => {
                         Ruolo
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => handleUserRole(user.id, "USER")}>USER</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleUserRole(user.id, "ADMIN")}>ADMIN</Dropdown.Item>
+                        <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUserRole(user.id, "USER")}>
+                          USER
+                        </Dropdown.Item>
+                        <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUserRole(user.id, "ADMIN")}>
+                          ADMIN
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </td>

@@ -15,7 +15,7 @@ const WishList = () => {
   return (
     <div className="mainAnimation">
       <h3>Lista dei desideri</h3>
-      <Row className="text-center">
+      <Row className="text-center mt-5">
         {wishlist.length > 0 ? (
           wishlist.map((item: IWishlist) => {
             return (
