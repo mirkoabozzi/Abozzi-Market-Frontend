@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
+import { getCategories } from "../../redux/actions/categories";
+import { getAllDiscounts } from "../../redux/actions/discount";
 
 interface IProductUpdateProps {
   show: boolean;
@@ -71,6 +73,11 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
     }
   }, [product]);
 
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getAllDiscounts());
+  }, [dispatch]);
+
   const handleDeleteDiscount = (discountId: string) => {
     const discount = { discount: discountId };
     dispatch(deleteDiscountFromProduct(product.id, discount));
@@ -127,7 +134,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     {selectedDiscountName}
                   </Dropdown.Toggle>
                   <DropdownMenu>
-                    {discounts.map((promo: DiscountListItem) => {
+                    {discounts?.map((promo: DiscountListItem) => {
                       return (
                         <Dropdown.Item
                           key={promo.id}
@@ -143,7 +150,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              {product.discountList.map((discount: DiscountListItem) => {
+              {product?.discountList.map((discount: DiscountListItem) => {
                 return (
                   <div key={discount.id}>
                     <p className="mb-1 mt-3">

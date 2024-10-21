@@ -11,7 +11,7 @@ import { errorToast } from "../../redux/actions/toaster";
 const ResetUserPassword = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [userId, setUserId] = useState("");
+  const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -25,18 +25,18 @@ const ResetUserPassword = () => {
 
   useEffect(() => {
     const path = window.location.pathname;
-    const userIdFromPath = path.split("userId=")[1];
-    if (userIdFromPath) {
-      setUserId(userIdFromPath);
+    const tokenFromPath = path.split("token=")[1];
+    if (tokenFromPath) {
+      setToken(tokenFromPath);
     }
-  }, [userId]);
+  }, [token]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       errorToast("Le password non corrispondono");
     } else {
-      dispatch(resetUserPassword(userId, password));
+      dispatch(resetUserPassword(token, password));
       navigate("/");
     }
   };

@@ -184,10 +184,10 @@ export const resetUserPasswordRequest = (email: string) => {
   };
 };
 
-export const resetUserPassword = (id: string, password: string) => {
+export const resetUserPassword = (token: string, password: string) => {
   return async () => {
     try {
-      const resp = await fetch(`${url}/authentication/reset/${id}`, {
+      const resp = await fetch(`${url}/authentication/reset/${token}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -197,7 +197,7 @@ export const resetUserPassword = (id: string, password: string) => {
       if (resp.ok) {
         successToast("Password cambiata con successo");
       } else {
-        errorToast("Errore cambio password");
+        errorToast("Token scaduto invia una nuova richiesta");
         throw new Error("Reset user password error");
       }
     } catch (error) {
@@ -206,7 +206,7 @@ export const resetUserPassword = (id: string, password: string) => {
   };
 };
 
-export const updateUserPassword = (newPasswordObk: IUserPasswordUpdate) => {
+export const updateUserPassword = (newPasswordObj: IUserPasswordUpdate) => {
   return async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -216,7 +216,7 @@ export const updateUserPassword = (newPasswordObk: IUserPasswordUpdate) => {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newPasswordObk),
+        body: JSON.stringify(newPasswordObj),
       });
       if (resp.ok) {
         successToast("Password cambiata con successo");
