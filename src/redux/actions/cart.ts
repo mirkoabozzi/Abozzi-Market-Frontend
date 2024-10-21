@@ -3,6 +3,8 @@ import { AppDispatch } from "../store";
 import { clearAddressChoice } from "../slice/addressesSlice";
 import { ActionType } from "../enums/ActionType";
 import { setPaymentLoading } from "../slice/paymentSlice";
+import { errorToast, successToast } from "./toaster";
+import { NavigateFunction } from "react-router-dom";
 const appUrl = import.meta.env.VITE_MY_APP_URL;
 
 export const pay = (sum: number) => {
@@ -42,7 +44,7 @@ export const pay = (sum: number) => {
   };
 };
 
-export const execute = (paymentId: string, payerId: string) => {
+export const execute = (paymentId: string, payerId: string, navigate: NavigateFunction) => {
   return async (dispatch: AppDispatch) => {
     const execute: IExecute = {
       paymentId,
@@ -61,13 +63,16 @@ export const execute = (paymentId: string, payerId: string) => {
         body: JSON.stringify(execute),
       });
       if (resp.ok) {
+        successToast("Grazie per il tuo acquisto!");
         dispatch(clearAddressChoice());
         dispatch({ type: ActionType.CLEAR_CART });
         dispatch(setPaymentLoading(false));
-        const responseText = await resp.text();
-        const redirectUrl = responseText.substring(9);
-        window.location.href = redirectUrl;
+        // const responseText = await resp.text();
+        // const redirectUrl = responseText.substring(9);
+        // window.location.href = redirectUrl;
       } else {
+        errorToast("Pagamento fallito");
+        navigate("/failed");
         throw new Error("Execute payment error");
       }
     } catch (error) {

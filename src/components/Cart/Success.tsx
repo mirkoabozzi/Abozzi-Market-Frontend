@@ -4,9 +4,12 @@ import { execute } from "../../redux/actions/cart";
 import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Success = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [paymentId, setPaymentId] = useState("");
   const [payerId, setPayerId] = useState("");
   const user: IUser = useAppSelector((state) => state.userReducer.user);
@@ -29,8 +32,8 @@ const Success = () => {
       shipment: address.id,
       orderDetails: orderDetails,
     };
-    await dispatch(execute(paymentId, payerId));
-    await dispatch(addOrder(newOrder));
+    await dispatch(execute(paymentId, payerId, navigate));
+    await dispatch(addOrder(newOrder, navigate));
   };
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const Success = () => {
           Paga
         </Button>
       )}
+      <ToastContainer />
     </Container>
   );
 };

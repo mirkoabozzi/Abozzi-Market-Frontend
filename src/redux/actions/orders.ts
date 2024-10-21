@@ -54,7 +54,7 @@ export const getOrder = (id: string) => {
   };
 };
 
-export const addOrder = (order: IOrderAdd) => {
+export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
   return async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -65,7 +65,10 @@ export const addOrder = (order: IOrderAdd) => {
       });
       if (resp.ok) {
         successToast("Ordine creato");
+        navigate("/profile");
       } else {
+        errorToast("Qualcosa è andato storto!");
+        navigate("/failed");
         throw new Error("Add order error");
       }
     } catch (error) {

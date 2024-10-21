@@ -1,5 +1,6 @@
 import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Failed = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Failed = () => {
       <Button className="rounded-pill" onClick={() => navigate("/")}>
         Torna alla Home
       </Button>
+      <ToastContainer />
     </Container>
   );
 };
