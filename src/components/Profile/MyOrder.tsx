@@ -16,8 +16,7 @@ const MyOrder = () => {
 
   useEffect(() => {
     dispatch(getMyOrders(page, navigate));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page]);
+  }, [dispatch, page, navigate]);
 
   useEffect(() => {
     AOS.init({

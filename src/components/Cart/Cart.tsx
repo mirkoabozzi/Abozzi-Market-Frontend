@@ -53,9 +53,13 @@ const Cart = () => {
   const handleDecreaseQuantity = (item: IItem) => {
     if (item.quantity > 1) {
       dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity - 1 } });
-    } else {
-      warnToast("La quantità non può essere inferiore a 1!");
+    } else if (item.quantity === 1) {
+      handelRemoveFromCart(item);
     }
+  };
+
+  const handelRemoveFromCart = (item: IItem) => {
+    dispatch({ type: ActionType.REMOVE_FROM_CART, payload: item.product });
   };
 
   const total = cart.reduce((acc: number, item: IItem) => {
@@ -88,7 +92,7 @@ const Cart = () => {
                     <PlusCircle className="fs-4 mouseHover scale" onClick={() => handleIncreaseQuantity(item)} />
                   </div>
                   <div className="mt-2">
-                    <Button className="rounded-pill" onClick={() => dispatch({ type: ActionType.REMOVE_FROM_CART, payload: item.product })}>
+                    <Button className="rounded-pill" onClick={() => handelRemoveFromCart(item)}>
                       Rimuovi articolo
                     </Button>
                   </div>
