@@ -27,7 +27,7 @@ const WishList = () => {
             );
           })
         ) : (
-          <p>Non hai nessun prodotto nella wishlist</p>
+          <h4>Non hai nessun prodotto nella lista dei desideri!</h4>
         )}
       </Row>
     </div>

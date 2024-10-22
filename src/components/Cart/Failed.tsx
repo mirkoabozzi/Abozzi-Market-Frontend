@@ -8,6 +8,7 @@ const Failed = () => {
   return (
     <Container className="mainAnimation mt-5 rounded-4 text-center">
       <h1>Qualcosa è andato storto, ci dispiace!</h1>
+      <h3 className="mb-5">Contattaci per avere supporto.</h3>
       <Button className="rounded-pill" onClick={() => navigate("/")}>
         Torna alla Home
       </Button>

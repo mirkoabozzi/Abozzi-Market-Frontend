@@ -1,4 +1,4 @@
-import { Button, Col, Container, Dropdown, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
@@ -12,17 +12,21 @@ import { useNavigate } from "react-router-dom";
 import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import payPal from "../../assets/img/paypal.svg";
+import AddAddress from "../Profile/AddAddress";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
-
+  const paymentLoading: boolean = useAppSelector((state) => state.payment.paymentLoading);
   const isLogged: boolean = useAppSelector((state) => state.userReducer.isLogged);
   const addresses: IAddress[] = useAppSelector((state) => state.addresses.content);
+
   const [address, setAddress] = useState<IAddress | null>(null);
 
-  const paymentLoading: boolean = useAppSelector((state) => state.payment.paymentLoading);
+  const [showModalAddAddress, setShowModalAddAddress] = useState(false);
+  const handleCloseModalAddAddress = () => setShowModalAddAddress(false);
+  const handleShowModalAddAddress = () => setShowModalAddAddress(true);
 
   const handleAddress = (selectedAddress: IAddress) => {
     setAddress(selectedAddress);
@@ -105,6 +109,9 @@ const Cart = () => {
               {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
             </Dropdown.Toggle>
             <DropdownMenu>
+              <DropdownItem className="custom-dropdown-item" onClick={handleShowModalAddAddress}>
+                Aggiungi indirizzo
+              </DropdownItem>
               {addresses?.map((address: IAddress) => {
                 return (
                   <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
@@ -125,6 +132,8 @@ const Cart = () => {
         </div>
       ) : null}
       <ToastContainer />
+      {/* modal add address */}
+      <AddAddress show={showModalAddAddress} handleClose={handleCloseModalAddAddress} />
     </Container>
   );
 };
