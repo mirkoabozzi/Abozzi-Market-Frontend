@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOrder, updateOrderState } from "../../redux/actions/orders";
+import { getMyOrder, getOrder, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { dateConverter, handleDiscountPrice } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
@@ -16,9 +16,13 @@ const OrderDetails = () => {
 
   useEffect(() => {
     if (params.id) {
-      dispatch(getOrder(params.id));
+      if (user?.role === "ADMIN") {
+        dispatch(getOrder(params.id));
+      } else {
+        dispatch(getMyOrder(params.id, navigate));
+      }
     }
-  }, [params.id, dispatch]);
+  }, [params.id, dispatch, user.role, navigate]);
 
   const handleUpdateOrderState = (order: string, state: string) => {
     const body: IOrderUpdateStatus = { order, state };
@@ -86,8 +90,8 @@ const OrderDetails = () => {
           <div key={item.id}>
             <Row>
               <Col xs={3}>
+                <p className="fs-4 text-truncate">{item.product.name}</p>
                 <Image src={item.product.imgUrl} alt="product image" className="mouseHover w-100" onClick={() => navigate(`/product/details/${item.product.id}`)} />
-                <p>{item.product.name}</p>
               </Col>
               <Col xs={3}>
                 <p>{item.quantity}</p>

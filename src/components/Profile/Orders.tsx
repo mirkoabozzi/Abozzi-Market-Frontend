@@ -3,8 +3,8 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getAllClientsOrders, getOrdersByUserEmail } from "../../redux/actions/orders";
-import { Badge, Col, Form, Row } from "react-bootstrap";
-import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
+import { Badge, Button, Col, Form, Row } from "react-bootstrap";
+import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, Search } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { dateConverter } from "../../redux/actions/products";
 
@@ -39,15 +39,15 @@ const Orders = () => {
       dispatch(getAllClientsOrders(page));
     }
   };
-  console.log("orders", orders);
 
   return (
     <div className="mainAnimation">
       <h3>Ordini clienti</h3>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="my-4" controlId="formBasicEmail">
-          <Form.Control type="text" placeholder="Email cliente" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </Form.Group>
+      <Form className=" my-4 d-flex position-relative" onSubmit={handleSubmit}>
+        <Form.Control type="email" placeholder="Email cliente" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Button type="submit" variant="transparent" className="position-absolute end-0">
+          <Search width={20} height={20} />
+        </Button>
       </Form>
       {orders.length > 0 ? (
         orders.map((order: IOrder) => {
@@ -56,7 +56,9 @@ const Orders = () => {
               <Row data-aos="fade-zoom-in">
                 <Col>
                   <p className="line-truncate-2">Order: {order.id}</p>
-                  <p>Cliente: {order.user.name}</p>
+                  <p>
+                    Cliente: {order.user.name} {order.user.surname}
+                  </p>
                   <p>Stato pagamento: {order.payment.status}</p>
                   <p>Data ordine: {dateConverter(order.orderDate)}</p>
                   <p>Stato: {order.ordersState}</p>

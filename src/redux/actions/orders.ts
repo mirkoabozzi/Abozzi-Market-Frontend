@@ -37,7 +37,7 @@ export const getOrder = (id: string) => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/orders/me/${id}`, {
+      const resp = await fetch(`${url}/orders/${id}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -133,6 +133,32 @@ export const getOrdersByUserEmail = (page: number, email: string) => {
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders.content });
       } else {
         throw new Error("Get orders error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getMyOrder = (id: string, navigate: NavigateFunction) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/orders/me/${id}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const order = await resp.json();
+        dispatch({ type: ActionType.SET_ORDER, payload: order });
+      } else {
+        if (resp.status === 401) {
+          dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
+          dispatch({ type: ActionType.SET_USER, payload: null });
+          navigate("/");
+        }
+        throw new Error("Get my order error");
       }
     } catch (error) {
       console.log(error);
