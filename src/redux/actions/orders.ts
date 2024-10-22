@@ -37,7 +37,7 @@ export const getOrder = (id: string) => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/orders/${id}`, {
+      const resp = await fetch(`${url}/orders/me/${id}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -112,6 +112,27 @@ export const updateOrderState = (order: IOrderUpdateStatus) => {
         successToast("Stato ordine aggiornato");
       } else {
         throw new Error("Add order error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getOrdersByUserEmail = (page: number, email: string) => {
+  return async (dispatch: Dispatch<OrderAction>) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/orders/user?page=${page}&email=${email}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        const orders = await resp.json();
+        dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders.content });
+      } else {
+        throw new Error("Get orders error");
       }
     } catch (error) {
       console.log(error);

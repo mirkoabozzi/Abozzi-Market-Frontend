@@ -2,21 +2,26 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getAllClientsOrders } from "../../redux/actions/orders";
-import { Badge, Col, Row } from "react-bootstrap";
+import { getAllClientsOrders, getOrdersByUserEmail } from "../../redux/actions/orders";
+import { Badge, Col, Form, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { dateConverter } from "../../redux/actions/products";
 
 const Orders = () => {
   const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => state.ordersReducer.clientsOrder);
   const navigate = useNavigate();
-
+  const orders = useAppSelector((state) => state.ordersReducer.clientsOrder);
   const [page, setPage] = useState(0);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    dispatch(getAllClientsOrders(page));
+    if (email) {
+      dispatch(getOrdersByUserEmail(page, email));
+    } else {
+      dispatch(getAllClientsOrders(page));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -26,9 +31,24 @@ const Orders = () => {
     });
   }, []);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (email) {
+      dispatch(getOrdersByUserEmail(page, email));
+    } else {
+      dispatch(getAllClientsOrders(page));
+    }
+  };
+  console.log("orders", orders);
+
   return (
     <div className="mainAnimation">
-      <h3 className="mb-5">Ordini clienti</h3>
+      <h3>Ordini clienti</h3>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="my-4" controlId="formBasicEmail">
+          <Form.Control type="text" placeholder="Email cliente" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Form.Group>
+      </Form>
       {orders.length > 0 ? (
         orders.map((order: IOrder) => {
           return (
