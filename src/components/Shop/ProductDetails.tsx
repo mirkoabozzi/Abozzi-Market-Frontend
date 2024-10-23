@@ -10,7 +10,7 @@ import { Heart, HeartFill, Pencil, StarFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
-import { successToast, warnToast } from "../../redux/actions/toaster";
+import { errorToast, successToast, warnToast } from "../../redux/actions/toaster";
 import ReviewUpdate from "./ReviewUpdate";
 
 const Product = () => {
@@ -69,13 +69,17 @@ const Product = () => {
 
   const handleAddToCart = () => {
     const existingCartItem = cart.find((item: IItem) => item.product.id === product.id);
-    if (existingCartItem) {
-      dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
+    if (existingCartItem && existingCartItem?.product.quantityAvailable <= existingCartItem?.quantity) {
+      errorToast("Quantità non disponibile!");
     } else {
-      dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+      successToast("Articolo aggiunto");
+      if (existingCartItem) {
+        dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
+      } else {
+        dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+      }
     }
     setQuantity(1);
-    successToast("Articolo aggiunto");
   };
 
   const handleAverageRate = () => {
@@ -139,9 +143,15 @@ const Product = () => {
               <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
             </Form.Group>
             <div className="d-flex gap-2 my-3">
-              <Button className="rounded-pill" onClick={handleAddToCart}>
-                Aggiungi al carrello
-              </Button>
+              {product?.quantityAvailable === 0 ? (
+                <Button className="rounded-pill" style={{ opacity: 0.5 }}>
+                  Esaurito
+                </Button>
+              ) : (
+                <Button className="rounded-pill" onClick={handleAddToCart}>
+                  Aggiungi al carrello
+                </Button>
+              )}
               <Button className="rounded-pill" onClick={handleShow}>
                 Recensisci prodotto
               </Button>

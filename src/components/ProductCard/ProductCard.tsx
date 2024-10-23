@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { handleDiscountPrice } from "../../redux/actions/products";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
-import { successToast } from "../../redux/actions/toaster";
+import { errorToast, successToast } from "../../redux/actions/toaster";
 
 interface ProductCardProps {
   product: IProduct;
@@ -17,12 +17,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const handleAddToCart = (product: IProduct) => {
     const existingCartItem = cart.find((item: IItem) => item.product.id === product.id);
     const quantity = 1;
-    if (existingCartItem) {
-      dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
+    if (existingCartItem && existingCartItem?.product.quantityAvailable <= existingCartItem?.quantity) {
+      errorToast("Quantità non disponibile!");
     } else {
-      dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+      successToast("Articolo aggiunto");
+      if (existingCartItem) {
+        dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
+      } else {
+        dispatch({ type: ActionType.ADD_TO_CART, payload: { product, quantity } });
+      }
     }
-    successToast("Articolo aggiunto");
   };
 
   return (
@@ -34,7 +38,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <p className={!product?.discountStatus ? "fs-1 mb-0" : "fs-5 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</p>
         {product?.discountStatus ? <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p> : null}
         <div className="d-flex justify-content-end">
-          <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />
+          {product?.quantityAvailable === 0 ? <CartPlus className="fs-2 mouseHover scale" opacity={0.5} /> : <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />}
         </div>
       </Card.Body>
     </Card>

@@ -2,7 +2,7 @@ import { Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Image, Ro
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
-import { warnToast } from "../../redux/actions/toaster";
+import { errorToast, warnToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
@@ -47,7 +47,11 @@ const Cart = () => {
   };
 
   const handleIncreaseQuantity = (item: IItem) => {
-    dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
+    if (item.product.quantityAvailable <= item.quantity) {
+      errorToast("Quantità non disponibile");
+    } else {
+      dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
+    }
   };
 
   const handleDecreaseQuantity = (item: IItem) => {
