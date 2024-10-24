@@ -21,13 +21,13 @@ const Sidebar = () => {
     <Container>
       <h3>Prezzo</h3>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Group className="mb-3" controlId="formMinNumber">
           <Form.Label>Min</Form.Label>
           <Form.Control type="number" placeholder="min" value={min} min={0} onChange={(e) => setMin(Number(e.target.value))} />
         </Form.Group>
       </Form>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Group className="mb-3" controlId="formMaxNumber">
           <Form.Label>Max</Form.Label>
           <Form.Control type="number" placeholder="max" value={max} onChange={(e) => setMax(Number(e.target.value))} />
         </Form.Group>

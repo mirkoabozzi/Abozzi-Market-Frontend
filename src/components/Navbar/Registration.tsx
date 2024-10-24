@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
-import { errorToast } from "../../redux/actions/toaster";
+import { errorToast, successToast } from "../../redux/actions/toaster";
 
 interface RegistrationProps {
   show: boolean;
@@ -29,9 +29,8 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
         body: JSON.stringify(userData),
       });
       if (resp.ok) {
-        const result = await resp.json();
-        localStorage.setItem("token", result.accessToken);
         handleClose();
+        successToast("Registrazione avvenuta con successo!");
       } else {
         errorToast("Email già presente!");
         throw new Error("Registration error");
@@ -62,23 +61,23 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>
             <Form.Control type="text" placeholder="Nome" name="name" required autoFocus value={userData.name} onChange={handleChange} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formSurname">
             <Form.Label>Cognome</Form.Label>
             <Form.Control type="text" placeholder="Cognome" name="surname" required value={userData.surname} onChange={handleChange} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formNumber">
             <Form.Label>Numero di telefono</Form.Label>
             <Form.Control type="text" placeholder="Numero" name="phoneNumber" required value={userData.phoneNumber} onChange={handleChange} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder="name@example.com" name="email" required value={userData.email} onChange={handleChange} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>Password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showPassword ? "text" : "password"} placeholder="****" name="password" required value={userData.password} onChange={handleChange} />
@@ -87,7 +86,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
               </span>
             </div>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formConfirmPassword">
             <Form.Label>Conferma password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showConfirmPassword ? "text" : "password"} placeholder="****" name="confirmPassword" required value={userData.confirmPassword} onChange={handleChange} />

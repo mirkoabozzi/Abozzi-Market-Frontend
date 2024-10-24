@@ -44,19 +44,19 @@ const AddProduct = () => {
     <div className="mainAnimation">
       <h3>Prodotti</h3>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>
           <Form.Control type="text" placeholder="Nome" required autoFocus value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formDescription">
           <Form.Label>Descrizione</Form.Label>
           <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formPrice">
           <Form.Label>Prezzo</Form.Label>
           <Form.Control type="number" placeholder="Prezzo" required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formNumber">
           <Form.Label>Quantità disponibile</Form.Label>
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
         </Form.Group>

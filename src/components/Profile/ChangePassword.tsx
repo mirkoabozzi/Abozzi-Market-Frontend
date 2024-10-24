@@ -42,7 +42,7 @@ const ChangePassword = ({ show, handleClose }: ChangePasswordProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>Password attuale</Form.Label>
             <div className="position-relative">
               <Form.Control type={showOldPassword ? "text" : "password"} placeholder="****" required value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
@@ -51,8 +51,7 @@ const ChangePassword = ({ show, handleClose }: ChangePasswordProps) => {
               </span>
             </div>
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formNewPassword">
             <Form.Label>Nuova password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showNewPassword ? "text" : "password"} placeholder="****" required value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
@@ -61,8 +60,7 @@ const ChangePassword = ({ show, handleClose }: ChangePasswordProps) => {
               </span>
             </div>
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formConfirmPassword">
             <Form.Label>Conferma password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showConfirmPassword ? "text" : "password"} placeholder="****" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
@@ -71,7 +69,6 @@ const ChangePassword = ({ show, handleClose }: ChangePasswordProps) => {
               </span>
             </div>
           </Form.Group>
-
           <div className="d-flex gap-1 justify-content-center">
             <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi

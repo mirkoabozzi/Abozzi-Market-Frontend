@@ -44,11 +44,11 @@ const Report = () => {
       <div className="d-flex justify-content-evenly">
         <Form onSubmit={handleSubmit}>
           <div className="d-block d-sm-flex gap-2">
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formStartDate">
               <Form.Label>Inizio</Form.Label>
               <Form.Control type="datetime-local" placeholder="Data inizio" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formEndDate">
               <Form.Label>Fine</Form.Label>
               <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
             </Form.Group>

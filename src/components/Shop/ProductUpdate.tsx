@@ -91,19 +91,19 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formName">
               <Form.Label>Nome</Form.Label>
               <Form.Control type="text" placeholder="Nome" value={name} required autoFocus onChange={(e) => setName(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formDescription">
               <Form.Label>Descrizione</Form.Label>
               <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formPrice">
               <Form.Label>Prezzo</Form.Label>
               <Form.Control type="number" placeholder="Prezzo" required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="formQuantity">
               <Form.Label>Quantità</Form.Label>
               <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
             </Form.Group>

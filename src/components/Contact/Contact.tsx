@@ -39,16 +39,16 @@ const Contact = () => {
     <Container className="w-75 mt-4 mainAnimation">
       <h3>Contatti</h3>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="Nome">
+        <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>
           <Form.Control type="text" placeholder="Nome" required value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
+        <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Indirizzo email</Form.Label>
           <Form.Control type="email" placeholder="Indirizzo email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           <Form.Text className="text-muted">Non condivideremo la tua email con nessuno!</Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="textarea">
+        <Form.Group className="mb-3" controlId="formNote">
           <Form.Label>Note</Form.Label>
           <Form.Control as="textarea" rows={5} placeholder="Note" required value={text} onChange={(e) => setText(e.target.value)} />
         </Form.Group>

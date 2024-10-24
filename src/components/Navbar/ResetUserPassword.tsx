@@ -46,7 +46,7 @@ const ResetUserPassword = () => {
       <h2>Cambio password</h2>
       <div className="d-flex justify-content-center">
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formNewPassword">
             <Form.Label>Nuova password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showPassword ? "text" : "password"} placeholder="****" required value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -55,7 +55,7 @@ const ResetUserPassword = () => {
               </span>
             </div>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="FormConfirmPassword">
             <Form.Label>Conferma password</Form.Label>
             <div className="position-relative">
               <Form.Control type={showConfirmPassword ? "text" : "password"} placeholder="****" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />

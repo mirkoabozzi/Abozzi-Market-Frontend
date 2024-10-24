@@ -22,6 +22,7 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
       const reviewData = { rating, comment, product };
       dispatch(addReview(reviewData));
       handleClose();
+      setComment("");
     }
   };
 
@@ -32,11 +33,11 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formRating">
             <Form.Label>Valutazione</Form.Label>
             <Form.Control type="number" min={1} max={5} placeholder="Inserisci un voto da 1 a 5" required autoFocus value={rating} onChange={(e) => setRating(Number(e.target.value))} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="formComment">
             <Form.Label>Commento</Form.Label>
             <Form.Control as={"textarea"} rows={3} placeholder="Ottimo!" required value={comment} onChange={(e) => setComment(e.target.value)} />
           </Form.Group>

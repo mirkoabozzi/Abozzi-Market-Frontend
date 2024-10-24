@@ -37,19 +37,19 @@ const AddAddress = ({ show, handleClose }: AddAddressProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formZipCode">
             <Form.Label>CAP</Form.Label>
             <Form.Control type="text" placeholder="CAP" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formAddress">
             <Form.Label>Indirizzo</Form.Label>
             <Form.Control type="text" placeholder="Indirizzo" value={address} onChange={(e) => setAddress(e.target.value)} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formNumber">
             <Form.Label>Numero</Form.Label>
             <Form.Control type="number" placeholder="numero" min={1} value={number} onChange={(e) => setNumber(Number(e.target.value))} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="formCity">
             <Form.Label>Città</Form.Label>
             <Form.Control type="text" placeholder="Città" value={city} onChange={(e) => setCity(e.target.value)} />
           </Form.Group>
