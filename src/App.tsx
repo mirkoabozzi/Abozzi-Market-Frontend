@@ -30,6 +30,7 @@ import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
 import ScrollTop from "./components/ScrollTop";
 import ResetUserPassword from "./components/Navbar/ResetUserPassword";
+import Report from "./components/Profile/Report";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="clients" element={<Users />} />
           <Route path="clientsOrders" element={<Orders />} />
           <Route path="promo" element={<Discount />} />
+          <Route path="report" element={<Report />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/success/*" element={<Success />} />

@@ -1,7 +1,7 @@
 import "./Profile.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
-import { BookmarkHeart, Box, Boxes, Collection, ListStars, PersonCircle, PersonLinesFill, Signpost2, Tag } from "react-bootstrap-icons";
+import { BookmarkHeart, Box, Boxes, Collection, GraphUp, ListStars, PersonCircle, PersonLinesFill, Signpost2, Tag } from "react-bootstrap-icons";
 import { useAppSelector } from "../../redux/store";
 
 const Profile = () => {
@@ -48,10 +48,13 @@ const Profile = () => {
                   <ListStars size={25} />
                   <h5 className="mb-0 ms-2 d-none d-lg-block">Categorie</h5>
                 </div>
-
                 <div onClick={() => navigate("/profile/promo")} className="d-flex align-items-center mb-5 mouseHover">
                   <Tag size={25} />
                   <h5 className="mb-0 ms-2 d-none d-lg-block">Promozioni</h5>
+                </div>
+                <div onClick={() => navigate("/profile/report")} className="d-flex align-items-center mb-5 mouseHover">
+                  <GraphUp size={25} />
+                  <h5 className="mb-0 ms-2 d-none d-lg-block">Report</h5>
                 </div>
               </>
             ) : null}
