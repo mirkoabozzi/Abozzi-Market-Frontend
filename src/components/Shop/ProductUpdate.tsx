@@ -171,7 +171,15 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
-              <Button type="button" variant="danger" className="rounded-pill" onClick={handleShowDeleteModal}>
+              <Button
+                type="button"
+                variant="danger"
+                className="rounded-pill"
+                onClick={() => {
+                  handleShowDeleteModal();
+                  handleClose();
+                }}
+              >
                 Elimina
               </Button>
               <Button type="submit" variant="primary" className="rounded-pill">

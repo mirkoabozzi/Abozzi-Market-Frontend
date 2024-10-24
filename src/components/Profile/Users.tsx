@@ -9,6 +9,7 @@ import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Users = () => {
   const users: IUser[] = useAppSelector((state) => state.userReducer.users);
+  const authUser: IUser = useAppSelector((state) => state.userReducer.user);
   const dispatch = useAppDispatch();
 
   const [show, setShow] = useState(false);
@@ -87,13 +88,17 @@ const Users = () => {
                   <td>{user.phoneNumber}</td>
                   <td>{dateConverter(user.registrationDate)}</td>
                   <td>
-                    <Trash
-                      className="mouseHover"
-                      onClick={() => {
-                        setShow(true);
-                        setUserSelected(user.id);
-                      }}
-                    />
+                    {user.id === authUser?.id ? (
+                      <Trash opacity={0.5} />
+                    ) : (
+                      <Trash
+                        className="mouseHover"
+                        onClick={() => {
+                          setShow(true);
+                          setUserSelected(user.id);
+                        }}
+                      />
+                    )}
                   </td>
                 </tr>
               );
