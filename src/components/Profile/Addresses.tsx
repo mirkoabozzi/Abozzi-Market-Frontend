@@ -5,22 +5,33 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Trash } from "react-bootstrap-icons";
 import { ToastContainer } from "react-toastify";
 import AddAddress from "./AddAddress";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Addresses = () => {
   const dispatch = useAppDispatch();
   const addressees = useAppSelector((state) => state.addresses.content);
+  const [selectedAddress, setSelectedAddress] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [showModalAlert, setShowModalAlert] = useState(false);
+  const handleCloseModalAlert = () => setShowModalAlert(false);
+  const handleShowModalAlert = () => {
+    setShow(false);
+    setShowModalAlert(true);
+  };
+
   useEffect(() => {
     dispatch(getAllAddress());
   }, [dispatch]);
 
-  const handleDeleteAddress = (addressId: string | undefined) => {
-    if (addressId) {
-      dispatch(deleteAddress(addressId));
+  const handleDeleteAddress = () => {
+    if (selectedAddress) {
+      dispatch(deleteAddress(selectedAddress));
+      setShowModalAlert(false);
+      setSelectedAddress("");
     }
   };
 
@@ -45,7 +56,13 @@ const Addresses = () => {
                 </p>
               </Col>
               <Col className="text-end">
-                <Trash className="mouseHover" onClick={() => handleDeleteAddress(address.id)} />
+                <Trash
+                  className="mouseHover"
+                  onClick={() => {
+                    handleShowModalAlert();
+                    setSelectedAddress(address.id);
+                  }}
+                />
               </Col>
               <hr />
             </Row>
@@ -55,8 +72,9 @@ const Addresses = () => {
         <h4 className="text-center mt-3">Non hai indirizzi salvati!</h4>
       )}
 
-      {/* modal add address */}
+      {/* modal */}
       <AddAddress show={show} handleClose={handleClose} />
+      <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteAddress} />
       <ToastContainer />
     </div>
   );

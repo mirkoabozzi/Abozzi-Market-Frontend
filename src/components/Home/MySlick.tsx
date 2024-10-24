@@ -30,10 +30,10 @@ const MySlick = () => {
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     cssEase: "linear",
-    pauseOnHover: true,
-    swipeToSlide: true,
+    pauseOnHover: false,
+    swipeToSlide: false,
     responsive: [
       {
         breakpoint: 1024,

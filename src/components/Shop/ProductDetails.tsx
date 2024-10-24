@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { dateConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import { getReview } from "../../redux/actions/reviews";
+import { deleteReview, getReview } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { ToastContainer } from "react-toastify";
 import { Heart, HeartFill, Pencil, StarFill } from "react-bootstrap-icons";
@@ -12,6 +12,7 @@ import ProductUpdate from "./ProductUpdate";
 import { ActionType } from "../../redux/enums/ActionType";
 import { errorToast, successToast, warnToast } from "../../redux/actions/toaster";
 import ReviewUpdate from "./ReviewUpdate";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Product = () => {
   const params = useParams();
@@ -26,7 +27,7 @@ const Product = () => {
   const [review, SetReview] = useState<IReview>();
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
-  const [show, setShow] = useState(false);
+  const [showAddReview, setShowAddReview] = useState(false);
 
   const [showProductUpdate, setShowProductUpdate] = useState(false);
   const handleShowProductUpdate = () => setShowProductUpdate(true);
@@ -36,20 +37,34 @@ const Product = () => {
   const handleShowReviewUpdate = () => setShowReviewUpdate(true);
   const handleCloseReviewUpdate = () => setShowReviewUpdate(false);
 
-  const handleShow = () => {
+  const handleShowAddReview = () => {
     if (isLogged) {
-      setShow(true);
+      setShowAddReview(true);
     } else {
-      setShow(false);
+      setShowAddReview(false);
       warnToast("Devi fare il login per lasciare una recensione!");
     }
   };
 
-  const handleClose = () => setShow(false);
+  const handleCloseAddReview = () => setShowAddReview(false);
 
   const handleAddToWishlist = () => {
     if (params.id) {
       dispatch(addToWishlist({ product: params.id }));
+    }
+  };
+
+  const [showModalAlert, setShowModalAlert] = useState(false);
+  const handleCloseModalAlert = () => setShowModalAlert(false);
+  const handleShowModalAlert = () => {
+    handleCloseReviewUpdate();
+    setShowModalAlert(true);
+  };
+
+  const handleDeleteReview = () => {
+    if (review) {
+      dispatch(deleteReview(review.id, review.product.id));
+      setShowModalAlert(false);
     }
   };
 
@@ -112,11 +127,11 @@ const Product = () => {
             <div>
               <Image src={product?.imgUrl} className="w-100" />
             </div>
-            <div className="d-flex justify-content-end mt-3">
+            <div className="d-flex justify-content-end mt-3 me-3">
               {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
-                <HeartFill className="mouseHover scale" onClick={handleRemoveFromWishlist} />
+                <HeartFill width={20} height={20} className="mouseHover scale" onClick={handleRemoveFromWishlist} />
               ) : (
-                <Heart className="mouseHover scale" onClick={handleAddToWishlist} />
+                <Heart width={20} height={20} className="mouseHover scale" onClick={handleAddToWishlist} />
               )}
             </div>
           </Col>
@@ -130,19 +145,18 @@ const Product = () => {
               {renderStars(rating)}
             </div>
 
-            <p className={!product?.discountStatus ? "fs-1 mb-0" : "fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</p>
+            <strong className={!product?.discountStatus ? "d-block fs-1 mb-0" : "d-block fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
             {product?.discountStatus ? (
               <>
-                <p className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</p>
+                <strong className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</strong>
                 <p>Termina il: {dateConverter(product.discountList[0].endDate)}</p>
               </>
             ) : null}
-
-            <Form.Group style={{ width: "70px" }} controlId="formQuantity">
-              <Form.Label>Quantità</Form.Label>
+            <Form.Label>Quantità</Form.Label>
+            <Form.Group className="col-md-2" controlId="formQuantity">
               <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
             </Form.Group>
-            <div className="d-flex gap-2 my-3">
+            <div className="d-flex justify-content-center flex-column flex-md-row gap-2 my-3">
               {product?.quantityAvailable === 0 ? (
                 <Button className="rounded-pill" style={{ opacity: 0.5 }}>
                   Esaurito
@@ -152,7 +166,7 @@ const Product = () => {
                   Aggiungi al carrello
                 </Button>
               )}
-              <Button className="rounded-pill" onClick={handleShow}>
+              <Button className="rounded-pill" onClick={handleShowAddReview}>
                 Recensisci prodotto
               </Button>
               {user?.role === "ADMIN" ? (
@@ -207,9 +221,10 @@ const Product = () => {
       </Row>
 
       {/* modal */}
-      <AddReview show={show} handleClose={handleClose} />
+      <AddReview show={showAddReview} handleClose={handleCloseAddReview} />
       {product && <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />}
-      {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} />}
+      {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} handleShowModalAlert={handleShowModalAlert} />}
+      {review && <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteReview} />}
       <ToastContainer />
     </Container>
   );

@@ -36,8 +36,9 @@ const Sidebar = () => {
         </Button>
       </Form>
       <hr />
+
       <Button className="rounded-pill" onClick={handlePromo}>
-        Promo
+        Offerte
       </Button>
     </Container>
   );

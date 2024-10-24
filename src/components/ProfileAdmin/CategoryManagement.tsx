@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useState } from "react";
 import { addCategory, addImageCategory, deleteCategory, updateCategory } from "../../redux/actions/categories";
 import { ToastContainer } from "react-toastify";
+import ModalAlert from "../ModalAlert/ModalAlert";
 
 const CategoryManagement = () => {
   const categories = useAppSelector((state) => state.categoriesReducer.categories);
@@ -10,6 +11,7 @@ const CategoryManagement = () => {
 
   const [name, setName] = useState("");
   const [avatar, setNewAvatar] = useState<File | null>(null);
+  const [categoryId, setCategoryId] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -19,7 +21,12 @@ const CategoryManagement = () => {
   const handleCloseModalUpdate = () => setShowModalUpdate(false);
   const handleShowModalUpdate = () => setShowModalUpdate(true);
 
-  const [categoryId, setCategoryId] = useState("");
+  const [showModalAlert, setShowModalAlert] = useState(false);
+  const handleCloseModalAlert = () => setShowModalAlert(false);
+  const handleShowModalAlert = () => {
+    setShowModalUpdate(false);
+    setShowModalAlert(true);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -44,10 +51,9 @@ const CategoryManagement = () => {
     handleCloseModalUpdate();
   };
 
-  const handleDeleteCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleDeleteCategory = () => {
     dispatch(deleteCategory(categoryId));
-    handleCloseModalUpdate();
+    handleCloseModalAlert();
   };
 
   return (
@@ -77,36 +83,36 @@ const CategoryManagement = () => {
         </Row>
 
         {/* modal add category*/}
-        <Modal show={show} onHide={handleClose}>
+        <Modal centered show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Aggiungi nuova categoria</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Group className="mb-3" controlId="formName">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
               </Form.Group>
-              <Modal.Footer>
+              <div className="d-flex justify-content-end gap-2">
                 <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                   Chiudi
                 </Button>
                 <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
                   Salva
                 </Button>
-              </Modal.Footer>
+              </div>
             </Form>
           </Modal.Body>
         </Modal>
 
         {/* modal edit category*/}
-        <Modal show={showModalUpdate} onHide={handleCloseModalUpdate}>
+        <Modal centered show={showModalUpdate} onHide={handleCloseModalUpdate}>
           <Modal.Header closeButton>
             <Modal.Title>Modifica</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={handleUpdate}>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Group className="mb-3" controlId="formName">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
               </Form.Group>
@@ -114,21 +120,24 @@ const CategoryManagement = () => {
                 <Form.Label>Avatar</Form.Label>
                 <Form.Control type="file" onChange={handleFileChange} />
               </Form.Group>
-              <Modal.Footer>
+              <div className="d-flex justify-content-end gap-2">
                 <Button variant="secondary" className="rounded-pill" onClick={handleCloseModalUpdate}>
                   Chiudi
                 </Button>
-                <Button variant="danger" className="rounded-pill" onClick={handleDeleteCategory}>
+                <Button variant="danger" className="rounded-pill" onClick={handleShowModalAlert}>
                   Elimina
                 </Button>
                 <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
                   Salva
                 </Button>
-              </Modal.Footer>
+              </div>
             </Form>
           </Modal.Body>
         </Modal>
       </div>
+
+      {/* modal */}
+      <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteCategory} />
       <ToastContainer />
     </div>
   );

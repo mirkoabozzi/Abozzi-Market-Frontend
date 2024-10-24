@@ -1,4 +1,3 @@
-import "./Shop.css";
 import { useEffect, useState } from "react";
 import { Badge, Col, Container, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
@@ -24,10 +23,10 @@ const Shop = () => {
   }, [dispatch, page, productsLoaded]);
 
   return (
-    <Container fluid className="mt-4 mainAnimation">
+    <Container className="mt-4 mainAnimation">
       <Row>
         <Col sm={2}>
-          <div className="d-none d-sm-block">
+          <div className="d-none d-md-block">
             <Sidebar />
           </div>
         </Col>
@@ -41,7 +40,7 @@ const Shop = () => {
             ) : products.length > 0 ? (
               products.map((product: IProduct) => {
                 return (
-                  <Col xs={6} md={4} lg={3} xl={2} className="my-3" key={product.id}>
+                  <Col xs={6} md={4} xl={3} className="my-3" key={product.id}>
                     <ProductCard product={product} />
                   </Col>
                 );
