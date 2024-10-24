@@ -17,20 +17,20 @@ import MyOrder from "./components/Profile/MyOrder";
 import UpdateProfile from "./components/Profile/UpdateProfile";
 import Addresses from "./components/Profile/Addresses";
 import WishList from "./components/Profile/WishList";
-import CategoryManagement from "./components/Profile/CategoryManagement";
-import AddProduct from "./components/Profile/AddProduct";
+import CategoryManagement from "./components/ProfileAdmin/CategoryManagement";
+import AddProduct from "./components/ProfileAdmin/AddProduct";
 import Cart from "./components/Cart/Cart";
 import Success from "./components/Cart/Success";
 import Cancel from "./components/Cart/Cancel";
 import Failed from "./components/Cart/Failed";
-import Orders from "./components/Profile/Orders";
-import Users from "./components/Profile/Users";
-import Discount from "./components/Profile/Discount";
+import Orders from "./components/ProfileAdmin/Orders";
+import Users from "./components/ProfileAdmin/Users";
+import Discount from "./components/ProfileAdmin/Discount";
 import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
 import ScrollTop from "./components/ScrollTop";
 import ResetUserPassword from "./components/Navbar/ResetUserPassword";
-import Report from "./components/Profile/Report";
+import Report from "./components/ProfileAdmin/Report";
 
 function App() {
   return (

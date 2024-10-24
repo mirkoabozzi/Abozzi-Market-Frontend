@@ -43,7 +43,7 @@ const Orders = () => {
   return (
     <div className="mainAnimation">
       <h3>Ordini clienti</h3>
-      <Form className=" my-4 d-flex position-relative" onSubmit={handleSubmit}>
+      <Form className="my-4 d-flex position-relative" onSubmit={handleSubmit}>
         <Form.Control type="email" placeholder="Email cliente" value={email} onChange={(e) => setEmail(e.target.value)} />
         <Button type="submit" variant="transparent" className="position-absolute end-0">
           <Search width={20} height={20} />

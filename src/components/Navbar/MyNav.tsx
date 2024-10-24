@@ -55,7 +55,7 @@ const MyNav = () => {
             <Image title="Home" src={logoRounded} width="65" className="d-inline-block d-sm-none align-top" alt="Abozzi Market logo" />
           </div>
           <Form className="d-flex w-100 position-relative order-5 order-sm-0" onSubmit={handleSubmit}>
-            <Form.Control type="search" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" value={mainSearch} onChange={(e) => setMainSearch(e.target.value)} />
+            <Form.Control type="text" placeholder="Di cosa hai bisogno oggi? " className="text-truncate" aria-label="Search" value={mainSearch} onChange={(e) => setMainSearch(e.target.value)} />
             <Button type="submit" variant="transparent" className="position-absolute end-0">
               <Search width={20} height={20} />
             </Button>

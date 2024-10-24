@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteUser, findUserByName, getAllUser, updateUserRole } from "../../redux/actions/user";
-import { Badge, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
+import { Badge, Button, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { dateConverter } from "../../redux/actions/products";
-import { ArrowLeftCircle, ArrowRightCircle, Trash } from "react-bootstrap-icons";
+import { ArrowLeftCircle, ArrowRightCircle, Search, Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Users = () => {
@@ -38,10 +38,11 @@ const Users = () => {
   return (
     <div className="mainAnimation">
       <h3>Clienti</h3>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
-          <Form.Control type="text" placeholder="Cliente" value={name} onChange={(e) => setName(e.target.value)} />
-        </Form.Group>
+      <Form className="my-4 d-flex position-relative" onSubmit={handleSubmit}>
+        <Form.Control type="text" placeholder="Cliente" value={name} onChange={(e) => setName(e.target.value)} />
+        <Button type="submit" variant="transparent" className="position-absolute end-0">
+          <Search width={20} height={20} />
+        </Button>
       </Form>
       {users.length > 0 ? (
         <Table responsive striped bordered hover>
