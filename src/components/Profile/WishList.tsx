@@ -20,7 +20,7 @@ const WishList = () => {
           wishlist.map((item: IWishlist) => {
             return (
               <Col key={item.id}>
-                <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
+                <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover mb-2" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 <p>{item.product.name}</p>
                 <p>€ {item.product.price.toFixed(2)}</p>
               </Col>

@@ -144,10 +144,10 @@ const Product = () => {
               <span className="me-2">{rating.toFixed(1)}</span>
               {renderStars(rating)}
             </div>
-
             <strong className={!product?.discountStatus ? "d-block fs-1 mb-0" : "d-block fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
             {product?.discountStatus ? (
               <>
+                <strong className="text-danger fs-2 me-2">-{product?.discountList[0]?.percentage}%</strong>
                 <strong className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</strong>
                 <p>Termina il: {dateConverter(product.discountList[0].endDate)}</p>
               </>
