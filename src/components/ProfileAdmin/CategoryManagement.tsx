@@ -69,6 +69,9 @@ const CategoryManagement = () => {
           {categories?.map((category: ICategory) => {
             return (
               <Col
+                xs={6}
+                md={4}
+                lg={2}
                 key={category.id}
                 className="text-center mouseHover scale"
                 onClick={() => {
