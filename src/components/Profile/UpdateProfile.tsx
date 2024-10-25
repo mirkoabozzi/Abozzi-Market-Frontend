@@ -78,7 +78,7 @@ const UpdateProfile = () => {
             <Form.Label>Avatar</Form.Label>
             <Form.Control type="file" onChange={handleFileChange} />
           </Form.Group>
-          <div className="d-flex justify-content-end gap-2">
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-3">
             <Button variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
               Cambia password
             </Button>

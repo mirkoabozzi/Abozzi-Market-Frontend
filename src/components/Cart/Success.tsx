@@ -52,9 +52,11 @@ const Success = () => {
       {paymentLoading ? (
         <Spinner />
       ) : (
-        <Button className="rounded-pill" onClick={handleCreateOrder}>
-          Paga
-        </Button>
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+          <Button className="rounded-pill" onClick={handleCreateOrder}>
+            Paga
+          </Button>
+        </div>
       )}
       <ToastContainer />
     </Container>

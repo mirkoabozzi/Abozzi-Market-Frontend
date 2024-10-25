@@ -46,7 +46,7 @@ const Discount = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Promozioni</h3>
+      <h3 className="mb-4">Promozioni</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Descrizione</Form.Label>
@@ -64,7 +64,7 @@ const Discount = () => {
           <Form.Label>Fine</Form.Label>
           <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Form.Group>
-        <div className="text-center mt-5">
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-center mt-5">
           <Button type="submit" variant="primary" className="rounded-pill">
             Aggiungi promozione
           </Button>

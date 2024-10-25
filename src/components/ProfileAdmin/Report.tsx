@@ -40,10 +40,10 @@ const Report = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Report</h3>
-      <div className="d-flex justify-content-evenly">
+      <h3 className="mb-4">Report</h3>
+      <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
         <Form onSubmit={handleSubmit}>
-          <div className="d-block d-sm-flex gap-2">
+          <div className="d-sm-flex gap-2">
             <Form.Group className="mb-3" controlId="formStartDate">
               <Form.Label>Inizio</Form.Label>
               <Form.Control type="datetime-local" placeholder="Data inizio" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -53,15 +53,15 @@ const Report = () => {
               <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
             </Form.Group>
           </div>
-          <div className="text-center">
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
             <Button type="submit" className="rounded-pill mb-3">
               Applica
             </Button>
           </div>
         </Form>
       </div>
-      <div className="d-flex justify-content-center">
-        <div className="bg-white border w-75 rounded-4 p-3 text-center d-flex justify-content-center">
+      <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+        <div className="bg-white border rounded-4 p-3 text-center d-flex justify-content-center">
           <h3 className="m-0">Vendite: € {getTotal().toFixed(2)}</h3>
         </div>
       </div>

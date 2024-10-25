@@ -108,9 +108,9 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Control type="number" placeholder="Quantità" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
             </Form.Group>
             <Form.Group>
-              <div className="d-flex gap-2 justify-content-center flex-wrap">
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic" className="mb-1 rounded-pill">
+              <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+                <Dropdown className="d-flex flex-column flex-sm-row">
+                  <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
                     {selectedCategoryName}
                   </Dropdown.Toggle>
                   <DropdownMenu>
@@ -130,7 +130,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     })}
                   </DropdownMenu>
                 </Dropdown>
-                <Dropdown>
+                <Dropdown className="d-flex flex-column flex-sm-row">
                   <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
                     {selectedDiscountName}
                   </Dropdown.Toggle>

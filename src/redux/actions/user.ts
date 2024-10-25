@@ -108,7 +108,6 @@ export const updateUserRole = (body: IUserRole) => {
         body: JSON.stringify(body),
       });
       if (resp.ok) {
-        console.log(resp.status);
         dispatch(getAllUser(0));
         successToast("Ruolo aggiornato");
       } else {

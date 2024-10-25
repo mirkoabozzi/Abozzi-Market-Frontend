@@ -27,7 +27,7 @@ const MyOrder = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-5">I miei ordini</h3>
+      <h3 className="mb-4">I miei ordini</h3>
       {orders?.length > 0 ? (
         orders?.map((order: IOrder) => {
           return (

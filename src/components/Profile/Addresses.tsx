@@ -37,9 +37,9 @@ const Addresses = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Indirizzi</h3>
-      <div className="d-flex justify-content-center">
-        <Button className="my-4 rounded-pill" onClick={handleShow}>
+      <h3 className="mb-4">Indirizzi</h3>
+      <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+        <Button className="mb-4 rounded-pill" onClick={handleShow}>
           Aggiungi indirizzo
         </Button>
       </div>

@@ -52,9 +52,11 @@ const Contact = () => {
           <Form.Label>Note</Form.Label>
           <Form.Control as="textarea" rows={5} placeholder="Note" required value={text} onChange={(e) => setText(e.target.value)} />
         </Form.Group>
-        <Button variant="primary rounded-pill" type="submit">
-          Invia
-        </Button>
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-end">
+          <Button variant="primary rounded-pill py-2" type="submit">
+            Invia
+          </Button>
+        </div>
       </Form>
       <ToastContainer />
     </Container>

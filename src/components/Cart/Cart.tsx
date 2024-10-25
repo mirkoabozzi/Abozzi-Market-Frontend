@@ -112,7 +112,7 @@ const Cart = () => {
       {isLogged && cart.length > 0 ? (
         <>
           <h3 className="mb-4">Totale: € {total.toFixed(2)}</h3>
-          <Dropdown>
+          <Dropdown className="d-flex flex-column flex-sm-row">
             <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
               {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
             </Dropdown.Toggle>
@@ -132,12 +132,14 @@ const Cart = () => {
         </>
       ) : null}
       {cart.length > 0 ? (
-        <div className="d-flex flex-column align-items-center gap-2">
-          <div className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={handleCartAndPayment}>
-            <Image width={70} src={payPal} alt="paypal button" />
+        <>
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+            <Button className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={handleCartAndPayment}>
+              <Image width={70} src={payPal} alt="paypal button" />
+            </Button>
           </div>
-          <div>{paymentLoading && <Spinner />}</div>
-        </div>
+          <div className="d-flex justify-content-center mt-3">{paymentLoading && <Spinner />}</div>
+        </>
       ) : null}
       <ToastContainer />
       {/* modal add address */}

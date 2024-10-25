@@ -42,7 +42,7 @@ const AddProduct = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Prodotti</h3>
+      <h3 className="mb-4">Prodotti</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>
@@ -61,7 +61,7 @@ const AddProduct = () => {
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
         </Form.Group>
         <Form.Group>
-          <Dropdown>
+          <Dropdown className="d-flex flex-column flex-sm-row">
             <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
               {category ? category.name : "Seleziona una categoria"}
             </Dropdown.Toggle>
@@ -76,7 +76,7 @@ const AddProduct = () => {
             </DropdownMenu>
           </Dropdown>
         </Form.Group>
-        <div className="text-center mt-5">
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-center mt-4">
           <Button type="submit" variant="primary" className="rounded-pill">
             Aggiungi prodotto
           </Button>

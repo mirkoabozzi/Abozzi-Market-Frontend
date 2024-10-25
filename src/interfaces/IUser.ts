@@ -7,4 +7,5 @@ interface IUser {
   registrationDate: string;
   role: string;
   avatar: string;
+  isVerified: boolean;
 }

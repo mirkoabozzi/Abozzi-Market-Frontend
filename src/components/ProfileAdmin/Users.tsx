@@ -4,7 +4,7 @@ import { deleteUser, findUserByName, getAllUser, updateUserRole } from "../../re
 import { Badge, Button, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { dateConverter } from "../../redux/actions/products";
-import { ArrowLeftCircle, ArrowRightCircle, Search, Trash } from "react-bootstrap-icons";
+import { ArrowLeftCircle, ArrowRightCircle, CheckAll, Search, Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Users = () => {
@@ -56,6 +56,7 @@ const Users = () => {
               <th>Ruolo</th>
               <th>Telefono</th>
               <th>Data registrazione</th>
+              <th>Verificato</th>
               <th></th>
             </tr>
           </thead>
@@ -88,6 +89,13 @@ const Users = () => {
                   </td>
                   <td>{user.phoneNumber}</td>
                   <td>{dateConverter(user.registrationDate)}</td>
+                  <td>
+                    {user.isVerified && (
+                      <div className="text-center">
+                        <CheckAll width={30} height={30} />
+                      </div>
+                    )}
+                  </td>
                   <td>
                     {user.id === authUser?.id ? (
                       <Trash opacity={0.5} />

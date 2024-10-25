@@ -31,7 +31,7 @@ const OrderDetails = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-5">Ordine: {order?.id}</h3>
+      <h3 className="mb-4">Ordine: {order?.id}</h3>
       <Row className="mb-5">
         <Col sm={4}>
           <p>Data ordine: {dateConverter(order?.orderDate)}</p>
@@ -39,7 +39,7 @@ const OrderDetails = () => {
         <Col sm={4}>
           <p>Stato ordine: {order?.ordersState}</p>
           {user?.role === "ADMIN" ? (
-            <Dropdown>
+            <Dropdown className="d-flex flex-column flex-sm-row">
               <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
                 Stato
               </Dropdown.Toggle>

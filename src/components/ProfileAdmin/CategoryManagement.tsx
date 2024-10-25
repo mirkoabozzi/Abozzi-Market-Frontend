@@ -58,17 +58,19 @@ const CategoryManagement = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Categorie</h3>
+      <h3 className="mb-4">Categorie</h3>
       <div className="text-center">
-        <Button className="rounded-pill" onClick={handleShow}>
-          Aggiungi categoria
-        </Button>
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+          <Button className="rounded-pill" onClick={handleShow}>
+            Aggiungi categoria
+          </Button>
+        </div>
         <Row className="mt-5">
           {categories?.map((category: ICategory) => {
             return (
               <Col
                 key={category.id}
-                className="text-center mouseHover"
+                className="text-center mouseHover scale"
                 onClick={() => {
                   handleShowModalUpdate();
                   setCategoryId(category.id);
