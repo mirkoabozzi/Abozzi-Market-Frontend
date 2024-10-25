@@ -30,7 +30,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       });
       if (resp.ok) {
         handleClose();
-        successToast("Registrazione avvenuta con successo!");
+        successToast("Registrazione avvenuta con successo, conferma la tua email!");
       } else {
         errorToast("Email già presente!");
         throw new Error("Registration error");

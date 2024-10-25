@@ -31,6 +31,7 @@ import About from "./components/About/About";
 import ScrollTop from "./components/ScrollTop";
 import ResetUserPassword from "./components/Navbar/ResetUserPassword";
 import Report from "./components/ProfileAdmin/Report";
+import Verify from "./components/Verify/Verify";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
         <Route path="/product/details/:id" element={<ProductDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="/verify/:id" element={<Verify />} />
         <Route path="/passwordReset/:id" element={<ResetUserPassword />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
