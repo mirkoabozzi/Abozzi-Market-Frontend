@@ -24,7 +24,8 @@ const Suggested = ({ category }: SuggestedProps) => {
 
   useEffect(() => {
     if (category) {
-      dispatch(getProductByCategory(category));
+      const page = 0;
+      dispatch(getProductByCategory(category, page));
     } else {
       dispatch(getProducts(0));
     }

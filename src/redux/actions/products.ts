@@ -188,12 +188,12 @@ export const getProductByPriceRange = (min: number, max: number) => {
   };
 };
 
-export const getProductByCategory = (categoryName: string) => {
+export const getProductByCategory = (categoryName: string, page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/category?name=${categoryName}`, {
+      const resp = await fetch(`${url}/products/category?name=${categoryName}&page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

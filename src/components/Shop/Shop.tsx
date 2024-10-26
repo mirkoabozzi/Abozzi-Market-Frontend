@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Badge, Col, Container, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
-import { getProducts } from "../../redux/actions/products";
+import { getProductByCategory, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
 import { ArrowLeftCircle, ArrowRightCircle } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
 import { ActionType } from "../../redux/enums/ActionType";
+import { useLocation } from "react-router-dom";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
@@ -15,12 +16,17 @@ const Shop = () => {
   const productsLoaded = useAppSelector((state) => state.productReducer.productsLoaded);
   const [page, setPage] = useState(0);
 
+  const location = useLocation();
+  const category: string = location.state?.category || "";
+
   useEffect(() => {
-    if (!productsLoaded) {
+    if (category) {
+      dispatch(getProductByCategory(category, page));
+    } else if (!productsLoaded) {
       dispatch(getProducts(page));
       dispatch({ type: ActionType.SET_PRODUCTS_LOADED_TRUE });
     }
-  }, [dispatch, page, productsLoaded]);
+  }, [dispatch, page, category, productsLoaded]);
 
   return (
     <Container className="mt-4 mainAnimation">
@@ -31,7 +37,7 @@ const Shop = () => {
           </div>
         </Col>
         <Col sm={10}>
-          <h2>Shop</h2>
+          <h2>{category ? `${category}` : "Shop"}</h2>
           <Row>
             {isLoading ? (
               <div className="d-flex justify-content-center">

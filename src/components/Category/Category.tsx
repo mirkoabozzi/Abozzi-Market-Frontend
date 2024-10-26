@@ -1,23 +1,23 @@
 import "./Category.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getCategories } from "../../redux/actions/categories";
-import { getProductByCategory } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
 
 const Category = () => {
   const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [, setSelectedCategory] = useState("");
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
 
   const handleClick = (categoryName: string) => {
-    navigate("/shop");
-    dispatch(getProductByCategory(categoryName));
+    setSelectedCategory(categoryName);
+    navigate(`/shop`, { state: { category: categoryName } });
   };
 
   return (
