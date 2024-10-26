@@ -13,6 +13,7 @@ import { ActionType } from "../../redux/enums/ActionType";
 import { errorToast, successToast, warnToast } from "../../redux/actions/toaster";
 import ReviewUpdate from "./ReviewUpdate";
 import ModalAlert from "../ModalAlert/ModalAlert";
+import Suggested from "../Home/Suggested";
 
 const Product = () => {
   const params = useParams();
@@ -180,6 +181,11 @@ const Product = () => {
           </Col>
         </Row>
       )}
+      <Row>
+        <Col>
+          <Suggested category={product?.category.name} />
+        </Col>
+      </Row>
       <Row>
         <Col>
           <h3 className="mt-5 mb-4">Recensioni</h3>

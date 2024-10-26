@@ -1,10 +1,14 @@
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { getProducts } from "../../redux/actions/products";
+import { getProductByCategory, getProducts } from "../../redux/actions/products";
 import ProductCard from "../ProductCard/ProductCard";
 
-const Suggested = () => {
+interface SuggestedProps {
+  category?: string;
+}
+
+const Suggested = ({ category }: SuggestedProps) => {
   const dispatch = useAppDispatch();
   const products: IProduct = useAppSelector((state) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
@@ -19,8 +23,12 @@ const Suggested = () => {
   }, [products]);
 
   useEffect(() => {
-    dispatch(getProducts(0));
-  }, [dispatch]);
+    if (category) {
+      dispatch(getProductByCategory(category));
+    } else {
+      dispatch(getProducts(0));
+    }
+  }, [dispatch, category]);
 
   return (
     <div className="mt-4">
