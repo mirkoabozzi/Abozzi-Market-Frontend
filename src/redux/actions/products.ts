@@ -165,12 +165,12 @@ export const getProductByName = (productName: string) => {
   };
 };
 
-export const getProductByPriceRange = (min: number, max: number) => {
+export const getProductByPriceRange = (min: number, max: number, page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/price?min=${min}&max=${max}`, {
+      const resp = await fetch(`${url}/products/price?min=${min}&max=${max}&page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -211,12 +211,12 @@ export const getProductByCategory = (categoryName: string, page: number) => {
   };
 };
 
-export const getProductByDiscount = () => {
+export const getProductByDiscount = (page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/discount`, {
+      const resp = await fetch(`${url}/products/discount?page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
