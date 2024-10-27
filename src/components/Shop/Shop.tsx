@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Badge, Col, Container, Row, Spinner } from "react-bootstrap";
+import { Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
 import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByCategory, getProductByDiscount, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
-import { ArrowLeftCircle, ArrowRightCircle } from "react-bootstrap-icons";
+import { ArrowLeftCircle, ArrowRightCircle, List, XLg } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation } from "react-router-dom";
 
@@ -20,6 +20,9 @@ const Shop = () => {
 
   const location = useLocation();
   const category: string = location.state?.category || "";
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     setPage(0);
@@ -56,8 +59,20 @@ const Shop = () => {
             <Sidebar setPage={setPage} setCurrentView={setCurrentView} setMinRange={setMin} setMaxRange={setMax} />
           </div>
         </Col>
-        <Col sm={10}>
+        <Col sm={12} md={10}>
           <h2>Shop</h2>
+          <div className="d-md-none">
+            {open ? (
+              <XLg className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} />
+            ) : (
+              <List className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
+            )}
+            <Collapse in={open} className="mb-3">
+              <div id="example-collapse-text">
+                <Sidebar setPage={setPage} setCurrentView={setCurrentView} setMinRange={setMin} setMaxRange={setMax} handleClose={handleClose} />
+              </div>
+            </Collapse>
+          </div>
           <Row>
             {isLoading ? (
               <div className="d-flex justify-content-center">

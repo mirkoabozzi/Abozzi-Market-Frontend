@@ -1,6 +1,6 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { useAppDispatch } from "../../redux/store";
-import { getProductByPriceRange, getProducts } from "../../redux/actions/products";
+import { getProductByPriceRange } from "../../redux/actions/products";
 import { useState } from "react";
 
 interface SidebarProps {
@@ -8,9 +8,10 @@ interface SidebarProps {
   setCurrentView: (view: "all" | "discount" | "category" | "priceRange") => void;
   setMinRange: (min: number) => void;
   setMaxRange: (max: number) => void;
+  handleClose?: () => void;
 }
 
-const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange }: SidebarProps) => {
+const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange, handleClose }: SidebarProps) => {
   const dispatch = useAppDispatch();
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(100);
@@ -22,11 +23,17 @@ const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange }: SidebarP
     setMinRange(min);
     setMaxRange(max);
     dispatch(getProductByPriceRange(min, max, 0));
+    if (handleClose) {
+      handleClose();
+    }
   };
 
   const handlePromo = () => {
     setPage(0);
     setCurrentView("discount");
+    if (handleClose) {
+      handleClose();
+    }
   };
 
   return (
@@ -48,10 +55,6 @@ const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange }: SidebarP
       <hr />
       <Button className="rounded-pill w-100" onClick={handlePromo}>
         Offerte
-      </Button>
-      <hr />
-      <Button className="rounded-pill w-100" onClick={() => dispatch(getProducts(0))}>
-        Reset
       </Button>
     </Container>
   );

@@ -61,7 +61,7 @@ const MyOrder = () => {
           {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
         </Col>
         <Col>
-          <Badge className="fs-6 rounded-pill">{page}</Badge>
+          <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
         </Col>
         <Col>
           {orders.length > 0 ? (
