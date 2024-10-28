@@ -8,8 +8,9 @@ import { useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getProductByName } from "../../redux/actions/products";
+import { getProductByName, getProducts } from "../../redux/actions/products";
 import { ActionType } from "../../redux/enums/ActionType";
+import { setView } from "../../redux/slice/viewSlice";
 
 const MyNav = () => {
   const navigate = useNavigate();
@@ -96,7 +97,14 @@ const MyNav = () => {
               <NavLink className="nav-link pt-1" to="/">
                 Home
               </NavLink>
-              <NavLink className="nav-link pt-1" to="/shop" onClick={() => dispatch({ type: ActionType.SET_PRODUCTS_LOADED_FALSE })}>
+              <NavLink
+                className="nav-link pt-1"
+                to="/shop"
+                onClick={() => {
+                  dispatch(getProducts(0));
+                  dispatch(setView(null));
+                }}
+              >
                 Shop
               </NavLink>
               <NavLink className="nav-link pt-1" to="/contact">

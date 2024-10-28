@@ -4,6 +4,8 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getCategories } from "../../redux/actions/categories";
 import { useNavigate } from "react-router-dom";
+import { getProductByCategory } from "../../redux/actions/products";
+import { setView } from "../../redux/slice/viewSlice";
 
 const Category = () => {
   const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
@@ -17,6 +19,8 @@ const Category = () => {
 
   const handleClick = (categoryName: string) => {
     setSelectedCategory(categoryName);
+    dispatch(setView("category"));
+    dispatch(getProductByCategory(categoryName, 0));
     navigate(`/shop`, { state: { category: categoryName } });
   };
 

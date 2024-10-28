@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
-import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByCategory, getProductByDiscount, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
@@ -10,11 +10,10 @@ import { useLocation } from "react-router-dom";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
-  const products: IProduct[] = useAppSelector((state: RootState) => state.productReducer.products);
-  const isLoading: boolean = useAppSelector((state: RootState) => state.productReducer.isLoading);
-  const productsLoaded: boolean = useAppSelector((state) => state.productReducer.productsLoaded);
+  const products: IProduct[] = useAppSelector((state) => state.productReducer.products);
+  const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
+  const currentView = useAppSelector((state) => state.view?.selectedView);
   const [page, setPage] = useState(0);
-  const [currentView, setCurrentView] = useState<"all" | "discount" | "category" | "priceRange">("all");
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
 
@@ -26,17 +25,12 @@ const Shop = () => {
 
   useEffect(() => {
     setPage(0);
-    if (category) {
-      setCurrentView("category");
-    }
-  }, [category]);
+  }, [currentView]);
 
-  useEffect(() => {
+  const pageHandler = (page: number) => {
     switch (currentView) {
       case "category":
-        if (category) {
-          dispatch(getProductByCategory(category, page));
-        }
+        dispatch(getProductByCategory(category, page));
         break;
       case "discount":
         dispatch(getProductByDiscount(page));
@@ -45,18 +39,16 @@ const Shop = () => {
         dispatch(getProductByPriceRange(min, max, page));
         break;
       default:
-        if (!productsLoaded) {
-          dispatch(getProducts(page));
-        }
+        dispatch(getProducts(page));
     }
-  }, [dispatch, page, category, currentView, productsLoaded, min, max]);
+  };
 
   return (
     <Container className="mt-4 mainAnimation">
       <Row>
         <Col sm={2}>
           <div className="d-none d-md-block">
-            <Sidebar setPage={setPage} setCurrentView={setCurrentView} setMinRange={setMin} setMaxRange={setMax} />
+            <Sidebar setPage={setPage} setMinRange={setMin} setMaxRange={setMax} />
           </div>
         </Col>
         <Col sm={12} md={10}>
@@ -69,7 +61,7 @@ const Shop = () => {
             )}
             <Collapse in={open} className="mb-3">
               <div id="example-collapse-text">
-                <Sidebar setPage={setPage} setCurrentView={setCurrentView} setMinRange={setMin} setMaxRange={setMax} handleClose={handleClose} />
+                <Sidebar setPage={setPage} setMinRange={setMin} setMaxRange={setMax} handleClose={handleClose} />
               </div>
             </Collapse>
           </div>
@@ -94,14 +86,34 @@ const Shop = () => {
       </Row>
       <Row className="text-center mt-5">
         <Col>
-          {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
+          {page > 0 ? (
+            <ArrowLeftCircle
+              className="mouseHover scale"
+              width={30}
+              height={30}
+              onClick={() => {
+                setPage(page - 1);
+                pageHandler(page - 1);
+              }}
+            />
+          ) : (
+            <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
+          )}
         </Col>
         <Col>
           <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
         </Col>
         <Col>
           {products.length > 0 ? (
-            <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
+            <ArrowRightCircle
+              className="mouseHover scale"
+              width={30}
+              height={30}
+              onClick={() => {
+                setPage(page + 1);
+                pageHandler(page + 1);
+              }}
+            />
           ) : (
             <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
           )}

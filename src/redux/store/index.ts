@@ -11,6 +11,7 @@ import addressesSlice from "../slice/addressesSlice";
 import discountsSlice from "../slice/discountsSlice";
 import weatherSlice from "../slice/weatherSlice";
 import paymentSlice from "../slice/paymentSlice";
+import viewSlice from "../slice/viewSlice";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   discounts: discountsSlice,
   weather: weatherSlice,
   payment: paymentSlice,
+  view: viewSlice,
 }) as Reducer;
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

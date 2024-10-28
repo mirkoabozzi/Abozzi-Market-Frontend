@@ -1,17 +1,17 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { useAppDispatch } from "../../redux/store";
-import { getProductByPriceRange } from "../../redux/actions/products";
+import { getProductByDiscount, getProductByPriceRange } from "../../redux/actions/products";
 import { useState } from "react";
+import { setView } from "../../redux/slice/viewSlice";
 
 interface SidebarProps {
   setPage: (page: number) => void;
-  setCurrentView: (view: "all" | "discount" | "category" | "priceRange") => void;
   setMinRange: (min: number) => void;
   setMaxRange: (max: number) => void;
   handleClose?: () => void;
 }
 
-const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange, handleClose }: SidebarProps) => {
+const Sidebar = ({ setPage, setMinRange, setMaxRange, handleClose }: SidebarProps) => {
   const dispatch = useAppDispatch();
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(100);
@@ -19,7 +19,7 @@ const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange, handleClos
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setPage(0);
-    setCurrentView("priceRange");
+    dispatch(setView("priceRange"));
     setMinRange(min);
     setMaxRange(max);
     dispatch(getProductByPriceRange(min, max, 0));
@@ -30,7 +30,8 @@ const Sidebar = ({ setPage, setCurrentView, setMinRange, setMaxRange, handleClos
 
   const handlePromo = () => {
     setPage(0);
-    setCurrentView("discount");
+    dispatch(setView("discount"));
+    dispatch(getProductByDiscount(0));
     if (handleClose) {
       handleClose();
     }
