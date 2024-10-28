@@ -4,13 +4,13 @@ import { ActionType } from "../enums/ActionType";
 interface InitialState {
   user: IUser | null;
   isLogged: boolean;
-  users: IUser[];
+  users: IUsersInterface | null;
 }
 
 const initialState: InitialState = {
   user: null,
   isLogged: false,
-  users: [],
+  users: null,
 };
 
 const userReducer = (state = initialState, action: UserAction) => {

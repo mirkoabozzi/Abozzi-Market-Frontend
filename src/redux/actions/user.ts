@@ -85,7 +85,7 @@ export const getAllUser = (page: number) => {
       });
       if (resp.ok) {
         const users = await resp.json();
-        dispatch({ type: ActionType.SET_USERS, payload: users.content });
+        dispatch({ type: ActionType.SET_USERS, payload: users });
       } else {
         throw new Error("Get all user error");
       }
@@ -151,7 +151,7 @@ export const findUserByName = (name: string) => {
       });
       if (resp.ok) {
         const users = await resp.json();
-        dispatch({ type: ActionType.SET_USERS, payload: users.content });
+        dispatch({ type: ActionType.SET_USERS, payload: users });
       } else {
         throw new Error("Find user by name error");
       }

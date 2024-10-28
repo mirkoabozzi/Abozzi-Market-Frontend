@@ -11,7 +11,7 @@ import { dateConverter } from "../../redux/actions/products";
 const Orders = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const orders = useAppSelector((state) => state.ordersReducer.clientsOrder);
+  const orders: IOrdersInterface = useAppSelector((state) => state.ordersReducer.clientsOrder);
   const [page, setPage] = useState(0);
   const [email, setEmail] = useState("");
 
@@ -49,8 +49,8 @@ const Orders = () => {
           <Search width={20} height={20} />
         </Button>
       </Form>
-      {orders.length > 0 ? (
-        orders.map((order: IOrder) => {
+      {orders?.content.length > 0 ? (
+        orders?.content.map((order: IOrder) => {
           return (
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">
@@ -85,10 +85,13 @@ const Orders = () => {
           {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
         </Col>
         <Col>
-          <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
+          <Badge className="fs-6 rounded-pill">
+            {page + 1}
+            {" / "} {orders?.totalPages}
+          </Badge>
         </Col>
         <Col>
-          {orders.length > 0 ? (
+          {orders?.totalPages !== page + 1 ? (
             <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
           ) : (
             <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />

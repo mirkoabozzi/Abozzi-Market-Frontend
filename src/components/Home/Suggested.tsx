@@ -10,13 +10,13 @@ interface SuggestedProps {
 
 const Suggested = ({ category }: SuggestedProps) => {
   const dispatch = useAppDispatch();
-  const products: IProduct = useAppSelector((state) => state.productReducer.products);
+  const products: IProductsInterface = useAppSelector((state) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
   const [randomProducts, setRandomProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    if (Array.isArray(products) && products.length > 0) {
-      const shuffledProducts = [...products].sort(() => 0.5 - Math.random());
+    if (Array.isArray(products?.content) && products?.content.length > 0) {
+      const shuffledProducts = [...products.content].sort(() => 0.5 - Math.random());
       const selectedProducts = shuffledProducts.slice(0, 4);
       setRandomProducts(selectedProducts);
     }

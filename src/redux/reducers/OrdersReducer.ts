@@ -2,14 +2,14 @@ import { OrderAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
 interface InitialState {
-  orders: IOrder[];
+  orders: IOrdersInterface | null;
   order: IOrder | null;
-  clientsOrder: IOrder[];
+  clientsOrder: IOrdersInterface | null;
 }
 const initialState: InitialState = {
-  orders: [],
+  orders: null,
   order: null,
-  clientsOrder: [],
+  clientsOrder: null,
 };
 
 const ordersReducer = (state = initialState, action: OrderAction) => {

@@ -17,7 +17,7 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
       });
       if (resp.ok) {
         const orders = await resp.json();
-        dispatch({ type: ActionType.SET_ORDERS, payload: orders.content });
+        dispatch({ type: ActionType.SET_ORDERS, payload: orders });
       } else {
         if (resp.status === 401) {
           errorToast("Token scaduto effettua il login");
@@ -88,7 +88,7 @@ export const getAllClientsOrders = (page: number) => {
       });
       if (resp.ok) {
         const orders = await resp.json();
-        dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders.content });
+        dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
       } else {
         throw new Error("Get orders error");
       }
@@ -130,7 +130,7 @@ export const getOrdersByUserEmail = (page: number, email: string) => {
       });
       if (resp.ok) {
         const orders = await resp.json();
-        dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders.content });
+        dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
       } else {
         throw new Error("Get orders error");
       }

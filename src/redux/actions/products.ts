@@ -17,7 +17,7 @@ export const getProducts = (page: number) => {
       });
       if (resp.ok) {
         const products = await resp.json();
-        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products });
         dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
       } else {
         throw new Error("Get products error");
@@ -154,7 +154,7 @@ export const getProductByName = (productName: string) => {
       });
       if (resp.ok) {
         const products = await resp.json();
-        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products });
         dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
       } else {
         throw new Error("Get products error");
@@ -177,7 +177,7 @@ export const getProductByPriceRange = (min: number, max: number, page: number) =
       });
       if (resp.ok) {
         const products = await resp.json();
-        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products });
         dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
       } else {
         throw new Error("Get products error");
@@ -200,7 +200,7 @@ export const getProductByCategory = (categoryName: string, page: number) => {
       });
       if (resp.ok) {
         const products = await resp.json();
-        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products });
         dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
       } else {
         throw new Error("Get products error");
@@ -223,7 +223,7 @@ export const getProductByDiscount = (page: number) => {
       });
       if (resp.ok) {
         const products = await resp.json();
-        dispatch({ type: ActionType.SET_PRODUCTS, payload: products.content });
+        dispatch({ type: ActionType.SET_PRODUCTS, payload: products });
         dispatch({ type: ActionType.SET_PRODUCTS_LOADING_OFF });
       } else {
         throw new Error("Get products error");

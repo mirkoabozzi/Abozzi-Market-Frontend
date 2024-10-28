@@ -2,14 +2,14 @@ import { ProductsAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 
 interface InitialState {
-  products: IProduct[];
+  products: IProductsInterface | null;
   isLoading: boolean;
   product: IProduct | null;
   productsLoaded: boolean;
 }
 
 const initialState: InitialState = {
-  products: [],
+  products: null,
   isLoading: false,
   product: null,
   productsLoaded: false,

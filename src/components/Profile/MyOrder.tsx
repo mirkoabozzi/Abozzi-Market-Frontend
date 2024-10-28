@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { dateConverter } from "../../redux/actions/products";
 
 const MyOrder = () => {
-  const orders: IOrder[] = useAppSelector((state) => state.ordersReducer.orders);
+  const orders: IOrdersInterface = useAppSelector((state) => state.ordersReducer.orders);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
@@ -28,8 +28,8 @@ const MyOrder = () => {
   return (
     <div className="mainAnimation">
       <h3 className="mb-4">I miei ordini</h3>
-      {orders?.length > 0 ? (
-        orders?.map((order: IOrder) => {
+      {orders?.content.length > 0 ? (
+        orders?.content.map((order: IOrder) => {
           return (
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">
@@ -61,10 +61,13 @@ const MyOrder = () => {
           {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
         </Col>
         <Col>
-          <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
+          <Badge className="fs-6 rounded-pill">
+            {page + 1}
+            {" / "} {orders?.totalPages}
+          </Badge>
         </Col>
         <Col>
-          {orders.length > 0 ? (
+          {orders?.totalPages !== page + 1 ? (
             <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
           ) : (
             <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />

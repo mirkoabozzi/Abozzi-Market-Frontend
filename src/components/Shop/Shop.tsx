@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
-  const products: IProduct[] = useAppSelector((state) => state.productReducer.products);
+  const products: IProductsInterface = useAppSelector((state) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
   const currentView = useAppSelector((state) => state.view?.selectedView);
   const [page, setPage] = useState(0);
@@ -70,8 +70,8 @@ const Shop = () => {
               <div className="d-flex justify-content-center">
                 <Spinner animation="grow" />
               </div>
-            ) : products.length > 0 ? (
-              products.map((product: IProduct) => {
+            ) : products?.content.length > 0 ? (
+              products?.content.map((product: IProduct) => {
                 return (
                   <Col xs={6} md={4} xl={3} className="my-3" key={product.id}>
                     <ProductCard product={product} />
@@ -101,10 +101,13 @@ const Shop = () => {
           )}
         </Col>
         <Col>
-          <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
+          <Badge className="fs-6 rounded-pill">
+            {page + 1}
+            {" / "} {products?.totalPages}
+          </Badge>
         </Col>
         <Col>
-          {products.length > 0 ? (
+          {products?.totalPages !== page + 1 ? (
             <ArrowRightCircle
               className="mouseHover scale"
               width={30}

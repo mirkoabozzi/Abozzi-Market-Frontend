@@ -8,7 +8,7 @@ import { ArrowLeftCircle, ArrowRightCircle, CheckAll, Search, Trash } from "reac
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Users = () => {
-  const users: IUser[] = useAppSelector((state) => state.userReducer.users);
+  const users: IUsersInterface = useAppSelector((state) => state.userReducer.users);
   const authUser: IUser = useAppSelector((state) => state.userReducer.user);
   const dispatch = useAppDispatch();
 
@@ -44,7 +44,7 @@ const Users = () => {
           <Search width={20} height={20} />
         </Button>
       </Form>
-      {users.length > 0 ? (
+      {users?.content.length > 0 ? (
         <Table responsive striped bordered hover>
           <thead>
             <tr>
@@ -61,7 +61,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user: IUser, index) => {
+            {users?.content.map((user: IUser, index) => {
               return (
                 <tr key={user.id}>
                   <td>{index + 1}</td>
@@ -122,10 +122,13 @@ const Users = () => {
           {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
         </Col>
         <Col>
-          <Badge className="fs-6 rounded-pill">{page + 1}</Badge>
+          <Badge className="fs-6 rounded-pill">
+            {page + 1}
+            {" / "} {users?.totalPages}
+          </Badge>
         </Col>
         <Col>
-          {users.length > 0 ? (
+          {users?.totalPages !== page + 1 ? (
             <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
           ) : (
             <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />

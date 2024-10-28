@@ -1,3 +1,17 @@
+interface IOrdersInterface {
+  content: IOrder[];
+  pageable: Pageable;
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  first: boolean;
+  number: number;
+  sort: Sort;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 interface IOrder {
   id: string;
   orderDate: string;
@@ -28,4 +42,19 @@ interface OrderDetailListItem {
   id: string;
   quantity: number;
   product: IProduct;
+}
+
+interface Pageable {
+  pageNumber: number;
+  pageSize: number;
+  sort: Sort;
+  offset: number;
+  unpaged: boolean;
+  paged: boolean;
+}
+
+interface Sort {
+  empty: boolean;
+  unsorted: boolean;
+  sorted: boolean;
 }
