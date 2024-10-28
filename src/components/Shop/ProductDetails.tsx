@@ -126,7 +126,7 @@ const Product = () => {
         <Row>
           <Col sm={4} className="mb-3">
             <div>
-              <Image src={product?.imgUrl} className="w-100" />
+              <Image src={product?.imgUrl} className="w-100 object-fit-contain" style={{ maxHeight: "400px" }} />
             </div>
             <div className="d-flex justify-content-end mt-3 me-3">
               {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (

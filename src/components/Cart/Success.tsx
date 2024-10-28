@@ -47,19 +47,21 @@ const Success = () => {
   }, []);
 
   return (
-    <Container className="mainAnimation mt-5 rounded-4 text-center">
-      <h1 className="mb-5">Conferma il tuo acquisto!</h1>
-      {paymentLoading ? (
-        <Spinner />
-      ) : (
-        <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-          <Button className="rounded-pill" onClick={handleCreateOrder}>
-            Paga
-          </Button>
-        </div>
-      )}
+    <>
+      <Container className="mainAnimation mt-5 rounded-4 text-center">
+        <h1 className="mb-5">Conferma il tuo acquisto!</h1>
+        {paymentLoading ? (
+          <Spinner />
+        ) : (
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+            <Button className="rounded-pill" onClick={handleCreateOrder}>
+              Paga
+            </Button>
+          </div>
+        )}
+      </Container>
       <ToastContainer />
-    </Container>
+    </>
   );
 };
 
