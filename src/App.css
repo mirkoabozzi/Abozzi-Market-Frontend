@@ -87,3 +87,23 @@ body {
   background-color: #1a51bf;
   color: white;
 }
+
+.mySlick {
+  width: calc(300px * 16);
+  animation: scrollLeft 60s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .mySlick {
+    width: calc(200px * 16);
+  }
+}

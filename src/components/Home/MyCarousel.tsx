@@ -5,7 +5,7 @@ import bag from "../../assets/img/bag.jpg";
 
 const MyCarousel = () => {
   return (
-    <Row className="justify-content-center">
+    <Row className="justify-content-center mt-4">
       <Col xs="12" md="8">
         <Carousel data-bs-theme="dark" className="shadow-lg rounded-4">
           <Carousel.Item>

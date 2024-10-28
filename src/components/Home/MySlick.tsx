@@ -1,7 +1,4 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { Image } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import insta1 from "../../assets/insta/insta1.jpg";
 import insta2 from "../../assets/insta/insta2.jpg";
 import insta3 from "../../assets/insta/insta3.jpg";
@@ -20,60 +17,19 @@ import insta14 from "../../assets/insta/insta14.jpg";
 const slickArray = [insta1, insta2, insta3, insta4, insta5, insta6, insta7, insta8, insta9, insta10, insta11, insta12, insta13, insta14];
 
 const MySlick = () => {
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    speed: 4000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    cssEase: "linear",
-    pauseOnHover: false,
-    swipeToSlide: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   return (
-    <div className="slider-container my-4">
-      <Slider {...settings}>
+    <Container className="overflow-hidden">
+      <div className="mySlick d-flex p-5 mt-2">
         {slickArray &&
           slickArray.map((img, i) => {
             return (
-              <div key={i}>
-                <Image src={img} className="img-fluid border rounded-4" />
+              <div key={i} className="rounded-4 mx-2">
+                <Image src={img} className="img-fluid border rounded-4 cardHover w-100 h-100" />
               </div>
             );
           })}
-      </Slider>
-    </div>
+      </div>
+    </Container>
   );
 };
 
