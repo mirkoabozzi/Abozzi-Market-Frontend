@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getMyWishlists } from "../../redux/actions/wishlists";
-import { Col, Image, Row } from "react-bootstrap";
+import { Badge, Col, Image, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const WishList = () => {
@@ -19,9 +19,10 @@ const WishList = () => {
         {wishlist.length > 0 ? (
           wishlist.map((item: IWishlist) => {
             return (
-              <Col key={item.id}>
-                <Image height={100} src={item.product.imgUrl} alt="product image" className="mouseHover mb-2" onClick={() => navigate(`/product/details/${item.product.id}`)} />
-                <p>{item.product.name}</p>
+              <Col xs={6} md={4} lg={2} key={item.id} className="mouseHover scale position-relative" onClick={() => navigate(`/product/details/${item.product.id}`)}>
+                {item.product.discountStatus && <Badge className="position-absolute z-1">Offerta</Badge>}
+                <Image src={item.product.imgUrl} alt={item.product.name} width={100} height={100} className="border rounded-circle object-fit-cover shadow" />
+                <p className="mb-0 mt-2">{item.product.name}</p>
                 <p>€ {item.product.price.toFixed(2)}</p>
               </Col>
             );
