@@ -79,7 +79,7 @@ const Users = () => {
                   <td>
                     {user.role}
                     <Dropdown>
-                      <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-0 rounded-pill">
+                      <Dropdown.Toggle disabled={user.id === authUser?.id} variant="primary" id="dropdown-basic" className="py-0 rounded-pill">
                         Ruolo
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
