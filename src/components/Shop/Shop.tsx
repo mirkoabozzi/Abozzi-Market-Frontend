@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getProductByCategory, getProductByDiscount, getProductByPriceRange, getProducts } from "../../redux/actions/products";
+import { getProductByCategory, getProductByDiscount, getProductByName, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
 import { ArrowLeftCircle, ArrowRightCircle, List, XLg } from "react-bootstrap-icons";
@@ -19,6 +19,7 @@ const Shop = () => {
 
   const location = useLocation();
   const category: string = location.state?.category || "";
+  const mainSearch: string = location.state?.mainSearch || "";
 
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -37,6 +38,9 @@ const Shop = () => {
         break;
       case "priceRange":
         dispatch(getProductByPriceRange(min, max, page));
+        break;
+      case "mainSearch":
+        dispatch(getProductByName(mainSearch, page));
         break;
       default:
         dispatch(getProducts(page));
@@ -84,44 +88,46 @@ const Shop = () => {
           </Row>
         </Col>
       </Row>
-      <Row className="text-center mt-5">
-        <Col>
-          {page > 0 ? (
-            <ArrowLeftCircle
-              className="mouseHover scale"
-              width={30}
-              height={30}
-              onClick={() => {
-                setPage(page - 1);
-                pageHandler(page - 1);
-              }}
-            />
-          ) : (
-            <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
-          )}
-        </Col>
-        <Col>
-          <Badge className="fs-6 rounded-pill">
-            {page + 1}
-            {" / "} {products?.totalPages}
-          </Badge>
-        </Col>
-        <Col>
-          {products?.totalPages !== page + 1 ? (
-            <ArrowRightCircle
-              className="mouseHover scale"
-              width={30}
-              height={30}
-              onClick={() => {
-                setPage(page + 1);
-                pageHandler(page + 1);
-              }}
-            />
-          ) : (
-            <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
-          )}
-        </Col>
-      </Row>
+      {products?.content?.length > 0 ? (
+        <Row className="text-center mt-5">
+          <Col>
+            {page > 0 ? (
+              <ArrowLeftCircle
+                className="mouseHover scale"
+                width={30}
+                height={30}
+                onClick={() => {
+                  setPage(page - 1);
+                  pageHandler(page - 1);
+                }}
+              />
+            ) : (
+              <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
+            )}
+          </Col>
+          <Col>
+            <Badge className="fs-6 rounded-pill">
+              {page + 1}
+              {" / "} {products?.totalPages}
+            </Badge>
+          </Col>
+          <Col>
+            {products?.totalPages !== page + 1 ? (
+              <ArrowRightCircle
+                className="mouseHover scale"
+                width={30}
+                height={30}
+                onClick={() => {
+                  setPage(page + 1);
+                  pageHandler(page + 1);
+                }}
+              />
+            ) : (
+              <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+            )}
+          </Col>
+        </Row>
+      ) : null}
       <ToastContainer />
     </Container>
   );

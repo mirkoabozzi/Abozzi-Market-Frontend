@@ -142,12 +142,12 @@ export const deleteProduct = (productId: string) => {
   };
 };
 
-export const getProductByName = (productName: string) => {
+export const getProductByName = (productName: string, page: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/name?name=${productName}`, {
+      const resp = await fetch(`${url}/products/name?name=${productName}&page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

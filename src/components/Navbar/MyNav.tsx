@@ -42,8 +42,9 @@ const MyNav = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch({ type: ActionType.SET_PRODUCTS_LOADED_TRUE });
-    navigate("/shop");
-    dispatch(getProductByName(mainSearch));
+    dispatch(getProductByName(mainSearch, 0));
+    dispatch(setView("mainSearch"));
+    navigate(`/shop`, { state: { mainSearch: mainSearch } });
     setMainSearch("");
   };
 
