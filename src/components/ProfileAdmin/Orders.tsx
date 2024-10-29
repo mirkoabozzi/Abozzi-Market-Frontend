@@ -77,27 +77,29 @@ const Orders = () => {
         })
       ) : (
         <div className="text-center">
-          <h3>Pagina vuota!</h3>
+          <h3>Nessun risultato!</h3>
         </div>
       )}
-      <Row className="text-center mt-5">
-        <Col>
-          {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
-        </Col>
-        <Col>
-          <Badge className="fs-6 rounded-pill">
-            {page + 1}
-            {" / "} {orders?.totalPages}
-          </Badge>
-        </Col>
-        <Col>
-          {orders?.totalPages !== page + 1 ? (
-            <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
-          ) : (
-            <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
-          )}
-        </Col>
-      </Row>
+      {orders?.content?.length > 0 ? (
+        <Row className="text-center mt-5">
+          <Col>
+            {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
+          </Col>
+          <Col>
+            <Badge className="fs-6 rounded-pill">
+              {page + 1}
+              {" / "} {orders?.totalPages}
+            </Badge>
+          </Col>
+          <Col>
+            {orders?.totalPages !== page + 1 ? (
+              <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
+            ) : (
+              <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+            )}
+          </Col>
+        </Row>
+      ) : null}
     </div>
   );
 };

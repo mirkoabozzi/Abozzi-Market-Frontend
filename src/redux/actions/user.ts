@@ -140,11 +140,11 @@ export const deleteUser = (userId: string) => {
   };
 };
 
-export const findUserByName = (name: string) => {
+export const findUserByName = (name: string, page: number) => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/users/name?user=${name}`, {
+      const resp = await fetch(`${url}/users/name?user=${name}&page=${page}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

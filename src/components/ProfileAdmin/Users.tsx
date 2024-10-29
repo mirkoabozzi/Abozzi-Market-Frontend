@@ -22,7 +22,12 @@ const Users = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    dispatch(getAllUser(page));
+    if (name) {
+      dispatch(findUserByName(name, page));
+    } else {
+      dispatch(getAllUser(page));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);
 
   const handleUserRole = (user: string, role: string) => {
@@ -32,7 +37,7 @@ const Users = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(findUserByName(name));
+    dispatch(findUserByName(name, page));
   };
 
   return (
@@ -115,26 +120,30 @@ const Users = () => {
           </tbody>
         </Table>
       ) : (
-        <h3> Nessun cliente trovato</h3>
+        <div className="text-center">
+          <h3> Nessun cliente trovato!</h3>
+        </div>
       )}
-      <Row className="text-center mt-5">
-        <Col>
-          {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
-        </Col>
-        <Col>
-          <Badge className="fs-6 rounded-pill">
-            {page + 1}
-            {" / "} {users?.totalPages}
-          </Badge>
-        </Col>
-        <Col>
-          {users?.totalPages !== page + 1 ? (
-            <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
-          ) : (
-            <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
-          )}
-        </Col>
-      </Row>
+      {users?.content?.length > 0 ? (
+        <Row className="text-center mt-5">
+          <Col>
+            {page > 0 ? <ArrowLeftCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page - 1)} /> : <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />}
+          </Col>
+          <Col>
+            <Badge className="fs-6 rounded-pill">
+              {page + 1}
+              {" / "} {users?.totalPages}
+            </Badge>
+          </Col>
+          <Col>
+            {users?.totalPages !== page + 1 ? (
+              <ArrowRightCircle className="mouseHover scale" width={30} height={30} onClick={() => setPage(page + 1)} />
+            ) : (
+              <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+            )}
+          </Col>
+        </Row>
+      ) : null}
       <ModalAlert
         show={show}
         handleClose={handleClose}
