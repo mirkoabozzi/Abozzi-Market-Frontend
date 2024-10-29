@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { url } from "../../redux/actions/user";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import { Bar } from "react-chartjs-2";
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Report = () => {
   const [payments, setPayments] = useState<IPaymentReport[]>();
@@ -38,6 +41,46 @@ const Report = () => {
     getAllPayments();
   };
 
+  const paymentsByDay = (() => {
+    const dailyData: { [key: string]: number } = {};
+    payments?.forEach((payment) => {
+      const day = new Date(payment.paymentDate).toLocaleDateString("it-IT");
+      if (dailyData[day]) {
+        dailyData[day] += payment.total;
+      } else {
+        dailyData[day] = payment.total;
+      }
+    });
+    return dailyData;
+  })();
+
+  const sortedDates = Object.keys(paymentsByDay).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
+  const chartData = {
+    labels: sortedDates,
+    datasets: [
+      {
+        label: "Totale Incasso",
+        data: sortedDates.map((date) => paymentsByDay[date]),
+        backgroundColor: "#1a51bf",
+        borderColor: "#1a51bf",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    plugins: {
+      legend: {
+        position: "bottom" as const,
+      },
+      title: {
+        display: true,
+        text: "Incassi per Data",
+      },
+    },
+  };
+
   return (
     <div className="mainAnimation">
       <h3 className="mb-4">Report</h3>
@@ -61,9 +104,16 @@ const Report = () => {
         </Form>
       </div>
       <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-        <div className="bg-white border rounded-4 p-3 text-center d-flex justify-content-center">
+        <div className="bg-white border rounded-4 p-3 text-center d-flex justify-content-center mt-4">
           <h3 className="m-0">Vendite: € {getTotal().toFixed(2)}</h3>
         </div>
+      </div>
+      <div className="mt-4 h-100 overflow-y-auto d-flex justify-content-center">
+        {payments && payments.length > 0 && (
+          <div>
+            <Bar data={chartData} options={chartOptions} style={{ height: "500px" }} />
+          </div>
+        )}
       </div>
     </div>
   );
