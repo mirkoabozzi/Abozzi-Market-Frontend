@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteAddress, getAllAddress } from "../../redux/actions/addressees";
-import { Button, Col, Row } from "react-bootstrap";
-import { Trash } from "react-bootstrap-icons";
+import { Alert, Button, Col, Row } from "react-bootstrap";
+import { ExclamationCircleFill, Trash } from "react-bootstrap-icons";
 import { ToastContainer } from "react-toastify";
 import AddAddress from "./AddAddress";
 import ModalAlert from "../ModalAlert/ModalAlert";
@@ -69,7 +69,12 @@ const Addresses = () => {
           );
         })
       ) : (
-        <h4 className="text-center mt-3">Non hai indirizzi salvati!</h4>
+        <div className="text-center">
+          <Alert>
+            <ExclamationCircleFill className="me-2" />
+            Nessun indirizzo salvato!
+          </Alert>
+        </div>
       )}
 
       {/* modal */}

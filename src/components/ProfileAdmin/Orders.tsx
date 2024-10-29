@@ -3,8 +3,8 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getAllClientsOrders, getOrdersByUserEmail } from "../../redux/actions/orders";
-import { Badge, Button, Col, Form, Row } from "react-bootstrap";
-import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, Search } from "react-bootstrap-icons";
+import { Alert, Badge, Button, Col, Form, Row } from "react-bootstrap";
+import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, ExclamationCircleFill, Search } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { dateConverter } from "../../redux/actions/products";
 
@@ -74,7 +74,10 @@ const Orders = () => {
         })
       ) : (
         <div className="text-center">
-          <h3>Nessun risultato!</h3>
+          <Alert>
+            <ExclamationCircleFill className="me-2" />
+            Nessun risultato!
+          </Alert>
         </div>
       )}
       {orders?.content?.length > 0 ? (

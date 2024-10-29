@@ -1,4 +1,4 @@
-import { Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
@@ -9,7 +9,7 @@ import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
 import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
-import { DashCircle, PlusCircle } from "react-bootstrap-icons";
+import { DashCircle, ExclamationCircleFill, PlusCircle } from "react-bootstrap-icons";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import payPal from "../../assets/img/paypal.svg";
 import AddAddress from "../Profile/AddAddress";
@@ -107,7 +107,12 @@ const Cart = () => {
           );
         })
       ) : (
-        <h3 className="text-center">Il carrello è vuoto!</h3>
+        <div className="text-center">
+          <Alert>
+            <ExclamationCircleFill className="me-2" />
+            Carrello vuoto!
+          </Alert>
+        </div>
       )}
       {isLogged && cart.length > 0 ? (
         <>

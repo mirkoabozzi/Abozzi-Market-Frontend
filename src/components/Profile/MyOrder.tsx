@@ -3,8 +3,8 @@ import "aos/dist/aos.css";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { getMyOrders } from "../../redux/actions/orders";
-import { Badge, Button, Col, Row } from "react-bootstrap";
-import { ArrowLeftCircle, ArrowRight, ArrowRightCircle } from "react-bootstrap-icons";
+import { Alert, Badge, Button, Col, Row } from "react-bootstrap";
+import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, ExclamationCircleFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { dateConverter } from "../../redux/actions/products";
 
@@ -52,8 +52,15 @@ const MyOrder = () => {
         })
       ) : (
         <div className="text-center">
-          <h3 className="mb-5">Hey, non hai abbastanza ordini, corri allo shop e inizia a fare acquisti!</h3>
-          <Button onClick={() => navigate("/shop")}>Shop</Button>
+          <Alert>
+            <ExclamationCircleFill className="me-2" />
+            Hey, non hai abbastanza ordini, corri allo shop e inizia a fare acquisti!
+          </Alert>
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+            <Button className="rounded-pill" onClick={() => navigate("/shop")}>
+              Shop
+            </Button>
+          </div>
         </div>
       )}
       {orders?.content?.length > 0 ? (

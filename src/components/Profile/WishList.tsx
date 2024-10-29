@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getMyWishlists } from "../../redux/actions/wishlists";
-import { Badge, Col, Image, Row } from "react-bootstrap";
+import { Alert, Badge, Col, Image, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ExclamationCircleFill } from "react-bootstrap-icons";
 
 const WishList = () => {
   const wishlist: IWishlist[] = useAppSelector((state) => state.wishlistsReducer.wishlist);
@@ -28,7 +29,12 @@ const WishList = () => {
             );
           })
         ) : (
-          <h4>Non hai nessun prodotto nella lista dei desideri!</h4>
+          <div className="text-center">
+            <Alert>
+              <ExclamationCircleFill className="me-2" />
+              Lista dei desideri vuota!
+            </Alert>
+          </div>
         )}
       </Row>
     </div>

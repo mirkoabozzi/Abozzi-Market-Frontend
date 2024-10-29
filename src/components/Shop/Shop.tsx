@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
+import { Alert, Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByCategory, getProductByDiscount, getProductByName, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
 import { ToastContainer } from "react-toastify";
-import { ArrowLeftCircle, ArrowRightCircle, List, XLg } from "react-bootstrap-icons";
+import { ArrowLeftCircle, ArrowRightCircle, ExclamationCircleFill, List, XLg } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation } from "react-router-dom";
 
@@ -83,7 +83,12 @@ const Shop = () => {
                 );
               })
             ) : (
-              <h3 className="text-center">Nessun risultato!</h3>
+              <div className="text-center">
+                <Alert>
+                  <ExclamationCircleFill className="me-2" />
+                  Nessun risultato!
+                </Alert>
+              </div>
             )}
           </Row>
         </Col>
