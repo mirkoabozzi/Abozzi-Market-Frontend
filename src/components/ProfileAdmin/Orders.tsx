@@ -14,15 +14,15 @@ const Orders = () => {
   const orders: IOrdersInterface = useAppSelector((state) => state.ordersReducer.clientsOrder);
   const [page, setPage] = useState(0);
   const [email, setEmail] = useState("");
+  const [searchEmail, setSearchEmail] = useState("");
 
   useEffect(() => {
-    if (email) {
-      dispatch(getOrdersByUserEmail(page, email));
+    if (searchEmail) {
+      dispatch(getOrdersByUserEmail(page, searchEmail));
     } else {
       dispatch(getAllClientsOrders(page));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page]);
+  }, [dispatch, page, searchEmail]);
 
   useEffect(() => {
     AOS.init({
@@ -33,11 +33,8 @@ const Orders = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email) {
-      dispatch(getOrdersByUserEmail(page, email));
-    } else {
-      dispatch(getAllClientsOrders(page));
-    }
+    setPage(0);
+    setSearchEmail(email);
   };
 
   return (
