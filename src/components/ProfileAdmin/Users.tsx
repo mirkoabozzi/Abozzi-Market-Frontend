@@ -44,7 +44,7 @@ const Users = () => {
           <Search width={20} height={20} />
         </Button>
       </Form>
-      {users?.content.length > 0 ? (
+      {users?.content?.length > 0 ? (
         <Table responsive striped bordered hover>
           <thead>
             <tr>
@@ -61,7 +61,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.content.map((user: IUser, index) => {
+            {users?.content?.map((user: IUser, index) => {
               return (
                 <tr key={user.id}>
                   <td>{index + 1}</td>

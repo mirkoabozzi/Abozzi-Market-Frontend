@@ -49,8 +49,8 @@ const Orders = () => {
           <Search width={20} height={20} />
         </Button>
       </Form>
-      {orders?.content.length > 0 ? (
-        orders?.content.map((order: IOrder) => {
+      {orders?.content?.length > 0 ? (
+        orders?.content?.map((order: IOrder) => {
           return (
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">

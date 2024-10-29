@@ -70,8 +70,8 @@ const Shop = () => {
               <div className="d-flex justify-content-center">
                 <Spinner animation="grow" />
               </div>
-            ) : products?.content.length > 0 ? (
-              products?.content.map((product: IProduct) => {
+            ) : products?.content?.length > 0 ? (
+              products?.content?.map((product: IProduct) => {
                 return (
                   <Col xs={6} md={4} xl={3} className="my-3" key={product.id}>
                     <ProductCard product={product} />

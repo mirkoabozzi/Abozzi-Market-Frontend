@@ -28,8 +28,8 @@ const MyOrder = () => {
   return (
     <div className="mainAnimation">
       <h3 className="mb-4">I miei ordini</h3>
-      {orders?.content.length > 0 ? (
-        orders?.content.map((order: IOrder) => {
+      {orders?.content?.length > 0 ? (
+        orders?.content?.map((order: IOrder) => {
           return (
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">
