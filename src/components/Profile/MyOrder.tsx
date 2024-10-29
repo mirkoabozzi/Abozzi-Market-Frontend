@@ -34,7 +34,7 @@ const MyOrder = () => {
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">
                 <Col>
-                  <p className="line-truncate-2">Order: {order.id}</p>
+                  <p>Order: {order.id}</p>
                   <p>Data: {dateConverter(order.orderDate)}</p>
                   <p>Stato: {order.ordersState}</p>
                 </Col>

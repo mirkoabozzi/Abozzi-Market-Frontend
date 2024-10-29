@@ -55,7 +55,7 @@ const Orders = () => {
             <div key={order.id}>
               <Row data-aos="fade-zoom-in">
                 <Col>
-                  <p className="line-truncate-2">Order: {order.id}</p>
+                  <p>Order: {order.id}</p>
                   <p>
                     Cliente: {order.user.name} {order.user.surname}
                   </p>
