@@ -22,7 +22,7 @@ const OrderDetails = () => {
         dispatch(getMyOrder(params.id, navigate));
       }
     }
-  }, [params.id, dispatch, user.role, navigate]);
+  }, [params.id, dispatch, user?.role, navigate]);
 
   const handleUpdateOrderState = (order: string, state: string) => {
     const body: IOrderUpdateStatus = { order, state };

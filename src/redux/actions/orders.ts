@@ -77,7 +77,7 @@ export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
   };
 };
 
-export const getAllClientsOrders = (page: number) => {
+export const getAllClientsOrders = (page: number, navigate: NavigateFunction) => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -90,6 +90,9 @@ export const getAllClientsOrders = (page: number) => {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
       } else {
+        if (resp.status === 401 || resp.status === 403) {
+          navigate("/");
+        }
         throw new Error("Get orders error");
       }
     } catch (error) {

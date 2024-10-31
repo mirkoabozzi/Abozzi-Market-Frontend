@@ -20,9 +20,9 @@ const Orders = () => {
     if (searchEmail) {
       dispatch(getOrdersByUserEmail(page, searchEmail));
     } else {
-      dispatch(getAllClientsOrders(page));
+      dispatch(getAllClientsOrders(page, navigate));
     }
-  }, [dispatch, page, searchEmail]);
+  }, [dispatch, page, searchEmail, navigate]);
 
   useEffect(() => {
     AOS.init({

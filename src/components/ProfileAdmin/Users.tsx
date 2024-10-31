@@ -6,11 +6,13 @@ import { ToastContainer } from "react-toastify";
 import { dateConverter } from "../../redux/actions/products";
 import { ArrowLeftCircle, ArrowRightCircle, CheckAll, ExclamationCircleFill, Search, Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
   const users: IUsersInterface = useAppSelector((state) => state.userReducer.users);
   const authUser: IUser = useAppSelector((state) => state.userReducer.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,7 +27,7 @@ const Users = () => {
     if (name) {
       dispatch(findUserByName(name, page));
     } else {
-      dispatch(getAllUser(page));
+      dispatch(getAllUser(page, navigate));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);

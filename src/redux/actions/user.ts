@@ -3,6 +3,7 @@ import { UserAction } from "../action-types";
 import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
+import { NavigateFunction } from "react-router-dom";
 
 export const url = import.meta.env.VITE_URL;
 
@@ -74,7 +75,7 @@ export const updateUserAvatar = (file: File) => {
   };
 };
 
-export const getAllUser = (page: number) => {
+export const getAllUser = (page: number, navigate?: NavigateFunction) => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -87,6 +88,9 @@ export const getAllUser = (page: number) => {
         const users = await resp.json();
         dispatch({ type: ActionType.SET_USERS, payload: users });
       } else {
+        if ((resp.status === 401 || resp.status === 403) && navigate) {
+          navigate("/");
+        }
         throw new Error("Get all user error");
       }
     } catch (error) {
