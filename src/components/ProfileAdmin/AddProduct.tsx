@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { errorToast } from "../../redux/actions/toaster";
 
 const AddProduct = () => {
-  const categories = useAppSelector((state) => state.categoriesReducer.categories);
+  const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState("");

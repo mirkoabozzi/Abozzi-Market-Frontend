@@ -9,7 +9,7 @@ import ModalAlert from "../ModalAlert/ModalAlert";
 
 const Addresses = () => {
   const dispatch = useAppDispatch();
-  const addressees = useAppSelector((state) => state.addresses.content);
+  const addressees: IAddress[] = useAppSelector((state) => state.addresses.content);
   const [selectedAddress, setSelectedAddress] = useState("");
 
   const [show, setShow] = useState(false);

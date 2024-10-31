@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Table } from "react-bootstrap";
+import { Alert, Button, Form, Table } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
-import { Pencil, Trash } from "react-bootstrap-icons";
+import { ExclamationCircleFill, Pencil, Trash } from "react-bootstrap-icons";
 import { dateConverter } from "../../redux/actions/products";
 import ModalAlert from "../ModalAlert/ModalAlert";
 import DiscountUpdateModal from "./DiscountUpdateModal";
@@ -11,7 +11,7 @@ import DiscountUpdateModal from "./DiscountUpdateModal";
 const Discount = () => {
   const dispatch = useAppDispatch();
 
-  const discounts = useAppSelector((state) => state.discounts.content);
+  const discounts: DiscountListItem[] = useAppSelector((state) => state.discounts.content);
   const [description, setDescription] = useState("");
   const [percentage, setPercentage] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -118,7 +118,12 @@ const Discount = () => {
           </Table>
         </>
       ) : (
-        <h3 className="mt-4 text-center">Nessuna promozione disponibile</h3>
+        <div className="text-center mt-4">
+          <Alert>
+            <ExclamationCircleFill className="me-2" />
+            Nessuna promozione disponibile
+          </Alert>
+        </div>
       )}
       <ModalAlert
         show={show}
