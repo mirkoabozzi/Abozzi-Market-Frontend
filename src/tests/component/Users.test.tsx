@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { it, expect, describe } from "vitest";
 import store from "../../redux/store";
 import { MemoryRouter } from "react-router-dom";
-import Users from "../../components/Profile/Users";
+import Users from "../../components/ProfileAdmin/Users";
 import userEvent from "@testing-library/user-event";
 
 describe("Users", () => {
