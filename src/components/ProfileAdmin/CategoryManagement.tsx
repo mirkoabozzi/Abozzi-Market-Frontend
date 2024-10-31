@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const CategoryManagement = () => {
-  const categories = useAppSelector((state) => state.categoriesReducer.categories);
+  const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState("");

@@ -18,8 +18,8 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const navigate = useNavigate();
 
   const product: IProduct = useAppSelector((state) => state.productReducer.product);
-  const categories = useAppSelector((state) => state.categoriesReducer.categories);
-  const discounts = useAppSelector((state) => state.discounts.content);
+  const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
+  const discounts: DiscountListItem[] = useAppSelector((state) => state.discounts.content);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -135,6 +135,11 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     {selectedDiscountName}
                   </Dropdown.Toggle>
                   <DropdownMenu>
+                    {discounts?.length === 0 ? (
+                      <Dropdown.Item className="custom-dropdown-item" onClick={() => navigate("/profile/promo")}>
+                        Aggiungi offerta
+                      </Dropdown.Item>
+                    ) : null}
                     {discounts?.map((promo: DiscountListItem) => {
                       return (
                         <Dropdown.Item

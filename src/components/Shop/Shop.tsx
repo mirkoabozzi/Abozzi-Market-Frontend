@@ -12,7 +12,7 @@ const Shop = () => {
   const dispatch = useAppDispatch();
   const products: IProductsInterface = useAppSelector((state) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
-  const currentView = useAppSelector((state) => state.view?.selectedView);
+  const currentView: string = useAppSelector((state) => state.view?.selectedView);
   const [page, setPage] = useState(0);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
