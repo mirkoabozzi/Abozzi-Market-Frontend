@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { getUser, url } from "../../redux/actions/user";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { ActionType } from "../../redux/enums/ActionType";
@@ -26,7 +26,10 @@ const Login = ({ show, handleClose }: LoginProps) => {
     handleClose();
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const loginFetch = async () => {
+    setIsLoading(true);
     try {
       const resp = await fetch(`${url}/authentication/login`, {
         method: "POST",
@@ -47,6 +50,8 @@ const Login = ({ show, handleClose }: LoginProps) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -86,7 +91,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
                 Chiudi
               </Button>
               <Button type="submit" variant="primary" className="rounded-pill">
-                Accedi
+                {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Accedi"}
               </Button>
             </div>
             <p className="text-end mb-0 mt-2 mouseHover" onClick={handleShowResetPassword}>

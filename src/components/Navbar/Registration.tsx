@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
@@ -20,8 +20,10 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const register = async () => {
+    setIsLoading(true);
     try {
       const resp = await fetch(`${url}/authentication/registration`, {
         method: "POST",
@@ -37,6 +39,8 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,7 +104,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
               Chiudi
             </Button>
             <Button type="submit" variant="primary" className="rounded-pill">
-              Registrati
+              {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Registrati"}
             </Button>
           </div>
         </Form>
