@@ -109,7 +109,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
             </Form.Group>
             <Form.Group>
               <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center">
-                <Dropdown className="d-flex flex-column flex-sm-row">
+                <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
                   <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
                     {selectedCategoryName}
                   </Dropdown.Toggle>
@@ -130,7 +130,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                     })}
                   </DropdownMenu>
                 </Dropdown>
-                <Dropdown className="d-flex flex-column flex-sm-row">
+                <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
                   <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
                     {selectedDiscountName}
                   </Dropdown.Toggle>
@@ -172,7 +172,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Label>Immagine</Form.Label>
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
-            <div className="d-flex justify-content-center gap-2">
+            <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
               <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>

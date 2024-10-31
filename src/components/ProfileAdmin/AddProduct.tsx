@@ -61,7 +61,7 @@ const AddProduct = () => {
           <Form.Control type="number" placeholder="Quantità disponibile" required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
         </Form.Group>
         <Form.Group>
-          <Dropdown className="d-flex flex-column flex-sm-row">
+          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
             <Dropdown.Toggle id="dropdown-basic" className="rounded-pill">
               {category ? category.name : "Seleziona una categoria"}
             </Dropdown.Toggle>

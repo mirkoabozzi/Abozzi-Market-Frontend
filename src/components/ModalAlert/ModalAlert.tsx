@@ -13,15 +13,18 @@ const ModalAlert = ({ show, handleClose, handleEvent }: ModalAlertProps) => {
         <Modal.Header closeButton>
           <Modal.Title>Conferma scelta</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Vuoi eliminare il record?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
-            Chiudi
-          </Button>
-          <Button variant="danger" className="rounded-pill" onClick={handleEvent}>
-            Conferma
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+          Vuoi eliminare il record?
+          <hr />
+          <div className="mt-4 d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+              Chiudi
+            </Button>
+            <Button variant="danger" className="rounded-pill" onClick={handleEvent}>
+              Conferma
+            </Button>
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );

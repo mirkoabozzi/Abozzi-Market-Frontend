@@ -41,8 +41,8 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
             <Form.Label>Commento</Form.Label>
             <Form.Control as={"textarea"} rows={3} placeholder="Ottimo!" required value={comment} onChange={(e) => setComment(e.target.value)} />
           </Form.Group>
-          <div className="text-center">
-            <Button className="m-2 rounded-pill" variant="secondary" onClick={handleClose}>
+          <div className="mt-4 d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <Button className="rounded-pill" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
             <Button className="rounded-pill" type="submit" variant="primary">
@@ -51,7 +51,6 @@ const AddReview = ({ show, handleClose }: AddReviewProps) => {
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 };

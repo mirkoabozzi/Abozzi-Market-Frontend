@@ -39,7 +39,7 @@ const OrderDetails = () => {
         <Col sm={4}>
           <p>Stato ordine: {order?.ordersState}</p>
           {user?.role === "ADMIN" ? (
-            <Dropdown className="d-flex flex-column flex-sm-row">
+            <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
               <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
                 Stato
               </Dropdown.Toggle>

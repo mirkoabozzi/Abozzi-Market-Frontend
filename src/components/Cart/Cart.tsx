@@ -117,7 +117,7 @@ const Cart = () => {
       {isLogged && cart.length > 0 ? (
         <>
           <h3 className="mb-4">Totale: € {total.toFixed(2)}</h3>
-          <Dropdown className="d-flex flex-column flex-sm-row">
+          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
             <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
               {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
             </Dropdown.Toggle>

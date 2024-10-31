@@ -98,7 +98,7 @@ const CategoryManagement = () => {
                 <Form.Label>Nome</Form.Label>
                 <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
               </Form.Group>
-              <div className="d-flex justify-content-end gap-2">
+              <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
                 <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                   Chiudi
                 </Button>
