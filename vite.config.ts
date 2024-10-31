@@ -17,7 +17,7 @@ export default defineConfig({
 
       manifest: {
         name: "Abozzi Market",
-        short_name: "Abozzi",
+        short_name: "Abozzi Market",
         description: "Capstone Project",
         theme_color: "#ffffff",
         icons: [
