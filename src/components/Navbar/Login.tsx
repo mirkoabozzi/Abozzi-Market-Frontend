@@ -86,7 +86,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
                 </span>
               </div>
             </Form.Group>
-            <div className="d-flex gap-1 justify-content-center">
+            <div className="d-flex flex-column gap-3 flex-sm-row justify-content-sm-center">
               <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
@@ -94,7 +94,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
                 {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Accedi"}
               </Button>
             </div>
-            <p className="text-end mb-0 mt-2 mouseHover" onClick={handleShowResetPassword}>
+            <p className="text-end mb-0 mt-3 mouseHover" onClick={handleShowResetPassword}>
               Password dimenticata?
             </p>
           </Form>

@@ -15,13 +15,14 @@ import insta13 from "../../assets/insta/insta13.jpg";
 import insta14 from "../../assets/insta/insta14.jpg";
 
 const slickArray = [insta1, insta2, insta3, insta4, insta5, insta6, insta7, insta8, insta9, insta10, insta11, insta12, insta13, insta14];
+const duplicatedArray = [...slickArray, ...slickArray];
 
 const MySlick = () => {
   return (
     <Container className="overflow-hidden">
       <div className="mySlick d-flex p-5 mt-2">
-        {slickArray &&
-          slickArray.map((img, i) => {
+        {duplicatedArray &&
+          duplicatedArray.map((img, i) => {
             return (
               <div key={i} className="rounded-4 mx-2">
                 <Image src={img} className="img-fluid border rounded-4 cardHover w-100 h-100" />

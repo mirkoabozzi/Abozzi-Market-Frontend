@@ -89,8 +89,8 @@ body {
 }
 
 .mySlick {
-  width: calc(300px * 16);
-  animation: scrollLeft 60s linear infinite;
+  width: calc(300px * 32);
+  animation: scrollLeft 120s linear infinite;
 }
 
 @keyframes scrollLeft {
@@ -104,6 +104,6 @@ body {
 
 @media (max-width: 768px) {
   .mySlick {
-    width: calc(200px * 16);
+    width: calc(200px * 32);
   }
 }
