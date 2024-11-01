@@ -114,7 +114,7 @@ export const updateOrderState = (order: IOrderUpdateStatus) => {
         dispatch(getOrder(order.order));
         successToast("Stato ordine aggiornato");
       } else {
-        throw new Error("Add order error");
+        throw new Error("Update order status error");
       }
     } catch (error) {
       console.log(error);
@@ -167,4 +167,25 @@ export const getMyOrder = (id: string, navigate: NavigateFunction) => {
       console.log(error);
     }
   };
+};
+
+export const orderStatusConverter = (ordersState: string) => {
+  switch (ordersState) {
+    case "PROCESSING":
+      return "In lavorazione";
+    case "CANCELLED":
+      return "Cancellato";
+    case "SHIPPED":
+      return "Spedito";
+    case "IN_TRANSIT":
+      return "In transito";
+    case "ON_DELIVERY":
+      return "In consegna";
+    case "DELIVERED":
+      return "Consegnato";
+    case "READY_TO_PICKUP":
+      return "Pronto per il ritiro";
+    default:
+      break;
+  }
 };

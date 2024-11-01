@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { getMyOrders } from "../../redux/actions/orders";
+import { getMyOrders, orderStatusConverter } from "../../redux/actions/orders";
 import { Alert, Badge, Button, Col, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, ExclamationCircleFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,9 @@ const MyOrder = () => {
                 <Col>
                   <p>Order: {order.id}</p>
                   <p>Data: {dateConverter(order.orderDate)}</p>
-                  <p>Stato: {order.ordersState}</p>
+                  <p>
+                    Stato: <strong>{orderStatusConverter(order.ordersState)}</strong>
+                  </p>
                 </Col>
                 <Col className="text-center">
                   <p>Totale</p>

@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { getAllClientsOrders, getOrdersByUserEmail } from "../../redux/actions/orders";
+import { getAllClientsOrders, getOrdersByUserEmail, orderStatusConverter } from "../../redux/actions/orders";
 import { Alert, Badge, Button, Col, Form, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRight, ArrowRightCircle, ExclamationCircleFill, Search } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
@@ -54,11 +54,18 @@ const Orders = () => {
                 <Col>
                   <p>Order: {order.id}</p>
                   <p>
-                    Cliente: {order.user.name} {order.user.surname}
+                    Cliente:{" "}
+                    <strong>
+                      {order.user.name} {order.user.surname}
+                    </strong>
                   </p>
-                  <p>Stato pagamento: {order.payment.status}</p>
+                  <p>
+                    Stato pagamento: <strong>{order?.payment.status === "approved" ? "Approvato" : order?.payment.status}</strong>
+                  </p>
                   <p>Data ordine: {dateConverter(order.orderDate)}</p>
-                  <p>Stato: {order.ordersState}</p>
+                  <p>
+                    Stato: <strong>{orderStatusConverter(order.ordersState)}</strong>
+                  </p>
                 </Col>
                 <Col className="text-center">
                   <p>Totale</p>

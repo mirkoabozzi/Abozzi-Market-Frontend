@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMyOrder, getOrder, updateOrderState } from "../../redux/actions/orders";
+import { getMyOrder, getOrder, orderStatusConverter, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { dateConverter, handleDiscountPrice } from "../../redux/actions/products";
 import { ToastContainer } from "react-toastify";
@@ -37,7 +37,9 @@ const OrderDetails = () => {
           <p>Data ordine: {dateConverter(order?.orderDate)}</p>
         </Col>
         <Col sm={4}>
-          <p>Stato ordine: {order?.ordersState}</p>
+          <p>
+            Stato ordine: <strong>{orderStatusConverter(order?.ordersState)}</strong>
+          </p>
           {user?.role === "ADMIN" ? (
             <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
               <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
@@ -45,29 +47,34 @@ const OrderDetails = () => {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "PROCESSING")}>
-                  PROCESSING
+                  In lavorazione
                 </Dropdown.Item>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "CANCELLED")}>
-                  CANCELLED
+                  Cancellato
                 </Dropdown.Item>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "SHIPPED")}>
-                  SHIPPED
+                  Spedito
                 </Dropdown.Item>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "IN_TRANSIT")}>
-                  IN_TRANSIT
+                  In transito
                 </Dropdown.Item>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "ON_DELIVERY")}>
-                  ON_DELIVERY
+                  In consegna
                 </Dropdown.Item>
                 <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "DELIVERED")}>
-                  DELIVERED
+                  Consegnato
+                </Dropdown.Item>
+                <Dropdown.Item className="custom-dropdown-item" onClick={() => handleUpdateOrderState(order.id, "READY_TO_PICKUP")}>
+                  Pronto per il ritiro
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : null}
         </Col>
         <Col sm={4}>
-          <p className="mt-3 mt-sm-0">Pagamento: {order?.payment.status}</p>
+          <p className="mt-3 mt-sm-0">
+            Pagamento: <strong>{order?.payment.status === "approved" ? "Approvato" : order?.payment.status}</strong>
+          </p>
         </Col>
       </Row>
       <Row>
@@ -117,10 +124,10 @@ const OrderDetails = () => {
           <h3>€{order?.payment.total.toFixed(2)}</h3>
         </Col>
       </Row>
-      {order?.user && order?.shipment && (
+      <h5 className="mt-5">Dati spedizione:</h5>
+      {order?.user && order?.shipment ? (
         <Row>
           <Col className="mt-5">
-            <h5>Dati spedizione:</h5>
             <p>
               {order.user.name} {order.user.surname}
             </p>
@@ -132,6 +139,8 @@ const OrderDetails = () => {
             </p>
           </Col>
         </Row>
+      ) : (
+        <p>Ritiro in negozio</p>
       )}
       <ToastContainer />
     </div>
