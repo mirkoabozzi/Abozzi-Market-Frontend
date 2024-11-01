@@ -29,7 +29,7 @@ const Success = () => {
     const newOrder: IOrderAdd = {
       user: user.id,
       payment: paymentId,
-      shipment: address.id,
+      shipment: address ? address.id : null,
       orderDetails: orderDetails,
     };
     await dispatch(execute(paymentId, payerId, navigate));

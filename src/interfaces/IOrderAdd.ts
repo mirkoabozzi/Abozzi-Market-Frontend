@@ -1,7 +1,7 @@
 interface IOrderAdd {
   user: string;
   payment: string;
-  shipment: string;
+  shipment: string | null;
   orderDetails: OrderDetailsItem[];
 }
 interface OrderDetailsItem {

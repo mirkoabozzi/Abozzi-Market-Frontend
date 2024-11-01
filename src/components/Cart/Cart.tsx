@@ -1,4 +1,4 @@
-import { Alert, Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Image, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Form, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
@@ -23,6 +23,7 @@ const Cart = () => {
   const addresses: IAddress[] = useAppSelector((state) => state.addresses.content);
 
   const [address, setAddress] = useState<IAddress | null>(null);
+  const [pickUp, setPickUp] = useState(false);
 
   const [showModalAddAddress, setShowModalAddAddress] = useState(false);
   const handleCloseModalAddAddress = () => setShowModalAddAddress(false);
@@ -34,15 +35,17 @@ const Cart = () => {
 
   const handleCartAndPayment = () => {
     if (isLogged) {
-      if (address != null) {
+      if (pickUp || address) {
+        if (address) {
+          dispatch(setAddressChoice(address));
+        }
         dispatch(setPaymentLoading(true));
-        dispatch(setAddressChoice(address));
         dispatch(pay(Number(total.toFixed(2))));
       } else {
-        warnToast("Devi selezionare un indirizzo di spedizione!");
+        warnToast("Scegli tra spedizione o ritiro in negozio per procedere al pagamento.");
       }
     } else {
-      warnToast("Devi fare l'accesso per procedere con l'acquisto!");
+      warnToast("Accedi o registrati per procedere con l'acquisto.");
     }
   };
 
@@ -117,23 +120,37 @@ const Cart = () => {
       {isLogged && cart.length > 0 ? (
         <>
           <h3 className="mb-4">Totale: € {total.toFixed(2)}</h3>
-          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">
-            <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
-              {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
-            </Dropdown.Toggle>
-            <DropdownMenu>
-              <DropdownItem className="custom-dropdown-item" onClick={handleShowModalAddAddress}>
-                Aggiungi indirizzo
-              </DropdownItem>
-              {addresses?.map((address: IAddress) => {
-                return (
-                  <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
-                    {address.address} {address.number}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownMenu>
-          </Dropdown>
+          <Form
+            className="d-flex justify-content-center d-sm-block mb-3"
+            onChange={() => {
+              setPickUp(!pickUp);
+              setAddress(null);
+            }}
+          >
+            <div className="d-flex align-items-center">
+              <h5 className="mb-0 me-3">Ritiro in negozio</h5>
+              <Form.Check className="fs-3" type="switch" id="custom-switch" />
+            </div>
+          </Form>
+          {!pickUp && (
+            <Dropdown drop={"down-centered"} className="mt-4 d-flex flex-column flex-sm-row">
+              <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
+                {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
+              </Dropdown.Toggle>
+              <DropdownMenu>
+                <DropdownItem className="custom-dropdown-item" onClick={handleShowModalAddAddress}>
+                  Aggiungi indirizzo
+                </DropdownItem>
+                {addresses?.map((address: IAddress) => {
+                  return (
+                    <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
+                      {address.address} {address.number}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownMenu>
+            </Dropdown>
+          )}
         </>
       ) : null}
       {cart.length > 0 ? (
