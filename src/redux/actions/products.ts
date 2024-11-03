@@ -65,6 +65,7 @@ export const addProduct = (product: IProductAdd) => {
         dispatch(getProducts(0));
         successToast("Prodotto aggiunto!");
       } else {
+        errorToast("Errore aggiunta prodotto");
         throw new Error("Add product error");
       }
     } catch (error) {
@@ -90,6 +91,7 @@ export const updateProduct = (product: IProductUpdate, productId: string) => {
         dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
+        errorToast("Errore aggiornamento prodotto");
         throw new Error("Update product error");
       }
     } catch (error) {
@@ -134,6 +136,7 @@ export const deleteProduct = (productId: string) => {
         successToast("Prodotto eliminato");
         dispatch(getProducts(0));
       } else {
+        errorToast("Errore cancellazione prodotto");
         throw new Error("Delete product error");
       }
     } catch (error) {

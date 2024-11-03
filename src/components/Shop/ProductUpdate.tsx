@@ -1,4 +1,4 @@
-import { Button, Dropdown, DropdownMenu, Form, Modal } from "react-bootstrap";
+import { Button, Dropdown, DropdownMenu, Form, Modal, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscountOnProduct, dateConverter, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const [category, setCategory] = useState("");
   const [image, setNewImage] = useState<File | null>(null);
   const [discount, setDiscount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("Seleziona categoria");
   const [selectedDiscountName, setSelectedDiscountName] = useState("Seleziona offerta");
@@ -44,6 +45,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const newProductData: IProductUpdate = { name, description, price, quantityAvailable, category };
     await dispatch(updateProduct(newProductData, product.id));
 
@@ -55,11 +57,12 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
     if (image) {
       await dispatch(updateProductImage(image, product.id));
     }
+    setIsLoading(false);
     handleClose();
   };
 
-  const handleDeleteProduct = () => {
-    dispatch(deleteProduct(product.id));
+  const handleDeleteProduct = async () => {
+    await dispatch(deleteProduct(product.id));
     navigate("/shop");
   };
 
@@ -188,7 +191,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
                 Elimina
               </Button>
               <Button type="submit" variant="primary" className="rounded-pill">
-                Invia
+                {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Invia"}
               </Button>
             </div>
           </Form>

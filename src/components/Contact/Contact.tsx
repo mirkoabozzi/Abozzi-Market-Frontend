@@ -1,4 +1,4 @@
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
 import { ToastContainer } from "react-toastify";
@@ -8,8 +8,10 @@ const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendMail = async () => {
+    setIsLoading(true);
     try {
       const resp = await fetch(`${url}/mail`, {
         method: "POST",
@@ -24,6 +26,8 @@ const Contact = () => {
     } catch (error) {
       errorToast("Errore nell'invio della email");
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,7 +58,7 @@ const Contact = () => {
         </Form.Group>
         <div className="d-flex flex-column flex-sm-row justify-content-sm-end">
           <Button variant="primary rounded-pill py-2" type="submit">
-            Invia
+            {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Invia"}
           </Button>
         </div>
       </Form>
