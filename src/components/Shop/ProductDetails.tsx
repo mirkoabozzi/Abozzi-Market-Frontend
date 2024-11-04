@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { dateConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import { deleteReview, getReview } from "../../redux/actions/reviews";
+import { deleteReview, getReviews } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { ToastContainer } from "react-toastify";
 import { Heart, HeartFill, Pencil, StarFill } from "react-bootstrap-icons";
@@ -15,7 +15,7 @@ import ReviewUpdate from "./ReviewUpdate";
 import ModalAlert from "../ModalAlert/ModalAlert";
 import Suggested from "../Home/Suggested";
 
-const Product = () => {
+const ProductDetails = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
 
@@ -43,7 +43,7 @@ const Product = () => {
       setShowAddReview(true);
     } else {
       setShowAddReview(false);
-      warnToast("Devi fare il login per lasciare una recensione!");
+      warnToast("Effettua il login per lasciare una recensione.");
     }
   };
 
@@ -78,7 +78,7 @@ const Product = () => {
   useEffect(() => {
     if (params.id) {
       dispatch(getProduct(params.id));
-      dispatch(getReview(params.id));
+      dispatch(getReviews(params.id));
       dispatch(getMyWishlists());
     }
   }, [dispatch, params.id]);
@@ -86,9 +86,9 @@ const Product = () => {
   const handleAddToCart = () => {
     const existingCartItem = cart.find((item: IItem) => item.product.id === product.id);
     if (existingCartItem && existingCartItem?.product.quantityAvailable <= existingCartItem?.quantity) {
-      errorToast("Quantità non disponibile!");
+      errorToast("Quantità non disponibile.");
     } else {
-      successToast("Articolo aggiunto");
+      successToast("Articolo aggiunto.");
       if (existingCartItem) {
         dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: product, quantity: existingCartItem.quantity + quantity } });
       } else {
@@ -126,7 +126,7 @@ const Product = () => {
         <Row>
           <Col sm={4} className="mb-3">
             <div>
-              <Image src={product?.imgUrl} className="w-100 object-fit-contain" style={{ maxHeight: "400px" }} />
+              <Image src={product?.imgUrl} className="w-100 object-fit-contain rounded-3" style={{ maxHeight: "400px" }} />
             </div>
             <div className="d-flex justify-content-end mt-3 me-3">
               {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
@@ -236,4 +236,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductDetails;

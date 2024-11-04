@@ -5,7 +5,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { ReviewAction } from "../action-types";
 import { errorToast, successToast } from "./toaster";
 
-export const getReview = (id: string) => {
+export const getReviews = (id: string) => {
   return async (dispatch: Dispatch<ReviewAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -37,7 +37,7 @@ export const addReview = (review: IReviewAdd) => {
       });
       if (resp.ok) {
         successToast("Recensione aggiunta");
-        dispatch(getReview(review.product));
+        dispatch(getReviews(review.product));
       } else {
         if (resp.status === 400) {
           errorToast("Hai già recensito il prodotto");
@@ -61,7 +61,7 @@ export const updateReview = (reviewId: string, updatedReview: IUpdatedReview, pr
       });
       if (resp.ok) {
         successToast("Recensione aggiornata");
-        dispatch(getReview(productId));
+        dispatch(getReviews(productId));
       } else {
         throw new Error("Update review error");
       }
@@ -80,7 +80,7 @@ export const deleteReview = (reviewId: string, productId: string) => {
         headers: { Authorization: "Bearer " + accessToken },
       });
       if (resp.ok) {
-        dispatch(getReview(productId));
+        dispatch(getReviews(productId));
         successToast("Recensione eliminata");
       } else {
         if (resp.status === 401) {

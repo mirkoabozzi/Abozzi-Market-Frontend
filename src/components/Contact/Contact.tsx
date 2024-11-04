@@ -19,12 +19,12 @@ const Contact = () => {
         body: JSON.stringify({ name, email, text }),
       });
       if (resp.ok) {
-        successToast("Email inviata correttamente");
+        successToast("Email inviata correttamente.");
       } else {
         throw new Error("Send email error");
       }
     } catch (error) {
-      errorToast("Errore nell'invio della email");
+      errorToast("Errore nell'invio della email.");
       console.log(error);
     } finally {
       setIsLoading(false);

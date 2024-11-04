@@ -18,9 +18,9 @@ const Verify = () => {
       });
       if (resp.ok) {
         // const result = await resp.json();
-        successToast("Email verificata!");
+        successToast("Email verificata.");
       } else {
-        errorToast("Verifica fallita!");
+        errorToast("Verifica fallita.");
         throw new Error("Verify error");
       }
     } catch (error) {

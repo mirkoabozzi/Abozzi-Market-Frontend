@@ -35,9 +35,9 @@ export const addCategory = (newCategory: IAddCategory) => {
       });
       if (resp.ok) {
         dispatch(getCategories());
-        successToast("Categoria aggiunta");
+        successToast("Categoria aggiunta.");
       } else {
-        if (resp.status === 400) errorToast("Categoria già presente!");
+        if (resp.status === 400) errorToast("Categoria già presente.");
       }
     } catch (error) {
       console.log(error);
@@ -58,10 +58,10 @@ export const updateCategory = (name: string, categoryId: string) => {
         body: JSON.stringify({ name }),
       });
       if (resp.ok) {
-        successToast("Categoria aggiornata");
+        successToast("Categoria aggiornata.");
         dispatch(getCategories());
       } else {
-        if (resp.status === 400) errorToast("Categoria già presente!");
+        if (resp.status === 400) errorToast("Categoria già presente.");
       }
     } catch (error) {
       console.log(error);
@@ -101,9 +101,9 @@ export const deleteCategory = (categoryId: string) => {
       });
       if (resp.ok) {
         dispatch(getCategories());
-        successToast("Categoria eliminata");
+        successToast("Categoria eliminata.");
       } else {
-        if (resp.status === 400) errorToast("Categoria in uso!");
+        if (resp.status === 400) errorToast("Categoria in uso.");
       }
     } catch (error) {
       console.log(error);

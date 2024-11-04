@@ -39,7 +39,7 @@ export const addAddress = (newAddress: IAddressAdd) => {
       });
       if (resp.ok) {
         dispatch(getAllAddress());
-        successToast("Indirizzo aggiunto");
+        successToast("Indirizzo aggiunto.");
       }
     } catch (error) {
       console.log(error);
@@ -57,7 +57,7 @@ export const deleteAddress = (addressId: string) => {
       });
       if (resp.ok) {
         dispatch(getAllAddress());
-        successToast("Indirizzo eliminato");
+        successToast("Indirizzo eliminato.");
       } else {
         errorToast("Indirizzo in uso!");
         throw new Error("Delete address error");

@@ -51,7 +51,7 @@ const Cart = () => {
 
   const handleIncreaseQuantity = (item: IItem) => {
     if (item.product.quantityAvailable <= item.quantity) {
-      errorToast("Quantità non disponibile");
+      errorToast("Quantità non disponibile.");
     } else {
       dispatch({ type: ActionType.UPDATE_QUANTITY, payload: { product: item.product, quantity: item.quantity + 1 } });
     }

@@ -20,7 +20,7 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
         dispatch({ type: ActionType.SET_ORDERS, payload: orders });
       } else {
         if (resp.status === 401) {
-          errorToast("Token scaduto effettua il login");
+          errorToast("Token scaduto effettua il login.");
           dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
           dispatch({ type: ActionType.SET_USER, payload: null });
           navigate("/");
@@ -67,7 +67,7 @@ export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
         successToast("Ordine creato");
         navigate("/profile");
       } else {
-        errorToast("Qualcosa è andato storto!");
+        errorToast("Qualcosa è andato storto.");
         navigate("/failed");
         throw new Error("Add order error");
       }
@@ -112,7 +112,7 @@ export const updateOrderState = (order: IOrderUpdateStatus) => {
       });
       if (resp.ok) {
         dispatch(getOrder(order.order));
-        successToast("Stato ordine aggiornato");
+        successToast("Stato ordine aggiornato.");
       } else {
         throw new Error("Update order status error");
       }

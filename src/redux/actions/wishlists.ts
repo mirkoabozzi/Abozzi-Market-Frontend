@@ -40,7 +40,7 @@ export const addToWishlist = (product: IWishlistAdd) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
-        successToast("Articolo aggiunto ai preferiti!");
+        successToast("Articolo aggiunto ai preferiti.");
       } else {
         throw new Error("Add to wishlist error");
       }
@@ -60,7 +60,7 @@ export const removeFromWishlist = (id: string) => {
       });
       if (resp.ok) {
         dispatch(getMyWishlists());
-        successToast("Articolo rimosso dai preferiti!");
+        successToast("Articolo rimosso dai preferiti.");
       } else {
         throw new Error("Remove from wishlist error");
       }

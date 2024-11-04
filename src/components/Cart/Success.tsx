@@ -49,7 +49,7 @@ const Success = () => {
   return (
     <>
       <Container className="mainAnimation mt-5 rounded-4 text-center">
-        <h1 className="mb-5">Conferma il tuo acquisto!</h1>
+        <h1 className="mb-5">Conferma il tuo acquisto.</h1>
         {paymentLoading ? (
           <Spinner />
         ) : (

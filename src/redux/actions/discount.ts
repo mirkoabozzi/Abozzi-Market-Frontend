@@ -39,9 +39,9 @@ export const addDiscount = (discount: IDiscountAdd) => {
       });
       if (resp.ok) {
         dispatch(getAllDiscounts());
-        successToast("Promozione aggiunta");
+        successToast("Promozione aggiunta.");
       } else {
-        errorToast("Errore aggiunta promo");
+        errorToast("Errore aggiunta promo.");
         throw new Error("Add discount error");
       }
     } catch (error) {
@@ -60,7 +60,7 @@ export const deletePromo = (id: string) => {
       });
       if (resp.ok) {
         dispatch(getAllDiscounts());
-        successToast("Promozione eliminata");
+        successToast("Promozione eliminata.");
       } else {
         throw new Error("Delete discount error");
       }
@@ -86,7 +86,7 @@ export const updateDiscount = (discount: DiscountListItem) => {
         dispatch(getAllDiscounts());
         successToast("Promozione aggiornata");
       } else {
-        errorToast("Errore aggiornamento promozione");
+        errorToast("Errore aggiornamento promozione.");
         throw new Error("Update discount error");
       }
     } catch (error) {

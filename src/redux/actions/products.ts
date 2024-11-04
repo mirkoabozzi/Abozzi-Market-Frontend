@@ -63,9 +63,9 @@ export const addProduct = (product: IProductAdd) => {
       });
       if (resp.ok) {
         dispatch(getProducts(0));
-        successToast("Prodotto aggiunto!");
+        successToast("Prodotto aggiunto.");
       } else {
-        errorToast("Errore aggiunta prodotto");
+        errorToast("Errore aggiunta prodotto.");
         throw new Error("Add product error");
       }
     } catch (error) {
@@ -87,11 +87,11 @@ export const updateProduct = (product: IProductUpdate, productId: string) => {
         body: JSON.stringify(product),
       });
       if (resp.ok) {
-        successToast("Prodotto aggiornato");
+        successToast("Prodotto aggiornato.");
         dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
-        errorToast("Errore aggiornamento prodotto");
+        errorToast("Errore aggiornamento prodotto.");
         throw new Error("Update product error");
       }
     } catch (error) {
@@ -115,7 +115,7 @@ export const updateProductImage = (file: File, productId: string) => {
         dispatch(getProducts(0));
         dispatch(getProduct(productId));
       } else {
-        errorToast("Caricamento immagine fallito");
+        errorToast("Caricamento immagine fallito.");
         throw new Error("Update product image error");
       }
     } catch (error) {
@@ -133,10 +133,10 @@ export const deleteProduct = (productId: string) => {
         headers: { Authorization: "Bearer " + accessToken },
       });
       if (resp.ok) {
-        successToast("Prodotto eliminato");
+        successToast("Prodotto eliminato.");
         dispatch(getProducts(0));
       } else {
-        errorToast("Errore cancellazione prodotto");
+        errorToast("Errore cancellazione prodotto.");
         throw new Error("Delete product error");
       }
     } catch (error) {
@@ -276,7 +276,7 @@ export const addDiscountOnProduct = (discount: string, product: string) => {
         body: JSON.stringify({ discount }),
       });
       if (resp.ok) {
-        successToast("Sconto aggiunto");
+        successToast("Sconto aggiunto.");
         dispatch(getProduct(product));
       } else {
         throw new Error("Add product error");
@@ -300,7 +300,7 @@ export const deleteDiscountFromProduct = (productId: string, discount: IDiscount
         body: JSON.stringify(discount),
       });
       if (resp.ok) {
-        successToast("Sconto rimosso");
+        successToast("Sconto rimosso.");
         dispatch(getProduct(productId));
       } else {
         throw new Error("Delete discount error");

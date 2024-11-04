@@ -41,10 +41,10 @@ export const updateUser = (body: IUserUpdate) => {
         body: JSON.stringify(body),
       });
       if (resp.ok) {
-        successToast("Dati aggiornati con successo!");
+        successToast("Dati aggiornati con successo.");
         dispatch(getUser());
       } else {
-        errorToast("Aggiornamento fallito!");
+        errorToast("Aggiornamento fallito.");
         throw new Error("Update user error");
       }
     } catch (error) {
@@ -113,7 +113,7 @@ export const updateUserRole = (body: IUserRole) => {
       });
       if (resp.ok) {
         dispatch(getAllUser(0));
-        successToast("Ruolo aggiornato");
+        successToast("Ruolo aggiornato.");
       } else {
         throw new Error("Update user error");
       }
@@ -133,9 +133,9 @@ export const deleteUser = (userId: string) => {
       });
       if (resp.ok) {
         dispatch(getAllUser(0));
-        successToast("Utente eliminato");
+        successToast("Utente eliminato.");
       } else {
-        errorToast("Impossibile eliminare questo utente");
+        errorToast("Impossibile eliminare questo utente.");
         throw new Error("Delete user error");
       }
     } catch (error) {
@@ -176,9 +176,9 @@ export const resetUserPasswordRequest = (email: string) => {
         body: JSON.stringify({ email }),
       });
       if (resp.ok) {
-        successToast("Email di recupero inviata");
+        successToast("Email di recupero inviata.");
       } else {
-        errorToast("Email non trovata");
+        errorToast("Email non trovata.");
         throw new Error("Find user by email error");
       }
     } catch (error) {
@@ -198,9 +198,9 @@ export const resetUserPassword = (token: string, password: string) => {
         body: JSON.stringify({ password }),
       });
       if (resp.ok) {
-        successToast("Password cambiata con successo");
+        successToast("Password cambiata con successo.");
       } else {
-        errorToast("Token scaduto invia una nuova richiesta");
+        errorToast("Token scaduto invia una nuova richiesta.");
         throw new Error("Reset user password error");
       }
     } catch (error) {
@@ -222,9 +222,9 @@ export const updateUserPassword = (newPasswordObj: IUserPasswordUpdate) => {
         body: JSON.stringify(newPasswordObj),
       });
       if (resp.ok) {
-        successToast("Password cambiata con successo");
+        successToast("Password cambiata con successo.");
       } else {
-        errorToast("Errore cambio password");
+        errorToast("Errore cambio password.");
         throw new Error("Update user password error");
       }
     } catch (error) {

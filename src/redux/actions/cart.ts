@@ -63,7 +63,7 @@ export const execute = (paymentId: string, payerId: string, navigate: NavigateFu
         body: JSON.stringify(execute),
       });
       if (resp.ok) {
-        successToast("Grazie per il tuo acquisto!");
+        successToast("Grazie per il tuo acquisto.");
         dispatch(clearAddressChoice());
         dispatch({ type: ActionType.CLEAR_CART });
         dispatch(setPaymentLoading(false));
@@ -71,7 +71,7 @@ export const execute = (paymentId: string, payerId: string, navigate: NavigateFu
         // const redirectUrl = responseText.substring(9);
         // window.location.href = redirectUrl;
       } else {
-        errorToast("Pagamento fallito");
+        errorToast("Pagamento fallito.");
         navigate("/failed");
         throw new Error("Execute payment error");
       }

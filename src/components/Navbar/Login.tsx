@@ -45,7 +45,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
         setEmail("");
         setPassword("");
       } else {
-        errorToast("Login fallito!");
+        errorToast("Login fallito.");
         throw new Error("Login error");
       }
     } catch (error) {
