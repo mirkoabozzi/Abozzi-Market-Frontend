@@ -17,7 +17,7 @@ const OrderDetails = () => {
   useEffect(() => {
     if (params.id) {
       if (user?.role === "ADMIN") {
-        dispatch(getOrder(params.id));
+        dispatch(getOrder(params.id, navigate));
       } else {
         dispatch(getMyOrder(params.id, navigate));
       }

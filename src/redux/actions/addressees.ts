@@ -59,7 +59,7 @@ export const deleteAddress = (addressId: string) => {
         dispatch(getAllAddress());
         successToast("Indirizzo eliminato.");
       } else {
-        errorToast("Indirizzo in uso!");
+        errorToast("Indirizzo in uso.");
         throw new Error("Delete address error");
       }
     } catch (error) {

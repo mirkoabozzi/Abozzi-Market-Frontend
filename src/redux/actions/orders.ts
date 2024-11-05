@@ -20,6 +20,7 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
         dispatch({ type: ActionType.SET_ORDERS, payload: orders });
       } else {
         if (resp.status === 401) {
+          localStorage.removeItem("accessToken");
           errorToast("Token scaduto effettua il login.");
           dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
           dispatch({ type: ActionType.SET_USER, payload: null });
@@ -33,8 +34,8 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
   };
 };
 
-export const getOrder = (id: string) => {
-  return async (dispatch: Dispatch<OrderAction>) => {
+export const getOrder = (id: string, navigate?: NavigateFunction) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/${id}`, {
@@ -46,6 +47,15 @@ export const getOrder = (id: string) => {
         const order = await resp.json();
         dispatch({ type: ActionType.SET_ORDER, payload: order });
       } else {
+        if (resp.status === 401) {
+          localStorage.removeItem("accessToken");
+          errorToast("Token scaduto effettua il login.");
+          dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
+          dispatch({ type: ActionType.SET_USER, payload: null });
+          if (navigate) {
+            navigate("/");
+          }
+        }
         throw new Error("Get order error");
       }
     } catch (error) {
@@ -157,6 +167,7 @@ export const getMyOrder = (id: string, navigate: NavigateFunction) => {
         dispatch({ type: ActionType.SET_ORDER, payload: order });
       } else {
         if (resp.status === 401) {
+          localStorage.removeItem("accessToken");
           dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
           dispatch({ type: ActionType.SET_USER, payload: null });
           navigate("/");
