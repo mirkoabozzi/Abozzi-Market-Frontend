@@ -5,14 +5,14 @@ interface InitialState {
   products: IProductsInterface | null;
   isLoading: boolean;
   product: IProduct | null;
-  productsLoaded: boolean;
+  productLoaded: boolean;
 }
 
 const initialState: InitialState = {
   products: null,
   isLoading: false,
   product: null,
-  productsLoaded: false,
+  productLoaded: false,
 };
 
 const productReducer = (state = initialState, action: ProductsAction) => {
@@ -37,15 +37,15 @@ const productReducer = (state = initialState, action: ProductsAction) => {
         ...state,
         product: action.payload,
       };
-    case ActionType.SET_PRODUCTS_LOADED_TRUE:
+    case ActionType.SET_PRODUCT_LOADED_TRUE:
       return {
         ...state,
-        productsLoaded: true,
+        productLoaded: true,
       };
-    case ActionType.SET_PRODUCTS_LOADED_FALSE:
+    case ActionType.SET_PRODUCT_LOADED_FALSE:
       return {
         ...state,
-        productsLoaded: false,
+        productLoaded: false,
       };
     default:
       return state;

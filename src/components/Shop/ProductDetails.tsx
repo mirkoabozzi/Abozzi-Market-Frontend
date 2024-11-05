@@ -2,7 +2,7 @@ import { RootState, useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { dateConverter, getProduct, handleDiscountPrice } from "../../redux/actions/products";
 import { useParams } from "react-router-dom";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import { deleteReview, getReviews } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
 import { ToastContainer } from "react-toastify";
@@ -19,6 +19,7 @@ const ProductDetails = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
 
+  const productLoaded: boolean = useAppSelector((state) => state.productReducer.productLoaded);
   const product: IProduct = useAppSelector((state: RootState) => state.productReducer.product);
   const reviews: IReview[] = useAppSelector((state: RootState) => state.reviewsReducer.reviews);
   const isLogged: boolean = useAppSelector((state: RootState) => state.userReducer.isLogged);
@@ -122,64 +123,69 @@ const ProductDetails = () => {
 
   return (
     <Container className="mt-4 mainAnimation">
-      {product && (
-        <Row>
-          <Col sm={4} className="mb-3">
-            <div>
-              <Image src={product?.imgUrl} className="w-100 object-fit-contain rounded-3" style={{ maxHeight: "400px" }} />
-            </div>
-            <div className="d-flex justify-content-end mt-3 me-3">
-              {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
-                <HeartFill width={20} height={20} className="mouseHover scale" onClick={handleRemoveFromWishlist} />
-              ) : (
-                <Heart width={20} height={20} className="mouseHover scale" onClick={handleAddToWishlist} />
-              )}
-            </div>
-          </Col>
-          <Col>
-            <h2>{product?.name}</h2>
-            <p>{product?.description}</p>
-            <p>{product?.category.name}</p>
-
-            <div className="my-2">
-              <span className="me-2">{rating.toFixed(1)}</span>
-              {renderStars(rating)}
-            </div>
-            <strong className={!product?.discountStatus ? "d-block fs-1 mb-0" : "d-block fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
-            {product?.discountStatus ? (
-              <>
-                <strong className="text-danger fs-2 me-2">-{product?.discountList[0]?.percentage}%</strong>
-                <strong className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</strong>
-                <p>Termina il: {dateConverter(product.discountList[0].endDate)}</p>
-              </>
-            ) : null}
-            <Form.Label>Quantità</Form.Label>
-            <Form.Group className="col-md-2" controlId="formQuantity">
-              <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
-            </Form.Group>
-            <div className="d-flex justify-content-center flex-column flex-md-row gap-2 my-3">
-              {product?.quantityAvailable === 0 ? (
-                <Button className="rounded-pill" style={{ opacity: 0.5 }}>
-                  Esaurito
-                </Button>
-              ) : (
-                <Button className="rounded-pill" onClick={handleAddToCart}>
-                  Aggiungi al carrello
-                </Button>
-              )}
-              <Button className="rounded-pill" onClick={handleShowAddReview}>
-                Recensisci prodotto
-              </Button>
-              {user?.role === "ADMIN" ? (
-                <Button className="rounded-pill" onClick={handleShowProductUpdate}>
-                  Modifica Prodotto
-                </Button>
+      {productLoaded ? (
+        product && (
+          <Row>
+            <Col sm={4} className="mb-3">
+              <div>
+                <Image src={product?.imgUrl} className="w-100 object-fit-contain rounded-3" style={{ maxHeight: "400px" }} />
+              </div>
+              <div className="d-flex justify-content-end mt-3 me-3">
+                {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
+                  <HeartFill width={20} height={20} className="mouseHover scale" onClick={handleRemoveFromWishlist} />
+                ) : (
+                  <Heart width={20} height={20} className="mouseHover scale" onClick={handleAddToWishlist} />
+                )}
+              </div>
+            </Col>
+            <Col>
+              <h2>{product?.name}</h2>
+              <p>{product?.description}</p>
+              <p>{product?.category.name}</p>
+              <div className="my-2">
+                <span className="me-2">{rating.toFixed(1)}</span>
+                {renderStars(rating)}
+              </div>
+              <strong className={!product?.discountStatus ? "d-block fs-1 mb-0" : "d-block fs-4 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
+              {product?.discountStatus ? (
+                <>
+                  <strong className="text-danger fs-2 me-2">-{product?.discountList[0]?.percentage}%</strong>
+                  <strong className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</strong>
+                  <p>Termina il: {dateConverter(product.discountList[0].endDate)}</p>
+                </>
               ) : null}
-            </div>
-            <p>Disponibili: Pz. {product?.quantityAvailable}</p>
-            <p>{dateConverter(product?.lastUpdate)}</p>
-          </Col>
-        </Row>
+              <Form.Label>Quantità</Form.Label>
+              <Form.Group className="col-md-2" controlId="formQuantity">
+                <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
+              </Form.Group>
+              <div className="d-flex justify-content-center flex-column flex-md-row gap-2 my-3">
+                {product?.quantityAvailable === 0 ? (
+                  <Button className="rounded-pill" style={{ opacity: 0.5 }}>
+                    Esaurito
+                  </Button>
+                ) : (
+                  <Button className="rounded-pill" onClick={handleAddToCart}>
+                    Aggiungi al carrello
+                  </Button>
+                )}
+                <Button className="rounded-pill" onClick={handleShowAddReview}>
+                  Recensisci prodotto
+                </Button>
+                {user?.role === "ADMIN" ? (
+                  <Button className="rounded-pill" onClick={handleShowProductUpdate}>
+                    Modifica Prodotto
+                  </Button>
+                ) : null}
+              </div>
+              <p>Disponibili: Pz. {product?.quantityAvailable}</p>
+              <p>{dateConverter(product?.lastUpdate)}</p>
+            </Col>
+          </Row>
+        )
+      ) : (
+        <div className="d-flex justify-content-center">
+          <Spinner animation="grow" />
+        </div>
       )}
       <Row>
         <Col>

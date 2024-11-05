@@ -30,6 +30,7 @@ export const getProducts = (page: number) => {
 
 export const getProduct = (id: string) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
+    dispatch({ type: ActionType.SET_PRODUCT_LOADED_FALSE });
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/products/product/${id}`, {
@@ -40,6 +41,7 @@ export const getProduct = (id: string) => {
       if (resp.ok) {
         const product = await resp.json();
         dispatch({ type: ActionType.SET_PRODUCT, payload: product });
+        dispatch({ type: ActionType.SET_PRODUCT_LOADED_TRUE });
       } else {
         throw new Error("Get product error");
       }

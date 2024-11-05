@@ -168,6 +168,7 @@ export const getMyOrder = (id: string, navigate: NavigateFunction) => {
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
+          errorToast("Token scaduto effettua il login.");
           dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
           dispatch({ type: ActionType.SET_USER, payload: null });
           navigate("/");
