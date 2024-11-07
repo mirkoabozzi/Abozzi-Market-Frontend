@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
-import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
+import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
+import ReactPasswordChecklist from "react-password-checklist";
 
 interface RegistrationProps {
   show: boolean;
@@ -21,6 +22,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const register = async () => {
     setIsLoading(true);
@@ -33,6 +35,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       if (resp.ok) {
         handleClose();
         successToast("Registrazione avvenuta con successo, conferma la tua email!");
+        setUserData({ name: "", surname: "", phoneNumber: "", email: "", password: "", confirmPassword: "" });
       } else {
         errorToast("Email già presente.");
         throw new Error("Registration error");
@@ -46,13 +49,30 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userData.password !== userData.confirmPassword) {
-      errorToast("Le password non corrispondono");
-    } else {
-      register();
-      setUserData({ name: "", surname: "", phoneNumber: "", email: "", password: "", confirmPassword: "" });
-    }
+    register();
   };
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   const hasUppercase = /[A-Z]/;
+  //   const hasLowercase = /[a-z]/;
+  //   const hasSpecialChar = /[^A-Za-z0-9]/;
+
+  //   if (userData.password !== userData.confirmPassword) {
+  //     errorToast("Le password non corrispondono");
+  //   } else if (userData.password.length < 8) {
+  //     errorToast("Password troppo corta, minimo 8 caratteri.");
+  //   } else if (!hasUppercase.test(userData.password)) {
+  //     errorToast("Password deve contenere caratteri maiuscoli.");
+  //   } else if (!hasLowercase.test(userData.password)) {
+  //     errorToast("Password deve contenere caratteri minuscoli.");
+  //   } else if (!hasSpecialChar.test(userData.password)) {
+  //     errorToast("Password deve contenere caratteri speciali.");
+  //   } else {
+  //     register();
+  //   }
+  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -98,12 +118,34 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
                 {showConfirmPassword ? <EyeSlashFill /> : <EyeFill />}
               </span>
             </div>
+            <ReactPasswordChecklist
+              className="mt-3"
+              onChange={(isValid) => setIsPasswordValid(isValid)}
+              validColor="#1a51bf"
+              invalidColor="#b10f0f"
+              rules={["minLength", "specialChar", "number", "capital", "lowercase", "match"]}
+              minLength={8}
+              value={userData.password}
+              valueAgain={userData.confirmPassword}
+              iconComponents={{
+                ValidIcon: <CheckLg className="me-1" width={20} height={20} />,
+                InvalidIcon: <XLg className="me-1 text-danger" width={20} height={20} />,
+              }}
+              messages={{
+                minLength: "Minimo 8 caratteri.",
+                specialChar: "Caratteri speciali.",
+                number: "Numeri.",
+                capital: "Maiuscole.",
+                lowercase: "Minuscole",
+                match: "Corrispondenza.",
+              }}
+            />
           </Form.Group>
           <div className="d-flex flex-column gap-3 flex-sm-row justify-content-sm-center">
             <Button className="rounded-pill" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button type="submit" variant="primary" className="rounded-pill">
+            <Button type="submit" variant="primary" className="rounded-pill" disabled={!isPasswordValid}>
               {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Registrati"}
             </Button>
           </div>

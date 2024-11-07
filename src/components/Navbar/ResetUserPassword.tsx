@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
+import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { useAppDispatch } from "../../redux/store";
 import { resetUserPassword } from "../../redux/actions/user";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ActionType } from "../../redux/enums/ActionType";
 import { errorToast } from "../../redux/actions/toaster";
+import ReactPasswordChecklist from "react-password-checklist";
 
 const ResetUserPassword = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const ResetUserPassword = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   useEffect(() => {
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
@@ -63,9 +65,31 @@ const ResetUserPassword = () => {
                 {showConfirmPassword ? <EyeSlashFill /> : <EyeFill />}
               </span>
             </div>
+            <ReactPasswordChecklist
+              className="mt-3"
+              onChange={(isValid) => setIsPasswordValid(isValid)}
+              validColor="#1a51bf"
+              invalidColor="#b10f0f"
+              rules={["minLength", "specialChar", "number", "capital", "lowercase", "match"]}
+              minLength={8}
+              value={password}
+              valueAgain={confirmPassword}
+              iconComponents={{
+                ValidIcon: <CheckLg className="me-1" width={20} height={20} />,
+                InvalidIcon: <XLg className="me-1 text-danger" width={20} height={20} />,
+              }}
+              messages={{
+                minLength: "Minimo 8 caratteri.",
+                specialChar: "Caratteri speciali.",
+                number: "Numeri.",
+                capital: "Maiuscole.",
+                lowercase: "Minuscole",
+                match: "Corrispondenza.",
+              }}
+            />
           </Form.Group>
           <div className="d-flex justify-content-center">
-            <Button type="submit" variant="primary" className="rounded-pill">
+            <Button type="submit" variant="primary" className="rounded-pill" disabled={!isPasswordValid}>
               Cambia password
             </Button>
           </div>
