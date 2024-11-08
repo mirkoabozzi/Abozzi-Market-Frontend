@@ -165,9 +165,10 @@ export const findUserByName = (name: string, page: number) => {
   };
 };
 
-export const resetUserPasswordRequest = (email: string) => {
+export const resetUserPasswordRequest = (email: string, handleClose: () => void, setIsLoading: (b: boolean) => void) => {
   return async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch(`${url}/authentication/reset`, {
         method: "POST",
         headers: {
@@ -177,19 +178,23 @@ export const resetUserPasswordRequest = (email: string) => {
       });
       if (resp.ok) {
         successToast("Email di recupero inviata.");
+        handleClose();
       } else {
         errorToast("Email non trovata.");
         throw new Error("Find user by email error");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 };
 
-export const resetUserPassword = (token: string, password: string) => {
+export const resetUserPassword = (token: string, password: string, setIsLoading: (b: boolean) => void, navigate: NavigateFunction) => {
   return async () => {
     try {
+      setIsLoading(true);
       const resp = await fetch(`${url}/authentication/reset/${token}`, {
         method: "PUT",
         headers: {
@@ -205,6 +210,9 @@ export const resetUserPassword = (token: string, password: string) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
+      navigate("/");
     }
   };
 };

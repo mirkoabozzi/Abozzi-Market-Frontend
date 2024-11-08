@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { useAppDispatch } from "../../redux/store";
 import { resetUserPassword } from "../../redux/actions/user";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ActionType } from "../../redux/enums/ActionType";
-import { errorToast } from "../../redux/actions/toaster";
 import ReactPasswordChecklist from "react-password-checklist";
 
 const ResetUserPassword = () => {
@@ -19,6 +18,7 @@ const ResetUserPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
@@ -35,12 +35,7 @@ const ResetUserPassword = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      errorToast("Le password non corrispondono");
-    } else {
-      dispatch(resetUserPassword(token, password));
-      navigate("/");
-    }
+    dispatch(resetUserPassword(token, password, setIsLoading, navigate));
   };
 
   return (
@@ -90,7 +85,7 @@ const ResetUserPassword = () => {
           </Form.Group>
           <div className="d-flex justify-content-center">
             <Button type="submit" variant="primary" className="rounded-pill" disabled={!isPasswordValid}>
-              Cambia password
+              {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Cambia password"}
             </Button>
           </div>
         </Form>

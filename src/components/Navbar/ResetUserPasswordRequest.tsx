@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { useAppDispatch } from "../../redux/store";
 import { resetUserPasswordRequest } from "../../redux/actions/user";
 
@@ -10,13 +10,13 @@ interface ResetUserPasswordRequestProps {
 const ResetUserPasswordRequest = ({ show, handleClose }: ResetUserPasswordRequestProps) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email) {
-      dispatch(resetUserPasswordRequest(email));
+      dispatch(resetUserPasswordRequest(email, handleClose, setIsLoading));
     }
-    handleClose();
   };
 
   return (
@@ -30,12 +30,12 @@ const ResetUserPasswordRequest = ({ show, handleClose }: ResetUserPasswordReques
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder="name@example.com" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
-          <div className="text-center">
-            <Button variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
+          <div className="d-flex flex-column gap-3 flex-sm-row justify-content-sm-center">
+            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
             <Button type="submit" variant="primary" className="rounded-pill">
-              Recupera
+              {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Recupera"}
             </Button>
           </div>
         </Form>
