@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteAddress, getAllAddress } from "../../redux/actions/addressees";
 import { Alert, Button, Col, Row } from "react-bootstrap";
 import { ExclamationCircleFill, Trash } from "react-bootstrap-icons";
-import { ToastContainer } from "react-toastify";
 import AddAddress from "./AddAddress";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
@@ -80,7 +79,6 @@ const Addresses = () => {
       {/* modal */}
       <AddAddress show={show} handleClose={handleClose} />
       <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteAddress} />
-      <ToastContainer />
     </div>
   );
 };

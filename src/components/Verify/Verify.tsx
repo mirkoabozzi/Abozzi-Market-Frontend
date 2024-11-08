@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
-import { ToastContainer } from "react-toastify";
 
 const Verify = () => {
   const navigate = useNavigate();
@@ -41,15 +40,12 @@ const Verify = () => {
   }, [token]);
 
   return (
-    <>
-      <Container className="mainAnimation mt-5 rounded-4 text-center">
-        {/* <h1 className="mb-5">Conferma!</h1> */}
-        <Button className="rounded-pill" onClick={() => navigate("/")}>
-          Torna alla Home
-        </Button>
-      </Container>
-      <ToastContainer />
-    </>
+    <Container className="mainAnimation mt-5 rounded-4 text-center">
+      {/* <h1 className="mb-5">Conferma!</h1> */}
+      <Button className="rounded-pill" onClick={() => navigate("/")}>
+        Torna alla Home
+      </Button>
+    </Container>
   );
 };
 

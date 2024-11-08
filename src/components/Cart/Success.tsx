@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 const Success = () => {
   const dispatch = useAppDispatch();
@@ -47,21 +46,18 @@ const Success = () => {
   }, []);
 
   return (
-    <>
-      <Container className="mainAnimation mt-5 rounded-4 text-center">
-        <h1 className="mb-5">Conferma il tuo acquisto.</h1>
-        {paymentLoading ? (
-          <Spinner />
-        ) : (
-          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-            <Button className="rounded-pill" onClick={handleCreateOrder}>
-              Paga
-            </Button>
-          </div>
-        )}
-      </Container>
-      <ToastContainer />
-    </>
+    <Container className="mainAnimation mt-5 rounded-4 text-center">
+      <h1 className="mb-5">Conferma il tuo acquisto.</h1>
+      {paymentLoading ? (
+        <Spinner />
+      ) : (
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
+          <Button className="rounded-pill" onClick={handleCreateOrder}>
+            Paga
+          </Button>
+        </div>
+      )}
+    </Container>
   );
 };
 

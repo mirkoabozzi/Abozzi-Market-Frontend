@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Dropdown, DropdownMenu, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addProduct } from "../../redux/actions/products";
-import { ToastContainer } from "react-toastify";
 import { errorToast } from "../../redux/actions/toaster";
 
 const AddProduct = () => {
@@ -82,7 +81,6 @@ const AddProduct = () => {
           </Button>
         </div>
       </Form>
-      <ToastContainer />
     </div>
   );
 };

@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getMyOrder, getOrder, orderStatusConverter, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { dateConverter, handleDiscountPrice } from "../../redux/actions/products";
-import { ToastContainer } from "react-toastify";
 
 const OrderDetails = () => {
   const params = useParams();
@@ -142,7 +141,6 @@ const OrderDetails = () => {
       ) : (
         <p>Ritiro in negozio</p>
       )}
-      <ToastContainer />
     </div>
   );
 };

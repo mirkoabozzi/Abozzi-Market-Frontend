@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Table } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { addDiscount, deletePromo, getAllDiscounts } from "../../redux/actions/discount";
 import { ExclamationCircleFill, Pencil, Trash } from "react-bootstrap-icons";
@@ -134,7 +133,6 @@ const Discount = () => {
         }}
       />
       {discount && <DiscountUpdateModal show={showUpdateDiscount} handleClose={handleCloseUpdateDiscountModal} discount={discount} />}
-      <ToastContainer />
     </div>
   );
 };

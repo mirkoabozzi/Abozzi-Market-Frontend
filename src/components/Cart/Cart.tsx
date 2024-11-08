@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
 import { pay } from "../../redux/actions/cart";
 import { errorToast, warnToast } from "../../redux/actions/toaster";
-import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
@@ -163,7 +162,6 @@ const Cart = () => {
           <div className="d-flex justify-content-center mt-3">{paymentLoading && <Spinner />}</div>
         </>
       ) : null}
-      <ToastContainer />
       {/* modal add address */}
       <AddAddress show={showModalAddAddress} handleClose={handleCloseModalAddAddress} />
     </Container>

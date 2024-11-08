@@ -3,7 +3,6 @@ import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { useAppDispatch } from "../../redux/store";
 import { resetUserPassword } from "../../redux/actions/user";
-import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ActionType } from "../../redux/enums/ActionType";
 import ReactPasswordChecklist from "react-password-checklist";
@@ -90,7 +89,6 @@ const ResetUserPassword = () => {
           </div>
         </Form>
       </div>
-      <ToastContainer />
     </Container>
   );
 };

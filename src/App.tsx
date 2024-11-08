@@ -32,6 +32,7 @@ import ScrollTop from "./components/ScrollTop";
 import ResetUserPassword from "./components/Navbar/ResetUserPassword";
 import Report from "./components/ProfileAdmin/Report";
 import Verify from "./components/Verify/Verify";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <ToastContainer />
     </BrowserRouter>
   );
 }

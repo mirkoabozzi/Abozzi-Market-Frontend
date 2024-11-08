@@ -1,7 +1,6 @@
 import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
-import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 
 const Contact = () => {
@@ -62,7 +61,6 @@ const Contact = () => {
           </Button>
         </div>
       </Form>
-      <ToastContainer />
     </Container>
   );
 };

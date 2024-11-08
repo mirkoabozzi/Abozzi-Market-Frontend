@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import ChangePassword from "./ChangePassword";
 
 const UpdateProfile = () => {
@@ -88,7 +87,6 @@ const UpdateProfile = () => {
           </div>
         </Form>
       </Col>
-      <ToastContainer />
       <ChangePassword show={show} handleClose={handleClose} />
     </Row>
   );

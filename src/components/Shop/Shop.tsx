@@ -3,7 +3,6 @@ import { Alert, Badge, Col, Collapse, Container, Row, Spinner } from "react-boot
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByCategory, getProductByDiscount, getProductByName, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
-import { ToastContainer } from "react-toastify";
 import { ArrowLeftCircle, ArrowRightCircle, ExclamationCircleFill, List, XLg } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation } from "react-router-dom";
@@ -133,7 +132,6 @@ const Shop = () => {
           </Col>
         </Row>
       ) : null}
-      <ToastContainer />
     </Container>
   );
 };

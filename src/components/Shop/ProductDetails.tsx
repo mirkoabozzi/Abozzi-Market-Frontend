@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import { deleteReview, getReviews } from "../../redux/actions/reviews";
 import AddReview from "./AddReview";
-import { ToastContainer } from "react-toastify";
 import { Heart, HeartFill, Pencil, StarFill } from "react-bootstrap-icons";
 import { addToWishlist, getMyWishlists, removeFromWishlist } from "../../redux/actions/wishlists";
 import ProductUpdate from "./ProductUpdate";
@@ -237,7 +236,6 @@ const ProductDetails = () => {
       {product && <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />}
       {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} handleShowModalAlert={handleShowModalAlert} />}
       {review && <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteReview} />}
-      <ToastContainer />
     </Container>
   );
 };

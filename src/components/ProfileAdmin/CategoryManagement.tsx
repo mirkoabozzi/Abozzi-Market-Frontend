@@ -2,7 +2,6 @@ import { Button, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useState } from "react";
 import { addCategory, addImageCategory, deleteCategory, updateCategory } from "../../redux/actions/categories";
-import { ToastContainer } from "react-toastify";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const CategoryManagement = () => {
@@ -143,7 +142,6 @@ const CategoryManagement = () => {
 
       {/* modal */}
       <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteCategory} />
-      <ToastContainer />
     </div>
   );
 };

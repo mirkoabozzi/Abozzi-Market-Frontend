@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { deleteUser, findUserByName, getAllUser, updateUserRole } from "../../redux/actions/user";
 import { Alert, Badge, Button, Col, Dropdown, Form, Image, Row, Table } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { dateConverter } from "../../redux/actions/products";
 import { ArrowLeftCircle, ArrowRightCircle, CheckAll, ExclamationCircleFill, Search, Trash } from "react-bootstrap-icons";
 import ModalAlert from "../ModalAlert/ModalAlert";
@@ -157,7 +156,6 @@ const Users = () => {
           handleClose();
         }}
       />
-      <ToastContainer />
     </div>
   );
 };
