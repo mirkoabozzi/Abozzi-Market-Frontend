@@ -1,14 +1,14 @@
 import { Alert, Button, Col, Container, Dropdown, DropdownItem, DropdownMenu, Form, Image, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { ActionType } from "../../redux/enums/ActionType";
-import { pay } from "../../redux/actions/cart";
+import { payPalPay, stripePay } from "../../redux/actions/cart";
 import { errorToast, warnToast } from "../../redux/actions/toaster";
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../redux/actions/addressees";
 import { setAddressChoice } from "../../redux/slice/addressesSlice";
 import { handleDiscountPrice } from "../../redux/actions/products";
 import { useNavigate } from "react-router-dom";
-import { DashCircle, ExclamationCircleFill, PlusCircle } from "react-bootstrap-icons";
+import { DashCircle, ExclamationCircleFill, PlusCircle, Stripe } from "react-bootstrap-icons";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import payPal from "../../assets/img/paypal.svg";
 import AddAddress from "../Profile/AddAddress";
@@ -32,14 +32,18 @@ const Cart = () => {
     setAddress(selectedAddress);
   };
 
-  const handleCartAndPayment = () => {
+  const handleCartAndPayment = (paymentMethod: string) => {
     if (isLogged) {
       if (pickUp || address) {
         if (address) {
           dispatch(setAddressChoice(address));
         }
         dispatch(setPaymentLoading(true));
-        dispatch(pay(Number(total.toFixed(2))));
+        if (paymentMethod === "PayPal") {
+          dispatch(payPalPay(Number(total.toFixed(2))));
+        } else if (paymentMethod === "Stripe") {
+          dispatch(stripePay(Number(total.toFixed(2))));
+        }
       } else {
         warnToast("Scegli tra spedizione o ritiro in negozio per procedere al pagamento.");
       }
@@ -154,9 +158,12 @@ const Cart = () => {
       ) : null}
       {cart.length > 0 ? (
         <>
-          <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-            <Button className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={handleCartAndPayment}>
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-center gap-3">
+            <Button className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={() => handleCartAndPayment("PayPal")}>
               <Image width={70} src={payPal} alt="paypal button" />
+            </Button>
+            <Button className="px-5 py-2 border rounded-pill mouseHover" onClick={() => handleCartAndPayment("Stripe")}>
+              <Stripe className="mx-4" size={30} />
             </Button>
           </div>
           <div className="d-flex justify-content-center mt-3">{paymentLoading && <Spinner />}</div>

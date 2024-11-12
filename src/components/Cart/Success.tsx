@@ -1,6 +1,6 @@
 import { Button, Container, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { execute } from "../../redux/actions/cart";
+import { executePayPal, stripeVerify } from "../../redux/actions/cart";
 import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
@@ -11,6 +11,7 @@ const Success = () => {
   const navigate = useNavigate();
   const [paymentId, setPaymentId] = useState("");
   const [payerId, setPayerId] = useState("");
+  const [sessionId, setSessionId] = useState("");
   const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const cart: IItem[] = useAppSelector((state) => state.cartReducer.content);
@@ -27,21 +28,31 @@ const Success = () => {
 
     const newOrder: IOrderAdd = {
       user: user.id,
-      payment: paymentId,
+      payment: paymentId || sessionId,
       shipment: address ? address.id : null,
       orderDetails: orderDetails,
     };
-    await dispatch(execute(paymentId, payerId, navigate));
-    await dispatch(addOrder(newOrder, navigate));
+
+    if (payerId && paymentId) {
+      await dispatch(executePayPal(paymentId, payerId, navigate));
+      await dispatch(addOrder(newOrder, navigate));
+    } else if (sessionId) {
+      await dispatch(stripeVerify(sessionId, navigate));
+      await dispatch(addOrder(newOrder, navigate));
+    }
   };
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const paymentId = searchParams.get("paymentId");
     const payerId = searchParams.get("PayerID");
+    const sessionId = searchParams.get("session_id");
     if (paymentId && payerId) {
       setPaymentId(paymentId);
       setPayerId(payerId);
+    }
+    if (sessionId) {
+      setSessionId(sessionId);
     }
   }, []);
 
