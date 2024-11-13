@@ -5,13 +5,14 @@ import visa from "../../assets/img/visa.svg";
 import mastercard from "../../assets/img/mastercard.svg";
 import paypal from "../../assets/img/paypal.svg";
 import { useNavigate } from "react-router-dom";
+import { Apple, Stripe } from "react-bootstrap-icons";
 
 const Footer = () => {
   const navigate = useNavigate();
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col sm="9">
+        <Col sm="10">
           <Container className="footerContainer my-5">
             <Row>
               <Col className="d-flex px-0">
@@ -49,9 +50,13 @@ const Footer = () => {
               </Container>
               <Container>
                 <p>Metodi di Pagamento</p>
-                <Image src={visa} alt="visa logo" className="mx-1" />
-                <Image src={mastercard} alt="mastercard logo" className="mx-1" />
-                <Image src={paypal} alt="paypal logo" className="mx-1" />
+                <div className="d-flex align-items-center gap-1 flex-wrap">
+                  <Image src={visa} alt="visa logo" className="mx-1" />
+                  <Image src={mastercard} alt="mastercard logo" className="mx-1" />
+                  <Image src={paypal} alt="paypal logo" className="mx-1" />
+                  <Apple width={20} height={20} className="mx-1" style={{ color: "#000000" }} />
+                  <Stripe width={20} height={20} style={{ color: "#6772e5" }} className="mx-1" />
+                </div>
               </Container>
             </Row>
             <div className="mt-3">
