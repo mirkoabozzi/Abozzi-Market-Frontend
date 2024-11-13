@@ -27,9 +27,12 @@ interface Payment {
   description: string;
   total: number;
   paymentDate: string;
-  payerId: string;
-  paymentId: string;
+  payerId?: string;
+  paymentId?: string;
   status: string;
+  sessionId?: string;
+  paymentIntentId?: string;
+  currency?: string;
 }
 interface Shipment {
   id: string;

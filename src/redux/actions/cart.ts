@@ -14,7 +14,7 @@ export const payPalPay = (sum: number, setLoadingPayPal: (b: boolean) => void) =
       currency: "EUR",
       method: "paypal",
       intent: "sale",
-      description: "description",
+      description: "PayPal",
       cancelUrl: `${appUrl}/cancel`,
       successUrl: `${appUrl}/success`,
     };

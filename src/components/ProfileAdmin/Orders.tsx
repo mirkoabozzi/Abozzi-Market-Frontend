@@ -60,7 +60,10 @@ const Orders = () => {
                     </strong>
                   </p>
                   <p>
-                    Stato pagamento: <strong>{order?.payment.status === "approved" ? "Approvato" : order?.payment.status}</strong>
+                    Stato pagamento:{" "}
+                    <strong>
+                      {order?.payment.description} - {order?.payment.status === "approved" || order?.payment.status === "COMPLETED" ? "Approvato" : order?.payment.status}
+                    </strong>
                   </p>
                   <p>Data ordine: {dateConverter(order.orderDate)}</p>
                   <p>

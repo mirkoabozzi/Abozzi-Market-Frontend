@@ -72,7 +72,10 @@ const OrderDetails = () => {
         </Col>
         <Col sm={4}>
           <p className="mt-3 mt-sm-0">
-            Pagamento: <strong>{order?.payment.status === "approved" ? "Approvato" : order?.payment.status}</strong>
+            Pagamento:{" "}
+            <strong>
+              {order?.payment.description} - {order?.payment.status === "approved" || order?.payment.status === "COMPLETED" ? "Approvato" : order?.payment.status}
+            </strong>
           </p>
         </Col>
       </Row>
