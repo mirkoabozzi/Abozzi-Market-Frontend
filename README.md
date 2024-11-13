@@ -12,6 +12,7 @@ This is a full-stack e-commerce application that includes an admin dashboard and
 - 🔑 Role-Based Access Control: admin and user roles with restricted access.
 - 🔐 Password encryption
 - 💶 PayPal integration
+- 💳 Stripe integration
 - 🖥️ Full-screen mode
 - 📱 Mobile optimization
 - 🔗 Encrypted Persistance store
@@ -40,9 +41,7 @@ This is a full-stack e-commerce application that includes an admin dashboard and
 
 # Coming soon
 
-- 💳 Stripe integration
 - 🔑 Google Login
-- 📈 Sales report improving
 
 # Technologies Used
 
