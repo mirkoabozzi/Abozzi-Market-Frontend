@@ -47,19 +47,19 @@ const Discount = () => {
     <div className="mainAnimation">
       <h3 className="mb-4">Promozioni</h3>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formDescription">
           <Form.Label>Descrizione</Form.Label>
           <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formPercentage">
           <Form.Label>Percentuale</Form.Label>
           <Form.Control type="number" placeholder="Percentuale" required value={percentage} onChange={(e) => setPercentage(e.target.value)} min={1} max={100} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formStartDate">
           <Form.Label>Inizio</Form.Label>
           <Form.Control type="datetime-local" placeholder="Data inizio" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3" controlId="formEndDate">
           <Form.Label>Fine</Form.Label>
           <Form.Control type="datetime-local" placeholder="Data fine" required value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Form.Group>

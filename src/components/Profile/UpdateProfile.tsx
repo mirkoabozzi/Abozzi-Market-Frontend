@@ -3,6 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 import ChangePassword from "./ChangePassword";
+import { errorToast } from "../../redux/actions/toaster";
 
 const UpdateProfile = () => {
   const dispatch = useAppDispatch();
@@ -26,8 +27,13 @@ const UpdateProfile = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userData: IUserUpdate = { name, surname, email, phoneNumber };
+    const onlyPhoneNumbers = /^\+?\d+$/;
 
-    await dispatch(updateUser(userData));
+    if (phoneNumber.match(onlyPhoneNumbers)) {
+      await dispatch(updateUser(userData));
+    } else {
+      errorToast("Inserisci un numero valido");
+    }
 
     if (avatar) {
       await dispatch(updateUserAvatar(avatar));
@@ -52,27 +58,22 @@ const UpdateProfile = () => {
           <div className="d-flex justify-content-around">
             {user?.avatar && <img src={user?.avatar} alt="avatar" className="rounded-circle" style={{ width: "100px", height: "100px", objectFit: "cover" }} />}
           </div>
-
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>
             <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formSurname">
             <Form.Label>Cognome</Form.Label>
             <Form.Control type="text" value={surname} onChange={(e) => setSurname(e.target.value)} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formNumero">
             <Form.Label>Numero</Form.Label>
             <Form.Control type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formAvatar">
             <Form.Label>Avatar</Form.Label>
             <Form.Control type="file" onChange={handleFileChange} />

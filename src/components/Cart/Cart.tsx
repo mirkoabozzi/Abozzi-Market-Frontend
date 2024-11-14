@@ -135,25 +135,23 @@ const Cart = () => {
               <Form.Check className="fs-3" type="switch" id="custom-switch" />
             </div>
           </Form>
-          {!pickUp && (
-            <Dropdown drop={"down-centered"} className="mt-4 d-flex flex-column flex-sm-row">
-              <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button">
-                {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
-              </Dropdown.Toggle>
-              <DropdownMenu>
-                <DropdownItem className="custom-dropdown-item" onClick={handleShowModalAddAddress}>
-                  Aggiungi indirizzo
-                </DropdownItem>
-                {addresses?.map((address: IAddress) => {
-                  return (
-                    <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
-                      {address.address} {address.number}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownMenu>
-            </Dropdown>
-          )}
+          <Dropdown drop={"down-centered"} className="mt-4 d-flex flex-column flex-sm-row">
+            <Dropdown.Toggle className="mb-3 rounded-pill" id="dropdown-button" disabled={pickUp}>
+              {address ? address.address + " " + address.number : "Seleziona un indirizzo"}
+            </Dropdown.Toggle>
+            <DropdownMenu>
+              <DropdownItem className="custom-dropdown-item" onClick={handleShowModalAddAddress}>
+                Aggiungi indirizzo
+              </DropdownItem>
+              {addresses?.map((address: IAddress) => {
+                return (
+                  <Dropdown.Item className="custom-dropdown-item" onClick={() => handleAddress(address)} key={address.id}>
+                    {address.address} {address.number}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
         </>
       ) : null}
       {cart.length > 0 ? (
