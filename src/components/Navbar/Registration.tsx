@@ -49,7 +49,13 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register();
+    const onlyPhoneNumbers = /^\+?\d+$/;
+
+    if (userData.phoneNumber.match(onlyPhoneNumbers)) {
+      register();
+    } else {
+      errorToast("Inserisci un numero valido");
+    }
   };
 
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
