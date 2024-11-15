@@ -36,18 +36,21 @@ body {
 }
 
 .mainAnimation {
-  animation: fadeIn 800ms;
+  /* animation: fadeIn 800ms backwards ease-in-out; */
+  animation: fadeIn 300ms backwards ease-in-out;
 }
 
 @keyframes fadeIn {
   0% {
-    scale: 0;
+    /* scale: 0; */
+    opacity: 0;
   }
-  50% {
+  /* 50% {
     scale: 1.01;
-  }
+  } */
   100% {
-    scale: 1;
+    /* scale: 1; */
+    opacity: 1;
   }
 }
 

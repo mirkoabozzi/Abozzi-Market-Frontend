@@ -183,7 +183,7 @@ const ProductDetails = () => {
         )
       ) : (
         <div className="d-flex justify-content-center">
-          <Spinner animation="grow" />
+          <Spinner />
         </div>
       )}
       <Row>

@@ -6,9 +6,10 @@ import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
 
-export const getMyOrders = (page: number, navigate: NavigateFunction) => {
+export const getMyOrders = (page: number, navigate: NavigateFunction, setIsLoading: (b: boolean) => void) => {
   return async (dispatch: AppDispatch) => {
     try {
+      setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/me?page=${page}`, {
         headers: {
@@ -18,6 +19,7 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ORDERS, payload: orders });
+        setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
@@ -34,9 +36,10 @@ export const getMyOrders = (page: number, navigate: NavigateFunction) => {
   };
 };
 
-export const getOrder = (id: string, navigate?: NavigateFunction) => {
+export const getOrder = (id: string, navigate?: NavigateFunction, setIsLoading?: (b: boolean) => void) => {
   return async (dispatch: AppDispatch) => {
     try {
+      if (setIsLoading) setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/${id}`, {
         headers: {
@@ -46,6 +49,7 @@ export const getOrder = (id: string, navigate?: NavigateFunction) => {
       if (resp.ok) {
         const order = await resp.json();
         dispatch({ type: ActionType.SET_ORDER, payload: order });
+        if (setIsLoading) setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
@@ -87,9 +91,10 @@ export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
   };
 };
 
-export const getAllClientsOrders = (page: number, navigate: NavigateFunction) => {
+export const getAllClientsOrders = (page: number, navigate: NavigateFunction, setIsLoading: (b: boolean) => void) => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
+      setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders?page=${page}`, {
         headers: {
@@ -99,6 +104,7 @@ export const getAllClientsOrders = (page: number, navigate: NavigateFunction) =>
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
+        setIsLoading(false);
       } else {
         if (resp.status === 401 || resp.status === 403) {
           navigate("/");
@@ -132,9 +138,10 @@ export const updateOrderState = (order: IOrderUpdateStatus) => {
   };
 };
 
-export const getOrdersByUserEmail = (page: number, email: string) => {
+export const getOrdersByUserEmail = (page: number, email: string, setIsLoading: (b: boolean) => void) => {
   return async (dispatch: Dispatch<OrderAction>) => {
     try {
+      setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/user?page=${page}&email=${email}`, {
         headers: {
@@ -144,6 +151,7 @@ export const getOrdersByUserEmail = (page: number, email: string) => {
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
+        setIsLoading(false);
       } else {
         throw new Error("Get orders error");
       }
@@ -153,9 +161,10 @@ export const getOrdersByUserEmail = (page: number, email: string) => {
   };
 };
 
-export const getMyOrder = (id: string, navigate: NavigateFunction) => {
+export const getMyOrder = (id: string, navigate: NavigateFunction, setIsLoading: (b: boolean) => void) => {
   return async (dispatch: AppDispatch) => {
     try {
+      setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders/me/${id}`, {
         headers: {
@@ -165,6 +174,7 @@ export const getMyOrder = (id: string, navigate: NavigateFunction) => {
       if (resp.ok) {
         const order = await resp.json();
         dispatch({ type: ActionType.SET_ORDER, payload: order });
+        setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");

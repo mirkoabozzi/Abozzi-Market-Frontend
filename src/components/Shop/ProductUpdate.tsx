@@ -104,7 +104,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPrice">
               <Form.Label>Prezzo</Form.Label>
-              <Form.Control type="number" placeholder="Prezzo" min={0.1} required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+              <Form.Control type="number" placeholder="Prezzo" min={0} step={"0.01"} required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formQuantity">
               <Form.Label>Quantità</Form.Label>
