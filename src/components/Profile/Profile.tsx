@@ -60,7 +60,7 @@ const Profile = () => {
             ) : null}
           </div>
         </Col>
-        <Col xs={10}>
+        <Col xs={10} className="ps-0 p-md-2">
           <Outlet />
         </Col>
       </Row>

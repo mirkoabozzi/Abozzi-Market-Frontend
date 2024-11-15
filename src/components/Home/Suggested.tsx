@@ -15,7 +15,7 @@ const Suggested = ({ category }: SuggestedProps) => {
   const [randomProducts, setRandomProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    if (Array.isArray(products?.content) && products?.content.length > 0) {
+    if (products?.content.length > 0) {
       const shuffledProducts = [...products.content].sort(() => 0.5 - Math.random());
       const selectedProducts = shuffledProducts.slice(0, 4);
       setRandomProducts(selectedProducts);

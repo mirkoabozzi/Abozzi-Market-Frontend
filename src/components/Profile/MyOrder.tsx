@@ -40,8 +40,8 @@ const MyOrder = () => {
               return (
                 <div key={order.id}>
                   <Row data-aos="fade-zoom-in">
-                    <Col>
-                      <p>Order: {order.id}</p>
+                    <Col xs={7}>
+                      <p className="text-truncate">Order: {order.id}</p>
                       <p>Data: {dateConverter(order.orderDate)}</p>
                       <p>
                         Stato: <strong>{orderStatusConverter(order.ordersState)}</strong>
