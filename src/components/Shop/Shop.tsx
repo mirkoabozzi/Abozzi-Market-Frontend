@@ -71,7 +71,7 @@ const Shop = () => {
           <Row>
             {isLoading ? (
               <div className="d-flex justify-content-center">
-                <Spinner animation="grow" />
+                <Spinner />
               </div>
             ) : products?.content?.length > 0 ? (
               products?.content?.map((product: IProduct) => {

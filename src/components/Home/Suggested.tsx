@@ -37,7 +37,7 @@ const Suggested = ({ category }: SuggestedProps) => {
       <Row>
         {isLoading ? (
           <div className="d-flex justify-content-center">
-            <Spinner animation="grow" />
+            <Spinner />
           </div>
         ) : (
           randomProducts?.map((product: IProduct) => (
