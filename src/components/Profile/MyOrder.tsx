@@ -66,7 +66,7 @@ const MyOrder = () => {
                 Hey, non hai abbastanza ordini, corri allo shop e inizia a fare acquisti!
               </Alert>
               <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-                <Button className="rounded-pill" onClick={() => navigate("/shop")}>
+                <Button type="button" className="rounded-pill" onClick={() => navigate("/shop")}>
                   Shop
                 </Button>
               </div>

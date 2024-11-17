@@ -25,7 +25,7 @@ const MySlick = () => {
           duplicatedArray.map((img, i) => {
             return (
               <div key={i} className="rounded-4 mx-2">
-                <Image src={img} className="img-fluid border rounded-4 cardHover w-100 h-100" />
+                <Image src={img} alt="Products image" className="img-fluid border rounded-4 cardHover w-100 h-100" />
               </div>
             );
           })}

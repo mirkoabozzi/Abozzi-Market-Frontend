@@ -148,7 +148,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
             />
           </Form.Group>
           <div className="d-flex flex-column gap-3 flex-sm-row justify-content-sm-center">
-            <Button className="rounded-pill" variant="secondary" onClick={handleClose}>
+            <Button type="button" className="rounded-pill" variant="secondary" onClick={handleClose}>
               Chiudi
             </Button>
             <Button type="submit" variant="primary" className="rounded-pill" disabled={!isPasswordValid}>

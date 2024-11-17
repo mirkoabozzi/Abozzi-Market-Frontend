@@ -39,7 +39,7 @@ const ReviewUpdate = ({ show, handleClose, review, handleShowModalAlert }: Updat
             <Form.Control as={"textarea"} rows={3} placeholder="Ottimo!" required value={comment} onChange={(e) => setComment(e.target.value)} />
           </Form.Group>
           <div className="mt-4 d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+            <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
             <Button type="button" variant="danger" className="rounded-pill" onClick={handleShowModalAlert}>

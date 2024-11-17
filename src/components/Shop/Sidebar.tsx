@@ -54,7 +54,7 @@ const Sidebar = ({ setPage, setMinRange, setMaxRange, handleClose }: SidebarProp
         </Button>
       </Form>
       <hr />
-      <Button className="rounded-pill w-100" onClick={handlePromo}>
+      <Button type="button" className="rounded-pill w-100" onClick={handlePromo}>
         Offerte
       </Button>
     </Container>

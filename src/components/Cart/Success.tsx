@@ -63,7 +63,7 @@ const Success = () => {
         <Spinner />
       ) : (
         <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-          <Button className="rounded-pill" onClick={handleCreateOrder}>
+          <Button type="button" className="rounded-pill" onClick={handleCreateOrder}>
             Paga
           </Button>
         </div>

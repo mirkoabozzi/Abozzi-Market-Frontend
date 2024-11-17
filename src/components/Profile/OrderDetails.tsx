@@ -105,7 +105,7 @@ const OrderDetails = () => {
                 <Row>
                   <Col xs={3}>
                     <p className="fs-4 text-truncate">{item.product.name}</p>
-                    <Image src={item.product.imgUrl} alt="product image" className="mouseHover w-100 rounded-3" onClick={() => navigate(`/product/details/${item.product.id}`)} />
+                    <Image src={item.product.imgUrl} alt={item.product.name} className="mouseHover w-100 rounded-3" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                   </Col>
                   <Col xs={3}>
                     <p>{item.quantity}</p>

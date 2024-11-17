@@ -6,7 +6,7 @@ function NotFound() {
   return (
     <Container className="mainAnimation mt-5 rounded-4 text-center">
       <h1>404 Pagina non trovata!</h1>
-      <Button className="rounded-pill" onClick={() => navigate("/")}>
+      <Button type="button" className="rounded-pill" onClick={() => navigate("/")}>
         Torna alla Home
       </Button>
     </Container>

@@ -42,7 +42,7 @@ const Verify = () => {
   return (
     <Container className="mainAnimation mt-5 rounded-4 text-center">
       {/* <h1 className="mb-5">Conferma!</h1> */}
-      <Button className="rounded-pill" onClick={() => navigate("/")}>
+      <Button type="button" className="rounded-pill" onClick={() => navigate("/")}>
         Torna alla Home
       </Button>
     </Container>

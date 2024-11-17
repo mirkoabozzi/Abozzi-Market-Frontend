@@ -54,7 +54,7 @@ const AddAddress = ({ show, handleClose }: AddAddressProps) => {
             <Form.Control type="text" placeholder="Città" value={city} onChange={(e) => setCity(e.target.value)} />
           </Form.Group>
           <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+            <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
             <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>

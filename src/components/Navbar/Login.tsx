@@ -87,7 +87,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
               </div>
             </Form.Group>
             <div className="d-flex flex-column gap-3 flex-sm-row justify-content-sm-center">
-              <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+              <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
               <Button type="submit" variant="primary" className="rounded-pill">

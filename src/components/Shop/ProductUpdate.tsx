@@ -176,7 +176,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-              <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+              <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>
               <Button

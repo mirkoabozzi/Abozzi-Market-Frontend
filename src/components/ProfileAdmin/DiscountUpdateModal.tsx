@@ -60,7 +60,7 @@ const DiscountUpdateModal = ({ show, handleClose, discount }: DiscountUpdateModa
             <Button type="submit" variant="primary" className="m-2 rounded-pill">
               Aggiorna
             </Button>
-            <Button variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
+            <Button type="button" variant="secondary" className="m-2 rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
           </div>

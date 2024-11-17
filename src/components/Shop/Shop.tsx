@@ -60,10 +60,10 @@ const Shop = () => {
             {open ? (
               <XLg className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} />
             ) : (
-              <List className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
+              <List className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} aria-controls="collapse" aria-expanded={open} />
             )}
             <Collapse in={open} className="mb-3">
-              <div id="example-collapse-text">
+              <div id="collapse">
                 <Sidebar setPage={setPage} setMinRange={setMin} setMaxRange={setMax} handleClose={handleClose} />
               </div>
             </Collapse>

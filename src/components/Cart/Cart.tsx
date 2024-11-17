@@ -91,7 +91,7 @@ const Cart = () => {
             <div key={i}>
               <Row>
                 <Col xs={4} lg={2}>
-                  <Image src={item.product.imgUrl} className="w-100 mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
+                  <Image src={item.product.imgUrl} alt={item.product.name} className="w-100 mouseHover" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                 </Col>
                 <Col>
                   <h3>{item.product.name}</h3>
@@ -102,7 +102,7 @@ const Cart = () => {
                     <PlusCircle className="fs-4 mouseHover scale" onClick={() => handleIncreaseQuantity(item)} />
                   </div>
                   <div className="mt-2">
-                    <Button className="rounded-pill" onClick={() => handelRemoveFromCart(item)}>
+                    <Button type="button" className="rounded-pill" onClick={() => handelRemoveFromCart(item)}>
                       Rimuovi articolo
                     </Button>
                   </div>
@@ -157,13 +157,13 @@ const Cart = () => {
       {cart.length > 0 ? (
         <>
           <div className="d-flex flex-column flex-sm-row justify-content-sm-center gap-3">
-            <Button className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={() => handleCartAndPayment("PayPal")}>
+            <Button type="button" className="px-5 border rounded-pill mouseHover" style={{ background: "#FFD243" }} onClick={() => handleCartAndPayment("PayPal")}>
               <Image width={70} src={payPal} alt="paypal button" />
               {loadingPayPal && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="ms-2" />}
             </Button>
-            <Button className="px-5 py-2 border rounded-pill mouseHover" style={{ backgroundColor: "#6772e5" }} onClick={() => handleCartAndPayment("Stripe")}>
+            <Button type="button" className="px-5 py-2 border rounded-pill mouseHover" style={{ backgroundColor: "#6772e5" }} onClick={() => handleCartAndPayment("Stripe")}>
               <Stripe size={30} />
-              <Image src={stripe} width={70} />
+              <Image src={stripe} alt="Stripe button" width={70} />
               {loadingStripe && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="ms-1" />}
             </Button>
           </div>

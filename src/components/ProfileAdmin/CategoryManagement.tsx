@@ -60,7 +60,7 @@ const CategoryManagement = () => {
       <h3 className="mb-4">Categorie</h3>
       <div className="text-center">
         <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-          <Button className="rounded-pill" onClick={handleShow}>
+          <Button type="button" className="rounded-pill" onClick={handleShow}>
             Aggiungi categoria
           </Button>
         </div>
@@ -79,7 +79,7 @@ const CategoryManagement = () => {
                   setName(category.name);
                 }}
               >
-                <Image height={100} width={100} src={category.image} alt="category image" className="border rounded-circle object-fit-cover shadow" />
+                <Image height={100} width={100} src={category.image} alt={category.name} className="border rounded-circle object-fit-cover shadow" />
                 <p>{category.name}</p>
               </Col>
             );
@@ -98,7 +98,7 @@ const CategoryManagement = () => {
                 <Form.Control type="text" placeholder="Frutta" value={name} onChange={(e) => setName(e.target.value)} />
               </Form.Group>
               <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-                <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+                <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
                   Chiudi
                 </Button>
                 <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>
@@ -125,10 +125,10 @@ const CategoryManagement = () => {
                 <Form.Control type="file" onChange={handleFileChange} />
               </Form.Group>
               <div className="d-flex justify-content-end gap-2">
-                <Button variant="secondary" className="rounded-pill" onClick={handleCloseModalUpdate}>
+                <Button type="button" variant="secondary" className="rounded-pill" onClick={handleCloseModalUpdate}>
                   Chiudi
                 </Button>
-                <Button variant="danger" className="rounded-pill" onClick={handleShowModalAlert}>
+                <Button type="button" variant="danger" className="rounded-pill" onClick={handleShowModalAlert}>
                   Elimina
                 </Button>
                 <Button type="submit" variant="primary" className="rounded-pill" onClick={handleClose}>

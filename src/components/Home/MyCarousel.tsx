@@ -9,13 +9,13 @@ const MyCarousel = () => {
       <Col xs="12" md="8">
         <Carousel data-bs-theme="dark" className="shadow-lg rounded-4">
           <Carousel.Item>
-            <Image src={spesa} className="img-fluid border rounded-4" />
+            <Image src={spesa} alt="Cart" className="img-fluid border rounded-4" />
           </Carousel.Item>
           <Carousel.Item>
-            <Image src={consegna} className="img-fluid border rounded-4" />
+            <Image src={consegna} alt="Motorcycle" className="img-fluid border rounded-4" />
           </Carousel.Item>
           <Carousel.Item>
-            <Image src={bag} className="img-fluid border rounded-4" />
+            <Image src={bag} alt="Bag" className="img-fluid border rounded-4" />
           </Carousel.Item>
         </Carousel>
       </Col>

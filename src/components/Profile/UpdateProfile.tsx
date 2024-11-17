@@ -79,7 +79,7 @@ const UpdateProfile = () => {
             <Form.Control type="file" onChange={handleFileChange} />
           </Form.Group>
           <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-3">
-            <Button variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
+            <Button type="button" variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
               Cambia password
             </Button>
             <Button variant="primary" type="submit" className="rounded-pill">

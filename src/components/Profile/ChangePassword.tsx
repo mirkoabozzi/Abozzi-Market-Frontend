@@ -70,7 +70,7 @@ const ChangePassword = ({ show, handleClose }: ChangePasswordProps) => {
             </div>
           </Form.Group>
           <div className="d-flex gap-1 justify-content-center">
-            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+            <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
             <Button type="submit" variant="primary" className="rounded-pill">

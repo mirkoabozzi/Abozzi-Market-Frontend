@@ -17,10 +17,10 @@ const ModalAlert = ({ show, handleClose, handleEvent }: ModalAlertProps) => {
           Vuoi eliminare il record?
           <hr />
           <div className="mt-4 d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <Button variant="secondary" className="rounded-pill" onClick={handleClose}>
+            <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button variant="danger" className="rounded-pill" onClick={handleEvent}>
+            <Button type="button" variant="danger" className="rounded-pill" onClick={handleEvent}>
               Conferma
             </Button>
           </div>

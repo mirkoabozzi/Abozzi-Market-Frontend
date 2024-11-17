@@ -9,7 +9,7 @@ const Failed = () => {
       <h1>Qualcosa è andato storto, ci dispiace.</h1>
       <h3 className="mb-5">Contattaci per avere supporto.</h3>
       <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
-        <Button className="rounded-pill" onClick={() => navigate("/")}>
+        <Button type="button" className="rounded-pill" onClick={() => navigate("/")}>
           Torna alla Home
         </Button>
       </div>

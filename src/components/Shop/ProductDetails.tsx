@@ -127,7 +127,7 @@ const ProductDetails = () => {
           <Row>
             <Col sm={4} className="mb-3">
               <div>
-                <Image src={product?.imgUrl} className="w-100 object-fit-contain rounded-3" style={{ maxHeight: "400px" }} />
+                <Image src={product?.imgUrl} alt={product?.name} className="w-100 object-fit-contain rounded-3" style={{ maxHeight: "400px" }} />
               </div>
               <div className="d-flex justify-content-end mt-3 me-3">
                 {wishlist && wishlist.some((item: IWishlist) => item.product.id === product?.id) ? (
@@ -159,19 +159,19 @@ const ProductDetails = () => {
               </Form.Group>
               <div className="d-flex justify-content-center flex-column flex-md-row gap-2 my-3">
                 {product?.quantityAvailable === 0 ? (
-                  <Button className="rounded-pill" style={{ opacity: 0.5 }}>
+                  <Button type="button" className="rounded-pill" style={{ opacity: 0.5 }}>
                     Esaurito
                   </Button>
                 ) : (
-                  <Button className="rounded-pill" onClick={handleAddToCart}>
+                  <Button type="button" className="rounded-pill" onClick={handleAddToCart}>
                     Aggiungi al carrello
                   </Button>
                 )}
-                <Button className="rounded-pill" onClick={handleShowAddReview}>
+                <Button type="button" className="rounded-pill" onClick={handleShowAddReview}>
                   Recensisci prodotto
                 </Button>
                 {user?.role === "ADMIN" ? (
-                  <Button className="rounded-pill" onClick={handleShowProductUpdate}>
+                  <Button type="button" className="rounded-pill" onClick={handleShowProductUpdate}>
                     Modifica Prodotto
                   </Button>
                 ) : null}
