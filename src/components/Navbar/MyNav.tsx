@@ -4,7 +4,7 @@ import logo from "/src/assets/img/logo6.svg";
 import logoRounded from "/src/assets/img/logo-rounded3.svg";
 import { Cart4, Search } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./Login";
 import Registration from "./Registration";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
@@ -47,8 +47,28 @@ const MyNav = () => {
     setMainSearch("");
   };
 
+  const [hide, setHide] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const navControl = () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      setHide(true);
+    } else {
+      setHide(false);
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", navControl);
+    return () => {
+      window.removeEventListener("scroll", navControl);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastScrollY]);
+
   return (
-    <div className="sticky-top z-3 myNav">
+    <div className={`sticky-top z-3 myNav ${hide ? "hide" : "show"}`}>
       <Navbar expand="sm" className="pb-0">
         <Container fluid className="justify-content-lg-between">
           <div className="me-2 mb-2 mouseHover" title="Home" onClick={() => navigate("/")}>

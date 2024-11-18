@@ -1,6 +1,12 @@
 .sidebarPosition {
   overflow-y: auto;
   position: sticky;
-  top: 180px;
+  top: 25px;
   background-color: #eef5fb;
+}
+
+@media (min-width: 768px) {
+  .sidebarPosition {
+    top: 180px;
+  }
 }

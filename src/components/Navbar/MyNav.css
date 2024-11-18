@@ -11,3 +11,15 @@
   background-color: #eef5fb;
   color: #1a51bf;
 }
+
+@media (max-width: 768px) {
+  .hide {
+    transform: translateY(-100%);
+    transition: transform 500ms ease-in-out;
+  }
+
+  .show {
+    transform: translateY(0);
+    transition: transform 500ms ease-in-out;
+  }
+}
