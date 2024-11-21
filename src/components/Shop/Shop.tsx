@@ -79,7 +79,7 @@ const Shop = () => {
               </div>
             </Collapse>
           </div>
-          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row justify-content-end">
+          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row justify-content-end mb-3">
             <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
               {size === 0 ? "Articoli per pagina" : size}
             </Dropdown.Toggle>
@@ -106,7 +106,7 @@ const Shop = () => {
           </Dropdown>
           <Row>
             {isLoading ? (
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center mt-4">
                 <Spinner />
               </div>
             ) : products?.content?.length > 0 ? (
@@ -126,48 +126,48 @@ const Shop = () => {
               </div>
             )}
           </Row>
+          {products?.content?.length > 0 ? (
+            <Row className="text-center mt-5">
+              <Col>
+                {page > 0 ? (
+                  <ArrowLeftCircle
+                    className="mouseHover scale"
+                    width={30}
+                    height={30}
+                    onClick={() => {
+                      setPage(page - 1);
+                      pageHandler(page - 1);
+                    }}
+                  />
+                ) : (
+                  <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
+                )}
+              </Col>
+              <Col>
+                <Badge className="fs-6 rounded-pill">
+                  {page + 1}
+                  {" / "} {products?.totalPages}
+                </Badge>
+              </Col>
+              <Col>
+                {products?.totalPages !== page + 1 ? (
+                  <ArrowRightCircle
+                    className="mouseHover scale"
+                    width={30}
+                    height={30}
+                    onClick={() => {
+                      setPage(page + 1);
+                      pageHandler(page + 1);
+                    }}
+                  />
+                ) : (
+                  <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
+                )}
+              </Col>
+            </Row>
+          ) : null}
         </Col>
       </Row>
-      {products?.content?.length > 0 ? (
-        <Row className="text-center mt-5">
-          <Col>
-            {page > 0 ? (
-              <ArrowLeftCircle
-                className="mouseHover scale"
-                width={30}
-                height={30}
-                onClick={() => {
-                  setPage(page - 1);
-                  pageHandler(page - 1);
-                }}
-              />
-            ) : (
-              <ArrowLeftCircle width={30} height={30} style={{ opacity: 0.5 }} />
-            )}
-          </Col>
-          <Col>
-            <Badge className="fs-6 rounded-pill">
-              {page + 1}
-              {" / "} {products?.totalPages}
-            </Badge>
-          </Col>
-          <Col>
-            {products?.totalPages !== page + 1 ? (
-              <ArrowRightCircle
-                className="mouseHover scale"
-                width={30}
-                height={30}
-                onClick={() => {
-                  setPage(page + 1);
-                  pageHandler(page + 1);
-                }}
-              />
-            ) : (
-              <ArrowRightCircle width={30} height={30} style={{ opacity: 0.5 }} />
-            )}
-          </Col>
-        </Row>
-      ) : null}
     </Container>
   );
 };
