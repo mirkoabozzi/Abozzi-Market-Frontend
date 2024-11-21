@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Badge, Col, Collapse, Container, Row, Spinner } from "react-bootstrap";
+import { Alert, Badge, Col, Collapse, Container, Dropdown, Row, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByCategory, getProductByDiscount, getProductByName, getProductByPriceRange, getProducts } from "../../redux/actions/products";
 import Sidebar from "./Sidebar";
@@ -13,6 +13,7 @@ const Shop = () => {
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
   const currentView: string = useAppSelector((state) => state.view?.selectedView);
   const [page, setPage] = useState(0);
+  const [size, setSize] = useState(0);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
 
@@ -30,20 +31,30 @@ const Shop = () => {
   const pageHandler = (page: number) => {
     switch (currentView) {
       case "category":
-        dispatch(getProductByCategory(category, page));
+        dispatch(getProductByCategory(category, page, size));
         break;
       case "discount":
-        dispatch(getProductByDiscount(page));
+        dispatch(getProductByDiscount(page, size));
         break;
       case "priceRange":
-        dispatch(getProductByPriceRange(min, max, page));
+        dispatch(getProductByPriceRange(min, max, page, size));
         break;
       case "mainSearch":
-        dispatch(getProductByName(mainSearch, page));
+        dispatch(getProductByName(mainSearch, page, size));
         break;
       default:
-        dispatch(getProducts(page));
+        dispatch(getProducts(page, size));
     }
+  };
+
+  useEffect(() => {
+    pageHandler(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [size]);
+
+  const handleSize = (size: number) => {
+    setPage(0);
+    setSize(size);
   };
 
   return (
@@ -68,6 +79,31 @@ const Shop = () => {
               </div>
             </Collapse>
           </div>
+          <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row justify-content-end">
+            <Dropdown.Toggle variant="primary" id="dropdown-basic" className="py-1 rounded-5">
+              {size === 0 ? "Articoli per pagina" : size}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(4)}>
+                4
+              </Dropdown.Item>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(8)}>
+                8
+              </Dropdown.Item>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(12)}>
+                12
+              </Dropdown.Item>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(24)}>
+                24
+              </Dropdown.Item>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(48)}>
+                48
+              </Dropdown.Item>
+              <Dropdown.Item className="custom-dropdown-item" onClick={() => handleSize(96)}>
+                96
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <Row>
             {isLoading ? (
               <div className="d-flex justify-content-center">

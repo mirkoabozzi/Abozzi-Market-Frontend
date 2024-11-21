@@ -5,12 +5,13 @@ import { url } from "./user";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
 
-export const getProducts = (page: number) => {
+export const getProducts = (page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    if (!size) size = 24;
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/all?page=${page}`, {
+      const resp = await fetch(`${url}/products/all?page=${page}&size=${size}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -147,12 +148,13 @@ export const deleteProduct = (productId: string) => {
   };
 };
 
-export const getProductByName = (productName: string, page: number) => {
+export const getProductByName = (productName: string, page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    if (!size) size = 24;
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/name?name=${productName}&page=${page}`, {
+      const resp = await fetch(`${url}/products/name?name=${productName}&page=${page}&size=${size}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -170,12 +172,13 @@ export const getProductByName = (productName: string, page: number) => {
   };
 };
 
-export const getProductByPriceRange = (min: number, max: number, page: number) => {
+export const getProductByPriceRange = (min: number, max: number, page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    if (!size) size = 24;
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/price?min=${min}&max=${max}&page=${page}`, {
+      const resp = await fetch(`${url}/products/price?min=${min}&max=${max}&page=${page}&size=${size}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -193,12 +196,13 @@ export const getProductByPriceRange = (min: number, max: number, page: number) =
   };
 };
 
-export const getProductByCategory = (categoryName: string, page: number) => {
+export const getProductByCategory = (categoryName: string, page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    if (!size) size = 24;
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/category?name=${categoryName}&page=${page}`, {
+      const resp = await fetch(`${url}/products/category?name=${categoryName}&page=${page}&size=${size}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -216,12 +220,13 @@ export const getProductByCategory = (categoryName: string, page: number) => {
   };
 };
 
-export const getProductByDiscount = (page: number) => {
+export const getProductByDiscount = (page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
     dispatch({ type: ActionType.SET_PRODUCTS_LOADING_ON });
+    if (!size) size = 24;
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/discount?page=${page}`, {
+      const resp = await fetch(`${url}/products/discount?page=${page}&size=${size}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

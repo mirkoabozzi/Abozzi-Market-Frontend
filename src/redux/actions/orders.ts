@@ -19,7 +19,6 @@ export const getMyOrders = (page: number, navigate: NavigateFunction, setIsLoadi
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ORDERS, payload: orders });
-        setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
@@ -32,6 +31,8 @@ export const getMyOrders = (page: number, navigate: NavigateFunction, setIsLoadi
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 };
@@ -49,7 +50,6 @@ export const getOrder = (id: string, navigate?: NavigateFunction, setIsLoading?:
       if (resp.ok) {
         const order = await resp.json();
         dispatch({ type: ActionType.SET_ORDER, payload: order });
-        if (setIsLoading) setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
@@ -64,6 +64,8 @@ export const getOrder = (id: string, navigate?: NavigateFunction, setIsLoading?:
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      if (setIsLoading) setIsLoading(false);
     }
   };
 };
@@ -104,7 +106,6 @@ export const getAllClientsOrders = (page: number, navigate: NavigateFunction, se
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
-        setIsLoading(false);
       } else {
         if (resp.status === 401 || resp.status === 403) {
           navigate("/");
@@ -113,6 +114,8 @@ export const getAllClientsOrders = (page: number, navigate: NavigateFunction, se
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 };
@@ -151,12 +154,13 @@ export const getOrdersByUserEmail = (page: number, email: string, setIsLoading: 
       if (resp.ok) {
         const orders = await resp.json();
         dispatch({ type: ActionType.SET_ALL_CLIENTS_ORDERS, payload: orders });
-        setIsLoading(false);
       } else {
         throw new Error("Get orders error");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 };
@@ -174,7 +178,6 @@ export const getMyOrder = (id: string, navigate: NavigateFunction, setIsLoading:
       if (resp.ok) {
         const order = await resp.json();
         dispatch({ type: ActionType.SET_ORDER, payload: order });
-        setIsLoading(false);
       } else {
         if (resp.status === 401) {
           localStorage.removeItem("accessToken");
@@ -187,6 +190,8 @@ export const getMyOrder = (id: string, navigate: NavigateFunction, setIsLoading:
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 };

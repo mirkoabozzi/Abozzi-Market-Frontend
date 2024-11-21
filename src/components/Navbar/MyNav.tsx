@@ -68,7 +68,7 @@ const MyNav = () => {
   }, [lastScrollY]);
 
   return (
-    <div className={`sticky-top z-3 myNav ${hide ? "hide" : "show"}`}>
+    <div className={`sticky-top z-3 myNav ${hide ? "hideNav" : "showNav"}`}>
       <Navbar expand="sm" className="pb-0">
         <Container fluid className="justify-content-lg-between">
           <div className="me-2 mb-2 mouseHover" title="Home" onClick={() => navigate("/")}>

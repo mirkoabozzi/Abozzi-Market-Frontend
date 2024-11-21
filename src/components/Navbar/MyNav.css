@@ -13,12 +13,12 @@
 }
 
 @media (max-width: 768px) {
-  .hide {
+  .hideNav {
     transform: translateY(-100%);
     transition: transform 500ms ease-in-out;
   }
 
-  .show {
+  .showNav {
     transform: translateY(0);
     transition: transform 500ms ease-in-out;
   }
