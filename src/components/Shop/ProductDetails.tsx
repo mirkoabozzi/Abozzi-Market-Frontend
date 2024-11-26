@@ -158,15 +158,9 @@ const ProductDetails = () => {
                 <Form.Control type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} min={1} max={product?.quantityAvailable} />
               </Form.Group>
               <div className="d-flex justify-content-center flex-column flex-md-row gap-2 my-3">
-                {product?.quantityAvailable === 0 ? (
-                  <Button type="button" className="rounded-pill" style={{ opacity: 0.5 }}>
-                    Esaurito
-                  </Button>
-                ) : (
-                  <Button type="button" className="rounded-pill" onClick={handleAddToCart}>
-                    Aggiungi al carrello
-                  </Button>
-                )}
+                <Button type="button" className="rounded-pill" onClick={handleAddToCart} disabled={product?.quantityAvailable === 0}>
+                  {product?.quantityAvailable === 0 ? "Esaurito" : "Aggiungi al carrello"}
+                </Button>
                 <Button type="button" className="rounded-pill" onClick={handleShowAddReview}>
                   Recensisci prodotto
                 </Button>

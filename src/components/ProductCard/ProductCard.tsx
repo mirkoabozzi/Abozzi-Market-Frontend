@@ -30,20 +30,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className=" rounded-3 h-100 cardHover">
+    <Card className="rounded-3 h-100 cardHover">
       <Card.Img variant="top" src={product.imgUrl} alt={product.name} className="rounded-3 mouseHover p-2 object-fit-contain" onClick={() => navigate(`/product/details/${product.id}`)} height={200} />
       <Card.Body className="d-flex flex-column justify-content-end p-2">
-        <Card.Title>{product.name}</Card.Title>
+        <Card.Title className="text-truncate">{product.name}</Card.Title>
         <Card.Text className="line-truncate-2">{product.description}</Card.Text>
-        <strong className={!product?.discountStatus ? "fs-1 mb-0" : "fs-5 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
-        {product?.discountStatus ? (
-          <>
-            <strong className="text-danger fs-3 me-2">-{product?.discountList[0]?.percentage}%</strong>
-            <strong className="fs-1 mb-0">€ {handleDiscountPrice(product).toFixed(2)}</strong>
-          </>
-        ) : null}
-        <div className="d-flex justify-content-end">
-          {product?.quantityAvailable === 0 ? <CartPlus className="fs-2 mouseHover scale" opacity={0.5} /> : <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />}
+        <div className="d-flex align-items-center">
+          <strong className={!product?.discountStatus ? "fs-2 mb-0 flex-grow-1" : "fs-5 text-decoration-line-through mb-0"}>€ {product?.price.toFixed(2)}</strong>
+          {product?.discountStatus && <strong className="text-danger fs-2 ms-3">-{product?.discountList[0]?.percentage}%</strong>}
+          {!product?.discountStatus &&
+            (product?.quantityAvailable === 0 ? <CartPlus className="fs-2" opacity={0.5} /> : <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />)}
+        </div>
+        <div className="d-flex align-items-center">
+          {product?.discountStatus && <strong className="fs-2 mb-0 flex-grow-1">€ {handleDiscountPrice(product).toFixed(2)}</strong>}
+          {product?.discountStatus &&
+            (product?.quantityAvailable === 0 ? <CartPlus className="fs-2" opacity={0.5} /> : <CartPlus className="fs-2 mouseHover scale" onClick={() => handleAddToCart(product)} />)}
         </div>
       </Card.Body>
     </Card>
