@@ -82,14 +82,14 @@ const MyNav = () => {
             </Button>
           </Form>
           {!isLogged ? (
-            <>
+            <div className="d-flex align-items-end">
               <Button type="button" variant="transparent" className="ms-auto ms-sm-2 rounded-pill" onClick={handleShowLogin}>
                 Accedi
               </Button>
-              <Button type="button" variant="transparent" className="ms-sm-2 rounded-pill" onClick={handleShowRegistration}>
+              <Button type="button" variant="transparent" className="rounded-pill ps-2" onClick={handleShowRegistration}>
                 Registrati
               </Button>
-            </>
+            </div>
           ) : (
             <div className="d-flex align-items-end">
               <div title="Account" className="d-flex flex-column align-items-center ms-3 mouseHover scale" onClick={() => navigate("/profile")}>
