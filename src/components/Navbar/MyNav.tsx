@@ -1,8 +1,8 @@
 import "./MyNav.css";
-import { Button, Container, Image, Navbar, Form, Nav, Badge } from "react-bootstrap";
+import { Badge, Button, Container, Form, Image, Nav, Navbar } from "react-bootstrap";
 import logo from "/src/assets/img/logo6.svg";
 import logoRounded from "/src/assets/img/logo-rounded3.svg";
-import { Cart4, Search } from "react-bootstrap-icons";
+import { BoxArrowRight, Cart4, Search } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Login from "./Login";
@@ -91,17 +91,18 @@ const MyNav = () => {
               </Button>
             </>
           ) : (
-            <>
-              <div title="Account" className="d-flex flex-column align-items-center ms-auto ms-sm-3 mouseHover scale" onClick={() => navigate("/profile")}>
+            <div className="d-flex align-items-end">
+              <div title="Account" className="d-flex flex-column align-items-center ms-3 mouseHover scale" onClick={() => navigate("/profile")}>
                 <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
-              <Button type="button" variant="transparent" className="ms-auto ms-sm-2 rounded-pill" onClick={handleLogout}>
-                Logout
-              </Button>
-            </>
+              <div title="Logout" className="mouseHover scale d-flex flex-column align-items-center ms-3" onClick={handleLogout}>
+                <BoxArrowRight size={30} />
+                <p className="mb-0"> Logout </p>
+              </div>
+            </div>
           )}
-          <div className="position-relative ms-auto ms-sm-0 scale">
+          <div className="position-relative ms-sm-0 scale">
             <Cart4 title="Carrello" width={40} height={40} className="m-2 mouseHover" onClick={() => navigate("/cart")} />
             <Badge bg="primary" pill={true} className="position-absolute top-0 end-0">
               {totalQuantity}
