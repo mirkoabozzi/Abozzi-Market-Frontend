@@ -19,7 +19,7 @@ const duplicatedArray = [...slickArray, ...slickArray];
 
 const MySlick = () => {
   return (
-    <Container className="overflow-hidden">
+    <Container className="overflow-hidden gradient-mask">
       <div className="mySlick d-flex p-5 mt-2">
         {duplicatedArray &&
           duplicatedArray.map((img, i) => {

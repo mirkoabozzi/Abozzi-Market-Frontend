@@ -37,8 +37,10 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
         successToast("Registrazione avvenuta con successo, conferma la tua email!");
         setUserData({ name: "", surname: "", phoneNumber: "", email: "", password: "", confirmPassword: "" });
       } else {
-        errorToast("Email già presente.");
-        throw new Error("Registration error");
+        const errorData = await resp.json();
+        if (errorData.message.charAt("Email ")) errorToast("Email già presente.");
+        else errorToast("Errore di registrazione.");
+        throw new Error("Registration error: " + errorData.message);
       }
     } catch (error) {
       console.log(error);
@@ -142,7 +144,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
                 specialChar: "Caratteri speciali.",
                 number: "Numeri.",
                 capital: "Maiuscole.",
-                lowercase: "Minuscole",
+                lowercase: "Minuscole.",
                 match: "Corrispondenza.",
               }}
             />

@@ -95,6 +95,9 @@ body {
   width: calc(300px * 32);
   animation: scrollLeft 120s linear infinite;
 }
+.mySlick:hover {
+  animation-play-state: paused;
+}
 
 @keyframes scrollLeft {
   0% {
@@ -114,4 +117,9 @@ body {
 .form-check-input:checked {
   background-color: #1a51bf;
   border-color: #1a51bf;
+}
+
+.gradient-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
