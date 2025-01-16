@@ -5,5 +5,4 @@ interface IReview {
   publishDate: string;
   updatedAt: string;
   user: IUser;
-  product: IProduct;
 }

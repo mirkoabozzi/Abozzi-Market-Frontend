@@ -24,6 +24,7 @@ interface IProduct {
   discountStatus: boolean;
   category: ICategory;
   discountList: DiscountListItem[];
+  reviewList: IReview[];
 }
 
 interface DiscountListItem {

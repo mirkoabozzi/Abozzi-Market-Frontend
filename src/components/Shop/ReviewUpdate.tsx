@@ -8,9 +8,10 @@ interface UpdateReviewsProps {
   handleClose: () => void;
   review: IReview;
   handleShowModalAlert: () => void;
+  productId: string;
 }
 
-const ReviewUpdate = ({ show, handleClose, review, handleShowModalAlert }: UpdateReviewsProps) => {
+const ReviewUpdate = ({ show, handleClose, review, handleShowModalAlert, productId }: UpdateReviewsProps) => {
   const dispatch = useAppDispatch();
 
   const [rating, setRating] = useState(review.rating);
@@ -19,7 +20,7 @@ const ReviewUpdate = ({ show, handleClose, review, handleShowModalAlert }: Updat
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedReview: IUpdatedReview = { rating, comment };
-    dispatch(updateReview(review.id, updatedReview, review.product.id));
+    dispatch(updateReview(review.id, updatedReview, productId));
     handleClose();
   };
 

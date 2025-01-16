@@ -64,7 +64,7 @@ const ProductDetails = () => {
 
   const handleDeleteReview = () => {
     if (review) {
-      dispatch(deleteReview(review.id, review.product.id));
+      dispatch(deleteReview(review.id, product.id));
       setShowModalAlert(false);
     }
   };
@@ -228,7 +228,7 @@ const ProductDetails = () => {
       {/* modal */}
       <AddReview show={showAddReview} handleClose={handleCloseAddReview} />
       {product && <ProductUpdate show={showProductUpdate} handleClose={handleCloseProductUpdate} />}
-      {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} handleShowModalAlert={handleShowModalAlert} />}
+      {review && <ReviewUpdate show={showReviewUpdate} handleClose={handleCloseReviewUpdate} review={review} handleShowModalAlert={handleShowModalAlert} productId={product?.id} />}
       {review && <ModalAlert show={showModalAlert} handleClose={handleCloseModalAlert} handleEvent={handleDeleteReview} />}
     </Container>
   );
