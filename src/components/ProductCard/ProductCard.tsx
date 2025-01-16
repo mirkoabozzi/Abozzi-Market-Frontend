@@ -32,7 +32,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const handleAverageRate = () => {
-    if (product.reviewList.length === 0) return 0;
+    if (product?.reviewList?.length === 0) return 0;
     let value = 0;
     for (let i = 0; i < product.reviewList.length; i++) {
       value += product.reviewList[i].rating;
