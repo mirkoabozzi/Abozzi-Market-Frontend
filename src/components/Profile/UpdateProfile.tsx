@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { getUser, updateUser, updateUserAvatar } from "../../redux/actions/user";
+import { getUser, updateUser, updateUserAvatarAxios } from "../../redux/actions/user";
 import { useEffect, useState } from "react";
 import ChangePassword from "./ChangePassword";
 import { errorToast } from "../../redux/actions/toaster";
@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [avatar, setNewAvatar] = useState<File | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -36,7 +37,8 @@ const UpdateProfile = () => {
     }
 
     if (avatar) {
-      await dispatch(updateUserAvatar(avatar));
+      setUploadProgress(0);
+      await dispatch(updateUserAvatarAxios(avatar, setUploadProgress));
     }
     dispatch(getUser());
   };
@@ -78,7 +80,9 @@ const UpdateProfile = () => {
             <Form.Label>Avatar</Form.Label>
             <Form.Control type="file" onChange={handleFileChange} />
           </Form.Group>
-          <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-3">
+          {uploadProgress > 0 && <div className="my-4 rounded" style={{ border: "5px solid", width: `${uploadProgress}%` }}></div>}
+          {uploadProgress > 0 && <span>Caricamento immagine... {uploadProgress}%</span>}
+          <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-3 mt-4">
             <Button type="button" variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
               Cambia password
             </Button>
