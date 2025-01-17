@@ -20,6 +20,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const product: IProduct = useAppSelector((state) => state.productReducer.product);
   const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const discounts: DiscountListItem[] = useAppSelector((state) => state.discounts.content);
+  const user: IUser = useAppSelector((state) => state.userReducer.user);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -77,9 +78,11 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   }, [product]);
 
   useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getAllDiscounts());
-  }, [dispatch]);
+    if (user?.role === "ADMIN") {
+      dispatch(getCategories());
+      dispatch(getAllDiscounts());
+    }
+  }, [dispatch, user?.role]);
 
   const handleDeleteDiscount = (discountId: string) => {
     const discount = { discount: discountId };

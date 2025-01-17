@@ -79,9 +79,9 @@ const ProductDetails = () => {
     if (params.id) {
       dispatch(getProduct(params.id));
       dispatch(getReviews(params.id));
-      dispatch(getMyWishlists());
+      if (isLogged) dispatch(getMyWishlists());
     }
-  }, [dispatch, params.id]);
+  }, [dispatch, params.id, isLogged]);
 
   const handleAddToCart = () => {
     const existingCartItem = cart.find((item: IItem) => item.product.id === product.id);
