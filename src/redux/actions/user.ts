@@ -4,6 +4,7 @@ import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
+import axios, { AxiosError } from "axios";
 
 export const url = import.meta.env.VITE_URL;
 
@@ -71,6 +72,33 @@ export const updateUserAvatar = (file: File) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const updateUserAvatarAxios = (file: File, setUploadProgress: (progress: number) => void) => {
+  return async () => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      await axios.post(`${url}/users/me/avatar`, formData, {
+        headers: { Authorization: "Bearer " + accessToken },
+        onUploadProgress: (progressEvent) => {
+          const progress = progressEvent.total ? Math.round((progressEvent.loaded * 100) / progressEvent.total) : 0;
+          setUploadProgress(progress);
+        },
+      });
+      setUploadProgress(100);
+      successToast("Avatar aggiornato con successo.");
+    } catch (error) {
+      console.error(error);
+      setUploadProgress(0);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data.message;
+        if (errorMessage === "Maximum upload size exceeded") errorToast("Immagine troppo grande.");
+        else errorToast("Errore caricamento immagine.");
+      }
     }
   };
 };
