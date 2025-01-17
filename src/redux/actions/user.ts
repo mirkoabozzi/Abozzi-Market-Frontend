@@ -4,7 +4,7 @@ import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export const url = import.meta.env.VITE_URL;
 
