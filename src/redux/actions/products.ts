@@ -4,6 +4,7 @@ import { ActionType } from "../enums/ActionType";
 import { url } from "./user";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
+import axios from "axios";
 
 export const getProducts = (page: number, size?: number) => {
   return async (dispatch: Dispatch<ProductsAction>) => {
@@ -103,26 +104,57 @@ export const updateProduct = (product: IProductUpdate, productId: string) => {
   };
 };
 
-export const updateProductImage = (file: File, productId: string) => {
+// export const updateProductImage = (file: File, productId: string) => {
+//   return async (dispatch: AppDispatch) => {
+//     const formData = new FormData();
+//     formData.append("image", file);
+//     try {
+//       const accessToken = localStorage.getItem("accessToken");
+//       const resp = await fetch(`${url}/products/image/${productId}`, {
+//         method: "POST",
+//         headers: { Authorization: "Bearer " + accessToken },
+//         body: formData,
+//       });
+//       if (resp.ok) {
+//         dispatch(getProducts(0));
+//         dispatch(getProduct(productId));
+//       } else {
+//         errorToast("Caricamento immagine fallito.");
+//         throw new Error("Update product image error");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
+
+export const addProductImageAxios = (file: File, productId: string, setUploadProgress: (progress: number) => void) => {
   return async (dispatch: AppDispatch) => {
     const formData = new FormData();
     formData.append("image", file);
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/products/image/${productId}`, {
-        method: "POST",
+      await axios.post(`${url}/products/image/${productId}`, formData, {
         headers: { Authorization: "Bearer " + accessToken },
-        body: formData,
+        onUploadProgress: (progressEvent) => {
+          const progress = progressEvent.total ? Math.round((progressEvent.loaded * 100) / progressEvent.total) : 0;
+          setUploadProgress(progress);
+        },
       });
-      if (resp.ok) {
-        dispatch(getProducts(0));
-        dispatch(getProduct(productId));
-      } else {
-        errorToast("Caricamento immagine fallito.");
-        throw new Error("Update product image error");
-      }
+      setUploadProgress(100);
+      successToast("Immagine aggiornata con successo.");
+      dispatch(getProducts(0));
+      dispatch(getProduct(productId));
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setUploadProgress(0);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data.message;
+        if (errorMessage === "Maximum upload size exceeded") errorToast("Immagine troppo grande.");
+        else errorToast("Errore caricamento immagine.");
+      }
+    } finally {
+      setUploadProgress(0);
     }
   };
 };

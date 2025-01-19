@@ -4,6 +4,7 @@ import { ActionType } from "../enums/ActionType";
 import { CategoryAction } from "../action-types";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
+import axios from "axios";
 
 export const getCategories = () => {
   return async (dispatch: Dispatch<CategoryAction>) => {
@@ -69,24 +70,55 @@ export const updateCategory = (name: string, categoryId: string) => {
   };
 };
 
-export const addImageCategory = (file: File, categoryId: string) => {
+// export const addImageCategory = (file: File, categoryId: string) => {
+//   return async (dispatch: AppDispatch) => {
+//     const formData = new FormData();
+//     formData.append("image", file);
+//     try {
+//       const accessToken = localStorage.getItem("accessToken");
+//       const resp = await fetch(`${url}/categories/image/${categoryId}`, {
+//         method: "POST",
+//         headers: {
+//           Authorization: "Bearer " + accessToken,
+//         },
+//         body: formData,
+//       });
+//       if (resp.ok) {
+//         dispatch(getCategories());
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
+
+export const addImageCategoryAxios = (file: File, categoryId: string, setUploadProgress: (progress: number) => void, handleCloseModalUpdate: () => void) => {
   return async (dispatch: AppDispatch) => {
     const formData = new FormData();
     formData.append("image", file);
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/categories/image/${categoryId}`, {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + accessToken,
+      await axios.post(`${url}/categories/image/${categoryId}`, formData, {
+        headers: { Authorization: "Bearer " + accessToken },
+        onUploadProgress: (progressEvent) => {
+          const progress = progressEvent.total ? Math.round((progressEvent.loaded * 100) / progressEvent.total) : 0;
+          setUploadProgress(progress);
         },
-        body: formData,
       });
-      if (resp.ok) {
-        dispatch(getCategories());
-      }
+      setUploadProgress(100);
+      successToast("Immagine categoria aggiornata con successo.");
+      dispatch(getCategories());
+      handleCloseModalUpdate();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setUploadProgress(0);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data.message;
+        if (errorMessage === "Maximum upload size exceeded") errorToast("Immagine troppo grande.");
+        else errorToast("Errore caricamento immagine.");
+      }
+    } finally {
+      setUploadProgress(0);
     }
   };
 };

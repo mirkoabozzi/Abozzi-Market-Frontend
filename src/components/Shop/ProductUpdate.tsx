@@ -1,6 +1,6 @@
 import { Button, Dropdown, DropdownMenu, Form, Modal, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addDiscountOnProduct, dateConverter, deleteDiscountFromProduct, deleteProduct, updateProduct, updateProductImage } from "../../redux/actions/products";
+import { addDiscountOnProduct, addProductImageAxios, dateConverter, deleteDiscountFromProduct, deleteProduct, updateProduct } from "../../redux/actions/products";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash } from "react-bootstrap-icons";
@@ -30,6 +30,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
   const [image, setNewImage] = useState<File | null>(null);
   const [discount, setDiscount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("Seleziona categoria");
   const [selectedDiscountName, setSelectedDiscountName] = useState("Seleziona offerta");
@@ -56,7 +57,7 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
     }
 
     if (image) {
-      await dispatch(updateProductImage(image, product.id));
+      await dispatch(addProductImageAxios(image, product.id, setUploadProgress));
     }
     setIsLoading(false);
     handleClose();
@@ -178,7 +179,9 @@ const ProductUpdate = ({ show, handleClose }: IProductUpdateProps) => {
               <Form.Label>Immagine</Form.Label>
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
-            <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            {uploadProgress > 0 && <div className="my-4 rounded" style={{ border: "5px solid", width: `${uploadProgress}%` }}></div>}
+            {uploadProgress > 0 && <span>Caricamento immagine... {uploadProgress}%</span>}
+            <div className="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
               <Button type="button" variant="secondary" className="rounded-pill" onClick={handleClose}>
                 Chiudi
               </Button>

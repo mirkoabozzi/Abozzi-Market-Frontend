@@ -54,27 +54,27 @@ export const updateUser = (body: IUserUpdate) => {
   };
 };
 
-export const updateUserAvatar = (file: File) => {
-  return async (dispatch: AppDispatch) => {
-    const formData = new FormData();
-    formData.append("avatar", file);
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const resp = await fetch(`${url}/users/me/avatar`, {
-        method: "POST",
-        headers: { Authorization: "Bearer " + accessToken },
-        body: formData,
-      });
-      if (resp.ok) {
-        dispatch(getUser());
-      } else {
-        throw new Error("Update user avatar error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+// export const updateUserAvatar = (file: File) => {
+//   return async (dispatch: AppDispatch) => {
+//     const formData = new FormData();
+//     formData.append("avatar", file);
+//     try {
+//       const accessToken = localStorage.getItem("accessToken");
+//       const resp = await fetch(`${url}/users/me/avatar`, {
+//         method: "POST",
+//         headers: { Authorization: "Bearer " + accessToken },
+//         body: formData,
+//       });
+//       if (resp.ok) {
+//         dispatch(getUser());
+//       } else {
+//         throw new Error("Update user avatar error");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 
 export const updateUserAvatarAxios = (file: File, setUploadProgress: (progress: number) => void) => {
   return async () => {
@@ -99,6 +99,8 @@ export const updateUserAvatarAxios = (file: File, setUploadProgress: (progress: 
         if (errorMessage === "Maximum upload size exceeded") errorToast("Immagine troppo grande.");
         else errorToast("Errore caricamento immagine.");
       }
+    } finally {
+      setUploadProgress(0);
     }
   };
 };

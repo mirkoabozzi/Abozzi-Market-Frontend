@@ -1,7 +1,7 @@
 import { Button, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useState } from "react";
-import { addCategory, addImageCategory, deleteCategory, updateCategory } from "../../redux/actions/categories";
+import { addCategory, addImageCategoryAxios, deleteCategory, updateCategory } from "../../redux/actions/categories";
 import ModalAlert from "../ModalAlert/ModalAlert";
 
 const CategoryManagement = () => {
@@ -11,6 +11,7 @@ const CategoryManagement = () => {
   const [name, setName] = useState("");
   const [avatar, setNewAvatar] = useState<File | null>(null);
   const [categoryId, setCategoryId] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -45,9 +46,8 @@ const CategoryManagement = () => {
     await dispatch(updateCategory(name, categoryId));
     setName("");
     if (avatar) {
-      dispatch(addImageCategory(avatar, categoryId));
+      dispatch(addImageCategoryAxios(avatar, categoryId, setUploadProgress, handleCloseModalUpdate));
     }
-    handleCloseModalUpdate();
   };
 
   const handleDeleteCategory = () => {
@@ -124,6 +124,8 @@ const CategoryManagement = () => {
                 <Form.Label>Avatar</Form.Label>
                 <Form.Control type="file" onChange={handleFileChange} />
               </Form.Group>
+              {uploadProgress > 0 && <div className="my-4 rounded" style={{ border: "5px solid", width: `${uploadProgress}%` }}></div>}
+              {uploadProgress > 0 && <span>Caricamento immagine... {uploadProgress}%</span>}
               <div className="d-flex justify-content-end gap-2">
                 <Button type="button" variant="secondary" className="rounded-pill" onClick={handleCloseModalUpdate}>
                   Chiudi
