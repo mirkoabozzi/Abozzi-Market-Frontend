@@ -18,7 +18,7 @@ const GoogleLoginHandler = ({ buttonTitle }: GoogleLoginHandlerProp) => {
         </a>
       </div>
       <div>
-        <p className="text-center mb-0">o</p>
+        <p className="text-center mb-0 text-secondary">oppure</p>
       </div>
     </>
   );

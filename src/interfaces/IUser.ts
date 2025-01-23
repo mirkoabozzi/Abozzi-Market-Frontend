@@ -22,6 +22,7 @@ interface IUser {
   role: string;
   avatar: string;
   isVerified: boolean;
+  registrationMethod: string;
 }
 
 interface Pageable {

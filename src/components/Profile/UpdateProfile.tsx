@@ -83,9 +83,11 @@ const UpdateProfile = () => {
           {uploadProgress > 0 && <div className="my-4 rounded" style={{ border: "5px solid", width: `${uploadProgress}%` }}></div>}
           {uploadProgress > 0 && <span>Caricamento immagine... {uploadProgress}%</span>}
           <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-3 mt-4">
-            <Button type="button" variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
-              Cambia password
-            </Button>
+            {user?.registrationMethod === "FORM" && (
+              <Button type="button" variant="primary" className="rounded-pill" onClick={() => setShow(true)}>
+                Cambia password
+              </Button>
+            )}
             <Button variant="primary" type="submit" className="rounded-pill">
               Salva Modifiche
             </Button>

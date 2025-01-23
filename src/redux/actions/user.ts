@@ -210,8 +210,10 @@ export const resetUserPasswordRequest = (email: string, handleClose: () => void,
         successToast("Email di recupero inviata.");
         handleClose();
       } else {
-        errorToast("Email non trovata.");
-        throw new Error("Find user by email error");
+        const errorData = await resp.json();
+        if (errorData.message === "Account registered with Google") errorToast("Account registrato con Google.");
+        else errorToast("Email non trovata.");
+        throw new Error("Reset user password request error");
       }
     } catch (error) {
       console.log(error);
