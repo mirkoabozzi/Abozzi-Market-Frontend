@@ -10,6 +10,7 @@ This is a full-stack e-commerce application that includes an admin dashboard and
 - 🔗 Authentication: JWT (JSON Web Tokens)
 - 📧 User email address validation.
 - 🔑 Role-Based Access Control: admin and user roles with restricted access.
+- 🔑 Google Login
 - 🔐 Password encryption
 - 💶 PayPal integration
 - 💳 Stripe integration
@@ -38,10 +39,6 @@ This is a full-stack e-commerce application that includes an admin dashboard and
 - 📋 Client orders: filter by client email with the option to change order status
 - 🧾 Discount management: full discount controls
 - 📈 Sales report
-
-# Coming soon
-
-- 🔑 Google Login
 
 # Technologies Used
 
