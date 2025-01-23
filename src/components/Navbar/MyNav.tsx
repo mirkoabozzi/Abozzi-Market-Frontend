@@ -93,7 +93,7 @@ const MyNav = () => {
           ) : (
             <div className="d-flex align-items-end">
               <div title="Account" className="d-flex flex-column align-items-center ms-3 mouseHover scale" onClick={() => navigate("/profile")}>
-                <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" />
+                <Image src={user?.avatar} alt="user image" width={40} height={40} className="border rounded-circle object-fit-cover shadow" referrerPolicy="no-referrer" />
                 <p className="m-0 text-center">{user?.name}</p>
               </div>
               <div title="Logout" className="mouseHover scale d-flex flex-column align-items-center ms-3" onClick={handleLogout}>

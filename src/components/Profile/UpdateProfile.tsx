@@ -58,7 +58,7 @@ const UpdateProfile = () => {
         <h3 className="mb-4">Aggiorna Profilo</h3>
         <Form onSubmit={handleSubmit}>
           <div className="d-flex justify-content-around">
-            {user?.avatar && <img src={user?.avatar} alt="avatar" className="rounded-circle" style={{ width: "100px", height: "100px", objectFit: "cover" }} />}
+            {user?.avatar && <img src={user?.avatar} alt="avatar" className="rounded-circle" style={{ width: "100px", height: "100px", objectFit: "cover" }} referrerPolicy="no-referrer" />}
           </div>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>

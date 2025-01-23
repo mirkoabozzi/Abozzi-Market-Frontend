@@ -6,7 +6,7 @@ import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
 
-export const url = import.meta.env.VITE_URL;
+export const url = import.meta.env.VITE_BACKEND_URL;
 
 export const getUser = () => {
   return async (dispatch: Dispatch<UserAction>) => {

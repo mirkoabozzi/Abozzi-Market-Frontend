@@ -4,6 +4,7 @@ import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
 import ReactPasswordChecklist from "react-password-checklist";
+import GoogleLoginHandler from "./GoogleLoginHandler";
 
 interface RegistrationProps {
   show: boolean;
@@ -92,6 +93,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
         <Modal.Title>Registrati</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <GoogleLoginHandler buttonTitle="Registrati con Google" />
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>

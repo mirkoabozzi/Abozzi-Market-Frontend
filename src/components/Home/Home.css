@@ -1,0 +1,8 @@
+.scaleHome {
+  transition: scale 300ms;
+}
+
+.scaleHome:hover {
+  scale: 1.05;
+  transition: scale 300ms;
+}

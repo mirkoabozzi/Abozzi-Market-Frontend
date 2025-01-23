@@ -6,6 +6,7 @@ import { ActionType } from "../../redux/enums/ActionType";
 import { useAppDispatch } from "../../redux/store";
 import { errorToast } from "../../redux/actions/toaster";
 import ResetUserPasswordRequest from "./ResetUserPasswordRequest";
+import GoogleLoginHandler from "./GoogleLoginHandler";
 
 interface LoginProps {
   show: boolean;
@@ -72,6 +73,7 @@ const Login = ({ show, handleClose }: LoginProps) => {
           <Modal.Title>Accedi</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <GoogleLoginHandler buttonTitle="Accedi con Google" />
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Email</Form.Label>
@@ -94,9 +96,11 @@ const Login = ({ show, handleClose }: LoginProps) => {
                 {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Accedi"}
               </Button>
             </div>
-            <p className="text-end mb-0 mt-3 mouseHover" onClick={handleShowResetPassword}>
-              Password dimenticata?
-            </p>
+            <div className="d-flex justify-content-end">
+              <p className="text-end mb-0 mt-3 mouseHover" onClick={handleShowResetPassword}>
+                Password dimenticata?
+              </p>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
