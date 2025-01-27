@@ -6,12 +6,13 @@ import Sidebar from "./Sidebar";
 import { ArrowLeftCircle, ArrowRightCircle, ExclamationCircleFill, List, XLg } from "react-bootstrap-icons";
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation } from "react-router-dom";
+import { viewType } from "../../redux/slice/viewSlice.ts";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
   const products: IProductsInterface = useAppSelector((state) => state.productReducer.products);
   const isLoading: boolean = useAppSelector((state) => state.productReducer.isLoading);
-  const currentView: string = useAppSelector((state) => state.view?.selectedView);
+  const selectedView: viewType = useAppSelector((state) => state.view?.selectedView);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
   const [min, setMin] = useState(0);
@@ -26,10 +27,10 @@ const Shop = () => {
 
   useEffect(() => {
     setPage(0);
-  }, [currentView]);
+  }, [selectedView]);
 
   const pageHandler = (page: number) => {
-    switch (currentView) {
+    switch (selectedView) {
       case "category":
         dispatch(getProductByCategory(category, page, size));
         break;

@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type viewType = "category" | "discount" | "priceRange" | "mainSearch" | null
+
 interface InitialState {
-  selectedView: null | string;
+  selectedView: viewType
 }
 
 const initialState: InitialState = {
@@ -12,7 +14,7 @@ const viewSlice = createSlice({
   name: "view",
   initialState,
   reducers: {
-    setView: (state, action: PayloadAction<string | null>) => {
+    setView: (state, action: PayloadAction<viewType>) => {
       state.selectedView = action.payload;
     },
   },
