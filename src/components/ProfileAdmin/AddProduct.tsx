@@ -8,11 +8,12 @@ const AddProduct = () => {
   const categories: ICategory[] = useAppSelector((state) => state.categoriesReducer.categories);
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(1);
-  const [quantityAvailable, setQuantityAvailable] = useState(1);
   const [category, setCategory] = useState<ICategory | null>();
+  const [newProduct, setNewProduct] = useState<IProductAdd>({ name: "", description: "", price: 1, quantityAvailable: 1, category: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
+  };
 
   const handleCategory = (selectedCategory: ICategory) => {
     setCategory(selectedCategory);
@@ -23,18 +24,8 @@ const AddProduct = () => {
     if (!category) {
       errorToast("Categoria obbligatoria!");
     } else {
-      const newProduct: IProductAdd = {
-        name: name,
-        description: description,
-        price: price,
-        quantityAvailable: quantityAvailable,
-        category: category.id,
-      };
-      dispatch(addProduct(newProduct));
-      setName("");
-      setDescription("");
-      setPrice(1);
-      setQuantityAvailable(1);
+      dispatch(addProduct({ ...newProduct, category: category.id }));
+      setNewProduct({ name: "", description: "", price: 1, quantityAvailable: 1, category: "" });
       setCategory(null);
     }
   };
@@ -45,19 +36,19 @@ const AddProduct = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>
-          <Form.Control type="text" placeholder="Nome" required autoFocus value={name} onChange={(e) => setName(e.target.value)} />
+          <Form.Control type="text" placeholder="Nome" required autoFocus name="name" value={newProduct.name} onChange={handleChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formDescription">
           <Form.Label>Descrizione</Form.Label>
-          <Form.Control type="text" placeholder="Descrizione" required value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Form.Control type="text" placeholder="Descrizione" required name="description" value={newProduct.description} onChange={handleChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formPrice">
           <Form.Label>Prezzo</Form.Label>
-          <Form.Control type="number" placeholder="Prezzo" min={0} step={"0.01"} required value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+          <Form.Control type="number" placeholder="Prezzo" min={0} step={"0.01"} required name="price" value={newProduct.price} onChange={handleChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formNumber">
           <Form.Label>Quantità disponibile</Form.Label>
-          <Form.Control type="number" placeholder="Quantità disponibile" min={0} required value={quantityAvailable} onChange={(e) => setQuantityAvailable(Number(e.target.value))} />
+          <Form.Control type="number" placeholder="Quantità disponibile" min={0} required name="quantityAvailable" value={newProduct.quantityAvailable} onChange={handleChange} />
         </Form.Group>
         <Form.Group>
           <Dropdown drop={"down-centered"} className="d-flex flex-column flex-sm-row">

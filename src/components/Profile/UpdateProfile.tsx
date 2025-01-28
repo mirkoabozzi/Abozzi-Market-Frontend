@@ -8,16 +8,16 @@ import { errorToast } from "../../redux/actions/toaster";
 const UpdateProfile = () => {
   const dispatch = useAppDispatch();
   const user: IUser = useAppSelector((state) => state.userReducer.user);
-
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userData, setUserData] = useState({ name: "", surname: "", email: "", phoneNumber: "" });
   const [avatar, setNewAvatar] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -25,12 +25,12 @@ const UpdateProfile = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, userData: IUserUpdate) => {
     e.preventDefault();
-    const userData: IUserUpdate = { name, surname, email, phoneNumber };
+
     const onlyPhoneNumbers = /^\+?\d+$/;
 
-    if (phoneNumber.match(onlyPhoneNumbers)) {
+    if (userData.phoneNumber.match(onlyPhoneNumbers)) {
       await dispatch(updateUser(userData));
     } else {
       errorToast("Inserisci un numero valido");
@@ -45,10 +45,12 @@ const UpdateProfile = () => {
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
-      setSurname(user.surname);
-      setEmail(user.email);
-      setPhoneNumber(user.phoneNumber);
+      setUserData({
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+      });
     }
   }, [user]);
 
@@ -56,25 +58,25 @@ const UpdateProfile = () => {
     <Row className="justify-content-center mainAnimation">
       <Col>
         <h3 className="mb-4">Aggiorna Profilo</h3>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={(e) => handleSubmit(e, userData)}>
           <div className="d-flex justify-content-around">
             {user?.avatar && <img src={user?.avatar} alt="avatar" className="rounded-circle" style={{ width: "100px", height: "100px", objectFit: "cover" }} referrerPolicy="no-referrer" />}
           </div>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <Form.Control type="text" name="name" value={userData.name} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formSurname">
             <Form.Label>Cognome</Form.Label>
-            <Form.Control type="text" value={surname} onChange={(e) => setSurname(e.target.value)} />
+            <Form.Control type="text" name="surname" value={userData.surname} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Form.Control type="email" name="email" value={userData.email} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formNumero">
             <Form.Label>Numero</Form.Label>
-            <Form.Control type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+            <Form.Control type="text" name="phoneNumber" value={userData.phoneNumber} onChange={handleChange} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formAvatar">
             <Form.Label>Avatar</Form.Label>
