@@ -2,7 +2,7 @@ import { ActionType } from "../enums/ActionType";
 
 export type UserAction = {
   type: ActionType;
-  payload?: IUser;
+  payload?: IUser | null;
 };
 
 export type ProductsAction = {

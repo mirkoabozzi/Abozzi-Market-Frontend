@@ -4,9 +4,11 @@ import { getUser, updateUser, updateUserAvatarAxios } from "../../redux/actions/
 import { useEffect, useState } from "react";
 import ChangePassword from "./ChangePassword";
 import { errorToast } from "../../redux/actions/toaster";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const user: IUser = useAppSelector((state) => state.userReducer.user);
   const [userData, setUserData] = useState({ name: "", surname: "", email: "", phoneNumber: "" });
   const [avatar, setNewAvatar] = useState<File | null>(null);
@@ -40,7 +42,7 @@ const UpdateProfile = () => {
       setUploadProgress(0);
       await dispatch(updateUserAvatarAxios(avatar, setUploadProgress));
     }
-    dispatch(getUser());
+    dispatch(getUser(navigate));
   };
 
   useEffect(() => {

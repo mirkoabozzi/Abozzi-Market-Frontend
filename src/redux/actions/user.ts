@@ -8,7 +8,7 @@ import axios from "axios";
 
 export const url = import.meta.env.VITE_BACKEND_URL;
 
-export const getUser = () => {
+export const getUser = (navigate?: NavigateFunction) => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -21,6 +21,13 @@ export const getUser = () => {
         const user = await resp.json();
         dispatch({ type: ActionType.SET_USER, payload: user });
       } else {
+        if (resp.status === 401) {
+          localStorage.removeItem("accessToken");
+          errorToast("Token scaduto effettua il login.");
+          dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
+          dispatch({ type: ActionType.SET_USER, payload: null });
+          if (navigate) navigate("/");
+        }
         throw new Error("Get user error");
       }
     } catch (error) {
@@ -30,7 +37,7 @@ export const getUser = () => {
 };
 
 export const updateUser = (body: IUserUpdate) => {
-  return async (dispatch: AppDispatch) => {
+  return async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/users/me`, {
@@ -43,7 +50,6 @@ export const updateUser = (body: IUserUpdate) => {
       });
       if (resp.ok) {
         successToast("Dati aggiornati con successo.");
-        dispatch(getUser());
       } else {
         errorToast("Aggiornamento fallito.");
         throw new Error("Update user error");
