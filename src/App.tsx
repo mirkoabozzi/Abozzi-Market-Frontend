@@ -33,6 +33,8 @@ import ResetUserPassword from "./components/Navbar/ResetUserPassword";
 import Report from "./components/ProfileAdmin/Report";
 import Verify from "./components/Verify/Verify";
 import { ToastContainer } from "react-toastify";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import ProtectedAdminRoutes from "./components/ProtectedAdminRoutes";
 
 function App() {
   return (
@@ -44,19 +46,23 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/profile" element={<Profile />}>
-          <Route index element={<MyOrder />} />
-          <Route path="orders" element={<MyOrder />} />
-          <Route path="orders/details/:id" element={<OrderDetails />} />
-          <Route path="update" element={<UpdateProfile />} />
-          <Route path="address" element={<Addresses />} />
-          <Route path="wishlist" element={<WishList />} />
-          <Route path="category" element={<CategoryManagement />} />
-          <Route path="addProduct" element={<AddProduct />} />
-          <Route path="clients" element={<Users />} />
-          <Route path="clientsOrders" element={<Orders />} />
-          <Route path="promo" element={<Discount />} />
-          <Route path="report" element={<Report />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/profile" element={<Profile />}>
+            <Route index element={<MyOrder />} />
+            <Route path="orders" element={<MyOrder />} />
+            <Route path="orders/details/:id" element={<OrderDetails />} />
+            <Route path="update" element={<UpdateProfile />} />
+            <Route path="wishlist" element={<WishList />} />
+            <Route path="address" element={<Addresses />} />
+            <Route element={<ProtectedAdminRoutes />}>
+              <Route path="category" element={<CategoryManagement />} />
+              <Route path="addProduct" element={<AddProduct />} />
+              <Route path="clients" element={<Users />} />
+              <Route path="clientsOrders" element={<Orders />} />
+              <Route path="promo" element={<Discount />} />
+              <Route path="report" element={<Report />} />
+            </Route>
+          </Route>
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/success/*" element={<Success />} />
