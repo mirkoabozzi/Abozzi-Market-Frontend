@@ -17,12 +17,12 @@ const Footer = () => {
             <Row>
               <Col className="d-flex px-0">
                 <div className="p-3">
-                  <a href="https://www.facebook.com/abozzimarket" title="Facebook">
+                  <a href="https://www.facebook.com/abozzimarket" title="Facebook" target="_blank" rel="noopener noreferrer">
                     <Image src={facebook} alt="facebook icon" />
                   </a>
                 </div>
                 <div className="p-3">
-                  <a href="https://www.instagram.com/abozzimarket" title="Instagram">
+                  <a href="https://www.instagram.com/abozzimarket" title="Instagram" target="_blank" rel="noopener noreferrer">
                     <Image src={instagram} alt="instagram icon" />
                   </a>
                 </div>

@@ -1,7 +1,7 @@
 import { Carousel, Col, Image, Row } from "react-bootstrap";
-import spesa from "../../assets/img/spesa-online-1.png";
-import consegna from "../../assets/img/domicilio.png";
-import bag from "../../assets/img/bag.jpg";
+import spesa from "../../assets/img/spesa-online-1.avif";
+import consegna from "../../assets/img/domicilio.avif";
+import bag from "../../assets/img/bag.avif";
 
 const MyCarousel = () => {
   return (
