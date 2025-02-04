@@ -5,6 +5,7 @@ import { ActionType } from "../enums/ActionType";
 import { AppDispatch } from "../store";
 import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
+import { setPaymentLoading } from "../slice/paymentSlice";
 
 export const getMyOrders = (page: number, navigate: NavigateFunction, setIsLoading: (b: boolean) => void) => {
   return async (dispatch: AppDispatch) => {
@@ -71,7 +72,7 @@ export const getOrder = (id: string, navigate?: NavigateFunction, setIsLoading?:
 };
 
 export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
-  return async () => {
+  return async (dispatch: AppDispatch) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const resp = await fetch(`${url}/orders`, {
@@ -89,6 +90,8 @@ export const addOrder = (order: IOrderAdd, navigate: NavigateFunction) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setPaymentLoading(false));
     }
   };
 };

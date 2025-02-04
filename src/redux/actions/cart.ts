@@ -2,7 +2,6 @@ import { url } from "./user";
 import { AppDispatch } from "../store";
 import { clearAddressChoice } from "../slice/addressesSlice";
 import { ActionType } from "../enums/ActionType";
-import { setPaymentLoading } from "../slice/paymentSlice";
 import { errorToast, successToast } from "./toaster";
 import { NavigateFunction } from "react-router-dom";
 const appUrl = import.meta.env.VITE_MY_APP_URL;
@@ -66,7 +65,6 @@ export const executePayPal = (paymentId: string, payerId: string, navigate: Navi
         successToast("Grazie per il tuo acquisto.");
         dispatch(clearAddressChoice());
         dispatch({ type: ActionType.CLEAR_CART });
-        dispatch(setPaymentLoading(false));
         // const responseText = await resp.text();
         // const redirectUrl = responseText.substring(9);
         // window.location.href = redirectUrl;
@@ -77,8 +75,6 @@ export const executePayPal = (paymentId: string, payerId: string, navigate: Navi
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      dispatch(setPaymentLoading(false));
     }
   };
 };
@@ -126,7 +122,6 @@ export const stripeVerify = (sessionId: string, navigate: NavigateFunction) => {
         successToast("Grazie per il tuo acquisto.");
         dispatch(clearAddressChoice());
         dispatch({ type: ActionType.CLEAR_CART });
-        dispatch(setPaymentLoading(false));
       } else {
         errorToast("Pagamento fallito.");
         navigate("/failed");
@@ -134,8 +129,6 @@ export const stripeVerify = (sessionId: string, navigate: NavigateFunction) => {
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      dispatch(setPaymentLoading(false));
     }
   };
 };
