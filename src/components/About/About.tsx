@@ -3,6 +3,7 @@ import "aos/dist/aos.css";
 import "./About.css";
 import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import MetaTags from "../MetaTags";
 
 const About = () => {
   useEffect(() => {
@@ -14,7 +15,8 @@ const About = () => {
 
   return (
     <Container className="mainAnimation">
-      <h1 className="my-4">Abozzi Market</h1>
+      <MetaTags title="Chi siamo" description="Tutte le informazioni dettagliate riguardanti la nostra attività, i servizi che proponiamo e la mappa con le indicazioni per trovarci" />
+      <h1 className="my-4">Chi siamo?</h1>
       <div data-aos="fade-zoom-in">
         <h2>Italiano</h2>
         <p className="textPretty">

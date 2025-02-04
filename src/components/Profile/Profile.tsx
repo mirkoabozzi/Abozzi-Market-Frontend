@@ -3,12 +3,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
 import { BookmarkHeart, Box, Boxes, Collection, GraphUp, ListStars, PersonCircle, PersonLinesFill, Signpost2, Tag } from "react-bootstrap-icons";
 import { useAppSelector } from "../../redux/store";
+import MetaTags from "../MetaTags";
 
 const Profile = () => {
   const navigate = useNavigate();
   const user: IUser = useAppSelector((state) => state.userReducer.user);
   return (
     <Container className="mt-4 mainAnimation">
+      <MetaTags title="Profilo" description="Gestisci il tuo profilo, i tuoi ordini, i tuoi indirizzi e la tua lista dei desideri." />
       <Row>
         <Col xs={2}>
           <div className="sidebarPosition">

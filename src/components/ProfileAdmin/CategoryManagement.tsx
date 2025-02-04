@@ -57,7 +57,7 @@ const CategoryManagement = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">Categorie</h3>
+      <h1 className="mb-4">Categorie</h1>
       <div className="text-center">
         <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
           <Button type="button" className="rounded-pill" onClick={handleShow}>

@@ -39,7 +39,7 @@ const ResetUserPassword = () => {
 
   return (
     <Container className="mt-4">
-      <h2>Cambio password</h2>
+      <h1>Cambio password</h1>
       <div className="d-flex justify-content-center">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formNewPassword">

@@ -36,7 +36,7 @@ const Addresses = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">Indirizzi</h3>
+      <h1 className="mb-4">Indirizzi</h1>
       <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
         <Button type="button" className="mb-4 rounded-pill" onClick={handleShow}>
           Aggiungi indirizzo

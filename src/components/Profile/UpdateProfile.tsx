@@ -59,7 +59,7 @@ const UpdateProfile = () => {
   return (
     <Row className="justify-content-center mainAnimation">
       <Col>
-        <h3 className="mb-4">Aggiorna Profilo</h3>
+        <h1 className="mb-4">Aggiorna Profilo</h1>
         <Form onSubmit={(e) => handleSubmit(e, userData)}>
           <div className="d-flex justify-content-around">
             {user?.avatar && <img src={user?.avatar} alt="avatar" className="rounded-circle" style={{ width: "100px", height: "100px", objectFit: "cover" }} referrerPolicy="no-referrer" />}

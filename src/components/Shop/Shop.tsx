@@ -7,6 +7,7 @@ import { ArrowLeftCircle, ArrowRightCircle, ExclamationCircleFill, List, XLg } f
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation } from "react-router-dom";
 import { viewType } from "../../redux/slice/viewSlice.ts";
+import MetaTags from "../MetaTags.tsx";
 
 const Shop = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +61,7 @@ const Shop = () => {
 
   return (
     <Container className="mt-4 mainAnimation">
+      <MetaTags title="Shop" description="Scegli il prodotto che preferisci e aggiungilo al carrello." />
       <Row>
         <Col sm={2}>
           <div className="d-none d-md-block">
@@ -67,7 +69,7 @@ const Shop = () => {
           </div>
         </Col>
         <Col sm={12} md={10}>
-          <h2>Shop</h2>
+          <h1>Shop</h1>
           <div className="d-md-none">
             {open ? (
               <XLg className="mb-3 mainAnimation" width={30} height={30} onClick={() => setOpen(!open)} />

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { addOrder } from "../../redux/actions/orders";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import { useNavigate } from "react-router-dom";
+import MetaTags from "../MetaTags";
 
 const Success = () => {
   const dispatch = useAppDispatch();
@@ -58,6 +59,7 @@ const Success = () => {
 
   return (
     <Container className="mainAnimation mt-5 rounded-4 text-center">
+      <MetaTags title="Abozzi Market" description="Da Abozzi Market troverai una vasta gamma di prodotti alimentari e non da poter acquistare." />
       <h1 className="mb-5">Conferma il tuo acquisto.</h1>
       {paymentLoading ? (
         <Spinner />

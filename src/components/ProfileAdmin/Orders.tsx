@@ -40,7 +40,7 @@ const Orders = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Ordini clienti</h3>
+      <h1>Ordini clienti</h1>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Spinner />

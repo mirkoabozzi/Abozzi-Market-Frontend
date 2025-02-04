@@ -28,7 +28,7 @@ const MyOrder = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">I miei ordini</h3>
+      <h1 className="mb-4">I miei ordini</h1>
       {isLoading ? (
         <div className="d-flex justify-content-center">
           <Spinner />

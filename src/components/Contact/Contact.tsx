@@ -2,6 +2,7 @@ import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { url } from "../../redux/actions/user";
 import { errorToast, successToast } from "../../redux/actions/toaster";
 import { useState } from "react";
+import MetaTags from "../MetaTags";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -40,7 +41,8 @@ const Contact = () => {
 
   return (
     <Container className="w-75 mt-4 mainAnimation">
-      <h3>Contatti</h3>
+      <MetaTags title="Contatti" description="Qui potrai metterti in contatto con noi, compila il form." />
+      <h1>Contatti</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>

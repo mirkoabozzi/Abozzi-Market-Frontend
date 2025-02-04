@@ -35,49 +35,52 @@ import Verify from "./components/Verify/Verify";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import ProtectedAdminRoutes from "./components/ProtectedAdminRoutes";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollTop />
-      <TopBar />
-      <MyNav />
-      <Category />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/profile" element={<Profile />}>
-            <Route index element={<MyOrder />} />
-            <Route path="orders" element={<MyOrder />} />
-            <Route path="orders/details/:id" element={<OrderDetails />} />
-            <Route path="update" element={<UpdateProfile />} />
-            <Route path="wishlist" element={<WishList />} />
-            <Route path="address" element={<Addresses />} />
-            <Route element={<ProtectedAdminRoutes />}>
-              <Route path="category" element={<CategoryManagement />} />
-              <Route path="addProduct" element={<AddProduct />} />
-              <Route path="clients" element={<Users />} />
-              <Route path="clientsOrders" element={<Orders />} />
-              <Route path="promo" element={<Discount />} />
-              <Route path="report" element={<Report />} />
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollTop />
+        <TopBar />
+        <MyNav />
+        <Category />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/profile" element={<Profile />}>
+              <Route index element={<MyOrder />} />
+              <Route path="orders" element={<MyOrder />} />
+              <Route path="orders/details/:id" element={<OrderDetails />} />
+              <Route path="update" element={<UpdateProfile />} />
+              <Route path="wishlist" element={<WishList />} />
+              <Route path="address" element={<Addresses />} />
+              <Route element={<ProtectedAdminRoutes />}>
+                <Route path="category" element={<CategoryManagement />} />
+                <Route path="addProduct" element={<AddProduct />} />
+                <Route path="clients" element={<Users />} />
+                <Route path="clientsOrders" element={<Orders />} />
+                <Route path="promo" element={<Discount />} />
+                <Route path="report" element={<Report />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/success/*" element={<Success />} />
-        <Route path="/cancel/*" element={<Cancel />} />
-        <Route path="/failed/*" element={<Failed />} />
-        <Route path="/product/details/:id" element={<ProductDetails />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/verify/:id" element={<Verify />} />
-        <Route path="/passwordReset/:id" element={<ResetUserPassword />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-      <ToastContainer />
-    </BrowserRouter>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/success/*" element={<Success />} />
+          <Route path="/cancel/*" element={<Cancel />} />
+          <Route path="/failed/*" element={<Failed />} />
+          <Route path="/product/details/:id" element={<ProductDetails />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/verify/:id" element={<Verify />} />
+          <Route path="/passwordReset/:id" element={<ResetUserPassword />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+        <ToastContainer />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

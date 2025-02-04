@@ -35,7 +35,7 @@ const OrderDetails = () => {
         <Spinner />
       ) : (
         <div className="mainAnimation">
-          <h3 className="mb-4">Ordine: {order?.id}</h3>
+          <h1 className="mb-4">Ordine: {order?.id}</h1>
           <Row className="mb-5">
             <Col sm={4}>
               <p>Data ordine: {dateConverter(order?.orderDate)}</p>

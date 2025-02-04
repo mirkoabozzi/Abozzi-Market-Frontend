@@ -120,7 +120,7 @@ const Report = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">Report</h3>
+      <h1 className="mb-4">Report</h1>
       <div className="d-flex flex-column flex-sm-row justify-content-sm-center">
         <Form onSubmit={handleSubmit}>
           <div className="d-sm-flex gap-2">

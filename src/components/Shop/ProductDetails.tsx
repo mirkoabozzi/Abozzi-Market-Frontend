@@ -13,6 +13,7 @@ import { errorToast, successToast, warnToast } from "../../redux/actions/toaster
 import ReviewUpdate from "./ReviewUpdate";
 import ModalAlert from "../ModalAlert/ModalAlert";
 import Suggested from "../Home/Suggested";
+import MetaTags from "../MetaTags";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -122,6 +123,7 @@ const ProductDetails = () => {
 
   return (
     <Container className="mt-4 mainAnimation">
+      <MetaTags title={`${product?.name}`} description={product?.description} image={product?.imgUrl} />
       {productLoaded ? (
         product && (
           <Row>
@@ -138,7 +140,7 @@ const ProductDetails = () => {
               </div>
             </Col>
             <Col>
-              <h2>{product?.name}</h2>
+              <h1>{product?.name}</h1>
               <p>{product?.description}</p>
               <p>{product?.category.name}</p>
               <div className="my-2">

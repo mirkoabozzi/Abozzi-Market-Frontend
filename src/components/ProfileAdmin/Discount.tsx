@@ -45,7 +45,7 @@ const Discount = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">Promozioni</h3>
+      <h1 className="mb-4">Promozioni</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formDescription">
           <Form.Label>Descrizione</Form.Label>

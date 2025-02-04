@@ -32,7 +32,7 @@ const AddProduct = () => {
 
   return (
     <div className="mainAnimation">
-      <h3 className="mb-4">Prodotti</h3>
+      <h1 className="mb-4">Prodotti</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nome</Form.Label>

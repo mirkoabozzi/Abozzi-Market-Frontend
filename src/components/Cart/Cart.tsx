@@ -12,6 +12,7 @@ import { DashCircle, ExclamationCircleFill, PlusCircle, Stripe } from "react-boo
 import payPal from "../../assets/img/paypal.svg";
 import AddAddress from "../Profile/AddAddress";
 import stripe from "../../assets/img/stripe.svg";
+import MetaTags from "../MetaTags";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -83,7 +84,8 @@ const Cart = () => {
 
   return (
     <Container className="mt-4 mainAnimation">
-      <h3>Carrello</h3>
+      <MetaTags title="Carrello" description="Procedi con l'acquisto dei prodotti che hai aggiunto nel carrello." />
+      <h1>Carrello</h1>
       <hr />
       {cart.length > 0 ? (
         cart.map((item: IItem, i: number) => {

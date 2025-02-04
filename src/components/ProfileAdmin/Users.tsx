@@ -43,7 +43,7 @@ const Users = () => {
 
   return (
     <div className="mainAnimation">
-      <h3>Clienti</h3>
+      <h1>Clienti</h1>
       <Form className="my-4 d-flex position-relative" onSubmit={handleSubmit}>
         <Form.Control type="text" placeholder="Cliente" value={name} onChange={(e) => setName(e.target.value)} />
         <Button type="submit" variant="transparent" className="position-absolute end-0">
