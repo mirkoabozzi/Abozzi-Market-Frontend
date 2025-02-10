@@ -64,6 +64,7 @@ This is a full-stack e-commerce application that includes an admin dashboard and
     <img src="https://img.shields.io/badge/Java_Mail_Sender-007396?style=flat-square&logo=java&logoColor=white" alt="Java Mail Sender"/>
     <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white" alt="Postman"/> 
     <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white" alt="IntelliJ IDEA"/> 
+    <img src="https://img.shields.io/badge/Swagger%20Docs-green?logo=swagger&logoColor=white" alt="Swagger"/> 
 </div>
 
 <h2>Database</h2>
