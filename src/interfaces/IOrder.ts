@@ -34,6 +34,7 @@ interface Payment {
   paymentIntentId?: string;
   currency?: string;
 }
+
 interface Shipment {
   id: string;
   address: string;
@@ -41,10 +42,12 @@ interface Shipment {
   city: string;
   zipCode: string;
 }
+
 interface OrderDetailListItem {
   id: string;
   quantity: number;
   product: IProduct;
+  price: number;
 }
 
 interface Pageable {

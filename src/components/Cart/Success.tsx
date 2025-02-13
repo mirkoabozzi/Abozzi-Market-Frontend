@@ -6,6 +6,7 @@ import { addOrder } from "../../redux/actions/orders";
 import { setPaymentLoading } from "../../redux/slice/paymentSlice";
 import { useNavigate } from "react-router-dom";
 import MetaTags from "../MetaTags";
+import { handleDiscountPrice } from "../../redux/actions/products.ts";
 
 const Success = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ const Success = () => {
     const orderDetails = cart.map((item: IItem) => ({
       product: item.product.id,
       quantity: item.quantity,
+      price: handleDiscountPrice(item.product)
     }));
 
     const newOrder: IOrderAdd = {
