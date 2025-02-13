@@ -111,10 +111,10 @@ const OrderDetails = () => {
                     <p>{item.quantity}</p>
                   </Col>
                   <Col xs={3}>
-                    <p>€{(item.price).toFixed(2)}</p>
+                    <p>€{(item.price)}</p>
                   </Col>
                   <Col xs={3}>
-                    <p>€{(item.price * item.quantity).toFixed(2)}</p>
+                    <p>€{(item.price * item.quantity)}</p>
                   </Col>
                 </Row>
                 <hr />
