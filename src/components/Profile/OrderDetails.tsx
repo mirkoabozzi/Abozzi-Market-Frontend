@@ -3,7 +3,7 @@ import { Col, Dropdown, Image, Row, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMyOrder, getOrder, orderStatusConverter, updateOrderState } from "../../redux/actions/orders";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { dateConverter, handleDiscountPrice } from "../../redux/actions/products";
+import { dateConverter } from "../../redux/actions/products";
 
 const OrderDetails = () => {
   const params = useParams();
@@ -111,10 +111,10 @@ const OrderDetails = () => {
                     <p>{item.quantity}</p>
                   </Col>
                   <Col xs={3}>
-                    <p>€{handleDiscountPrice(item.product).toFixed(2)}</p>
+                    <p>€{(item.price).toFixed(2)}</p>
                   </Col>
                   <Col xs={3}>
-                    <p>€{(handleDiscountPrice(item.product) * item.quantity).toFixed(2)}</p>
+                    <p>€{(item.price * item.quantity).toFixed(2)}</p>
                   </Col>
                 </Row>
                 <hr />
