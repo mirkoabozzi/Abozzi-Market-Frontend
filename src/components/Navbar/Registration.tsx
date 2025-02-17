@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { CheckLg, EyeFill, EyeSlashFill, XLg } from "react-bootstrap-icons";
 import { url } from "../../redux/actions/user";
-import { errorToast, successToast } from "../../redux/actions/toaster";
+import { errorToast, registrationToast } from "../../redux/actions/toaster";
 import ReactPasswordChecklist from "react-password-checklist";
 import GoogleLoginHandler from "./GoogleLoginHandler";
 
@@ -10,6 +10,7 @@ interface RegistrationProps {
   show: boolean;
   handleClose: () => void;
 }
+
 const Registration = ({ show, handleClose }: RegistrationProps) => {
   const [userData, setUserData] = useState({
     name: "",
@@ -35,7 +36,7 @@ const Registration = ({ show, handleClose }: RegistrationProps) => {
       });
       if (resp.ok) {
         handleClose();
-        successToast("Registrazione avvenuta con successo, conferma la tua email!");
+        registrationToast("Registrazione avvenuta con successo, conferma la tua email per attivare l'account.");
         setUserData({ name: "", surname: "", phoneNumber: "", email: "", password: "", confirmPassword: "" });
       } else {
         const errorData = await resp.json();

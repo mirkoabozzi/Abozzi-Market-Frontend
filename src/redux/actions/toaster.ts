@@ -55,3 +55,14 @@ export const errorToast = (text: string) => {
     transition: Bounce,
   });
 };
+
+export const registrationToast = (text: string) => {
+  toast.success(text, {
+    position: "top-right",
+    autoClose: false,
+    closeOnClick: false,
+    draggable: false,
+    theme: "light",
+    transition: Bounce,
+  });
+}
