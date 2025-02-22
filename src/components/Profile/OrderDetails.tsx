@@ -34,7 +34,7 @@ const OrderDetails = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="mainAnimation">
+        <div className="mainAnimation container-fluid">
           <h1 className="mb-4">Ordine: {order?.id}</h1>
           <Row className="mb-5">
             <Col sm={4}>
@@ -102,9 +102,9 @@ const OrderDetails = () => {
           {order?.orderDetailList.map((item: OrderDetailListItem) => {
             return (
               <div key={item.id}>
+                <h5 className="text-truncate">{item.product.name}</h5>
                 <Row>
                   <Col xs={3}>
-                    <p className="fs-4 text-truncate">{item.product.name}</p>
                     <Image src={item.product.imgUrl} alt={item.product.name} className="mouseHover w-100 rounded-3" onClick={() => navigate(`/product/details/${item.product.id}`)} />
                   </Col>
                   <Col xs={3}>
@@ -134,7 +134,7 @@ const OrderDetails = () => {
           <h5 className="mt-5">Dati spedizione:</h5>
           {order?.user && order?.shipment ? (
             <Row>
-              <Col className="mt-5">
+              <Col className="mt-2">
                 <p>
                   {order.user.name} {order.user.surname}
                 </p>
