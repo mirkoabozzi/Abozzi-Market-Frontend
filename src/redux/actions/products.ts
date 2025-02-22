@@ -286,7 +286,7 @@ export const handleDiscountPrice = (product: IProduct) => {
   });
   if (activeDiscount) {
     const discountPrice = product.price * (activeDiscount.percentage / 100);
-    return product.price - discountPrice;
+    return parseFloat((product.price - discountPrice).toFixed(2));
   }
   return product.price;
 };
