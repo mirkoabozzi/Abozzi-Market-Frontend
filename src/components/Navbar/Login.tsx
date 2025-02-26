@@ -46,8 +46,12 @@ const Login = ({ show, handleClose }: LoginProps) => {
         setEmail("");
         setPassword("");
       } else {
-        errorToast("Login fallito.");
-        throw new Error("Login error");
+        const errorData = await resp.json();
+        if (errorData.message === "Account registered with Google") errorToast("Account registrato con Google, accedi con Google.");
+        else if (errorData.message === "Incorrect credentials") errorToast("Credenziali errate.");
+        else if (errorData.message === "Account not verified") errorToast("Account non verificato.");
+        else errorToast("Login fallito.");
+        throw new Error("Login error: " + errorData.message);
       }
     } catch (error) {
       console.log(error);
