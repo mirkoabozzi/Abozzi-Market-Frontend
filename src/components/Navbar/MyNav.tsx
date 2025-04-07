@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getProductByName, getProducts } from "../../redux/actions/products";
 import { ActionType } from "../../redux/enums/ActionType";
 import { setView } from "../../redux/slice/viewSlice";
+import { url } from "../../redux/actions/user";
+import { successToast } from "../../redux/actions/toaster";
 
 const MyNav = () => {
   const navigate = useNavigate();
@@ -32,11 +34,31 @@ const MyNav = () => {
   const handleShowRegistration = () => setShowRegistration(true);
   const handleCloseRegistration = () => setShowRegistration(false);
 
+  const logout = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const resp = await fetch(`${url}/authentication/logout`, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      if (resp.ok) {
+        successToast("Logout eseguito con successo");
+      } else {
+        throw new Error("Logout error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
     dispatch({ type: ActionType.SET_USER, payload: null });
     navigate("/");
+    logout();
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
