@@ -53,12 +53,12 @@ const MyNav = () => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     localStorage.removeItem("accessToken");
     dispatch({ type: ActionType.SET_IS_LOGGED_FALSE });
     dispatch({ type: ActionType.SET_USER, payload: null });
     navigate("/");
-    logout();
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
