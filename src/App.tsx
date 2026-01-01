@@ -41,7 +41,7 @@ import UmamiAnalytics from "@danielgtmn/umami-react";
 function App() {
   return (
     <HelmetProvider>
-      <UmamiAnalytics url={import.meta.env.UMAMI_URL} websiteId={import.meta.env.UMAMI_ID} />
+      <UmamiAnalytics url={import.meta.env.VITE_UMAMI_URL} websiteId={import.meta.env.VITE_UMAMI_ID} />
       <BrowserRouter>
         <ScrollTop />
         <TopBar />
