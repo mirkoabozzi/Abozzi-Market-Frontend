@@ -36,10 +36,12 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import ProtectedAdminRoutes from "./components/ProtectedAdminRoutes";
 import { HelmetProvider } from "react-helmet-async";
+import UmamiAnalytics from "@danielgtmn/umami-react";
 
 function App() {
   return (
     <HelmetProvider>
+      <UmamiAnalytics url={import.meta.env.UMAMI_URL} websiteId={import.meta.env.UMAMI_ID} />
       <BrowserRouter>
         <ScrollTop />
         <TopBar />
