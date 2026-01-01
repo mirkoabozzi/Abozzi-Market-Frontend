@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@danielgtmn/umami-react": "^1.1.2",
     "@reduxjs/toolkit": "^2.2.7",
     "aos": "^2.3.4",
     "axios": "^1.7.9",
