@@ -13,7 +13,7 @@ import weatherSlice from "../slice/weatherSlice";
 import paymentSlice from "../slice/paymentSlice";
 import viewSlice from "../slice/viewSlice";
 import persistReducer from "redux-persist/es/persistReducer";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/es/storage";
 import persistStore from "redux-persist/es/persistStore";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
